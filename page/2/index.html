@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Mashuai&#39;s Notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Mashuai's Notes">
+<meta property="og:url" content="https://mashuai.github.io/page/2/index.html">
+<meta property="og:site_name" content="Mashuai's Notes">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mashuai's Notes">
+  
+    <link rel="alternative" href="/atom.xml" title="Mashuai&#39;s Notes" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mashuai&#39;s Notes</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://mashuai.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Go-Web-架构" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/10/Go-Web-架构/" class="article-date">
+  <time datetime="2015-11-10T11:01:21.000Z" itemprop="datePublished">2015-11-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/10/Go-Web-架构/">Go Web 架构</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://larry-price.com/blog/2015/06/25/architecture-for-a-golang-web-app" target="_blank" rel="external">原文地址</a></p>
+<p>&emsp;&emsp; 使用Golang来创建Web项目是一件很麻烦的事情。如果你使用Rails，那么你可能不会有这个感触。我在<a href="https://www.refer-madness.com/" target="_blank" rel="external">Refer Madness</a>中使用了下面这个架构。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">-public/</div><div class="line">-views/</div><div class="line">-models/</div><div class="line">-utils/</div><div class="line">-controllers/</div><div class="line">-web/</div><div class="line">-main.go</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 我将打破这个体系，介绍各个目录的作用。在每个目录下，文件只能访问其同级或者上一级。这就意味着<code>utils</code>只能访问他自己和<code>models</code>，<code>web</code>只能访问它自己，<code>controllers</code>，<code>utils</code>，<code>models</code>。<code>models</code>只能访问它自己。我这么做是为了让层次清晰，防止出现递归依赖。现在来分析每一个目录，文件的作用。</p>
+<h4 id="main-go"><a href="#main-go" class="headerlink" title="main.go"></a>main.go</h4><p>&emsp;&emsp; <code>main.go</code>是创建依赖，获取环境变量，启动服务的主要文件。下面是它的实例。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">package main</div><div class="line"></div><div class="line">import (</div><div class="line">  &quot;github.com/larryprice/refermadness/utils&quot;</div><div class="line">  &quot;github.com/larryprice/refermadness/web&quot;</div><div class="line">  &quot;github.com/stretchr/graceful&quot;</div><div class="line">  &quot;os&quot;</div><div class="line">)</div><div class="line"></div><div class="line">func main() &#123;</div><div class="line">  isDevelopment := os.Getenv(&quot;ENVIRONMENT&quot;) == &quot;development&quot;</div><div class="line">  dbURL := os.Getenv(&quot;MONGOLAB_URI&quot;)</div><div class="line">  if isDevelopment &#123;</div><div class="line">    dbURL = os.Getenv(&quot;DB_PORT_27017_TCP_ADDR&quot;)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  dbAccessor := utils.NewDatabaseAccessor(dbURL, os.Getenv(&quot;DATABASE_NAME&quot;), 0)</div><div class="line">  cuAccessor := utils.NewCurrentUserAccessor(1)</div><div class="line">  s := web.NewServer(*dbAccessor, *cuAccessor, os.Getenv(&quot;GOOGLE_OAUTH2_CLIENT_ID&quot;),</div><div class="line">    os.Getenv(&quot;GOOGLE_OAUTH2_CLIENT_SECRET&quot;), os.Getenv(&quot;SESSION_SECRET&quot;),</div><div class="line">    isDevelopment, os.Getenv(&quot;GOOGLE_ANALYTICS_KEY&quot;))</div><div class="line"></div><div class="line">  port := os.Getenv(&quot;PORT&quot;)</div><div class="line">  if port == &quot;&quot; &#123;</div><div class="line">    port = &quot;3000&quot;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  graceful.Run(&quot;:&quot;+port, 0, s)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 因为<code>main.go</code>实在最低的层级，所以它可以访问所有的目录：在这个例子里是<code>web</code>和<code>utils</code>。在这里获取了所有的环境变量并把它们注入到合适的地方。在<code>main.go</code>中创建了服务器，注入依赖，并且在配置的端口启动服务器。</p>
+<h4 id="web"><a href="#web" class="headerlink" title="web"></a>web</h4><p>&emsp;&emsp; <code>web</code>目录下是主要的服务代码，同时也包括了中间件代码。下面是<code>web</code>目录的内部结构：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-web/</div><div class="line">|-middleware/</div><div class="line">|-server.go</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; <code>server.go</code>包含了web server的定义。这个web server 创建了所有的web controller并且给negroni添加了中间件。下面是他的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">package web</div><div class="line"></div><div class="line">import (</div><div class="line">  &quot;github.com/codegangsta/negroni&quot;</div><div class="line">  &quot;github.com/goincremental/negroni-sessions&quot;</div><div class="line">  &quot;github.com/goincremental/negroni-sessions/cookiestore&quot;</div><div class="line">  &quot;github.com/gorilla/mux&quot;</div><div class="line">  &quot;github.com/larryprice/refermadness/controllers&quot;</div><div class="line">  &quot;github.com/larryprice/refermadness/utils&quot;</div><div class="line">  &quot;github.com/larryprice/refermadness/web/middleware&quot;</div><div class="line">  &quot;github.com/unrolled/secure&quot;</div><div class="line">  &quot;gopkg.in/unrolled/render.v1&quot;</div><div class="line">  &quot;html/template&quot;</div><div class="line">  &quot;net/http&quot;</div><div class="line">)</div><div class="line"></div><div class="line">type Server struct &#123;</div><div class="line">  *negroni.Negroni</div><div class="line">&#125;</div><div class="line"></div><div class="line">func NewServer(dba utils.DatabaseAccessor, cua utils.CurrentUserAccessor, clientID, clientSecret,</div><div class="line">  sessionSecret string, isDevelopment bool, gaKey string) *Server &#123;</div><div class="line">  s := Server&#123;negroni.Classic()&#125;</div><div class="line">  session := utils.NewSessionManager()</div><div class="line">  basePage := utils.NewBasePageCreator(cua, gaKey)</div><div class="line">  renderer := render.New()</div><div class="line"></div><div class="line">  router := mux.NewRouter()</div><div class="line"></div><div class="line">  // ...</div><div class="line"></div><div class="line">  accountController := controllers.NewAccountController(clientID, clientSecret, isDevelopment, session, dba, cua, basePage, renderer)</div><div class="line">  accountController.Register(router)</div><div class="line"></div><div class="line">  // ...</div><div class="line"></div><div class="line">  s.Use(sessions.Sessions(&quot;refermadness&quot;, cookiestore.New([]byte(sessionSecret))))</div><div class="line">  s.Use(middleware.NewAuthenticator(dba, session, cua).Middleware())</div><div class="line">  s.UseHandler(router)</div><div class="line">  return &amp;s</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; <code>Server</code>结构体是一个<code>negroni.Negroni</code>的web server，在这个文件里有对<code>utils</code>和其他第三方包的引用，创建了一个router，一些controller，并且将controller注册到当前router。同时也引入了必要的中间件。说到中间件，下面是它的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">package middleware</div><div class="line"></div><div class="line">import (</div><div class="line">  &quot;github.com/codegangsta/negroni&quot;</div><div class="line">  &quot;github.com/larryprice/refermadness/utils&quot;</div><div class="line">  &quot;net/http&quot;</div><div class="line">)</div><div class="line"></div><div class="line">type Database struct &#123;</div><div class="line">  da utils.DatabaseAccessor</div><div class="line">&#125;</div><div class="line"></div><div class="line">func NewDatabase(da utils.DatabaseAccessor) *Database &#123;</div><div class="line">  return &amp;Database&#123;da&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">func (d *Database) Middleware() negroni.HandlerFunc &#123;</div><div class="line">  return func(rw http.ResponseWriter, r *http.Request, next http.HandlerFunc) &#123;</div><div class="line">    reqSession := d.da.Clone()</div><div class="line">    defer reqSession.Close()</div><div class="line">    d.da.Set(r, reqSession)</div><div class="line">    next(rw, r)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 这个是通过HTTP router访问数据库session的标注中间件。基本文件是从<a href="http://modocache.svbtle.com/restful-go" target="_blank" rel="external">Brian Gesiak’s blog post on RESTful Go</a>中得到，将其修改为适合我的文件。</p>
+<h4 id="controllers"><a href="#controllers" class="headerlink" title="controllers/"></a>controllers/</h4><p>&emsp;&emsp; 这里的controller与Rails里的controller的概念很像。Controller注册自己的router，设置自己的函数调用。一个简短的例子如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line">package controllers</div><div class="line"></div><div class="line">import (</div><div class="line">  &quot;encoding/json&quot;</div><div class="line">  &quot;errors&quot;</div><div class="line">  &quot;github.com/gorilla/mux&quot;</div><div class="line">  &quot;github.com/larryprice/refermadness/models&quot;</div><div class="line">  &quot;github.com/larryprice/refermadness/utils&quot;</div><div class="line">  &quot;gopkg.in/mgo.v2/bson&quot;</div><div class="line">  &quot;gopkg.in/unrolled/render.v1&quot;</div><div class="line">  &quot;html/template&quot;</div><div class="line">  &quot;net/http&quot;</div><div class="line">  &quot;strings&quot;</div><div class="line">)</div><div class="line"></div><div class="line">type ServiceControllerImpl struct &#123;</div><div class="line">  currentUser utils.CurrentUserAccessor</div><div class="line">  basePage    utils.BasePageCreator</div><div class="line">  renderer    *render.Render</div><div class="line">  database    utils.DatabaseAccessor</div><div class="line">&#125;</div><div class="line"></div><div class="line">func NewServiceController(currentUser utils.CurrentUserAccessor, basePage utils.BasePageCreator,</div><div class="line">  renderer *render.Render, database utils.DatabaseAccessor) *ServiceControllerImpl &#123;</div><div class="line">  return &amp;ServiceControllerImpl&#123;</div><div class="line">    currentUser: currentUser,</div><div class="line">    basePage:    basePage,</div><div class="line">    renderer:    renderer,</div><div class="line">    database:    database,</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">func (sc *ServiceControllerImpl) Register(router *mux.Router) &#123;</div><div class="line">  router.HandleFunc(&quot;/service/&#123;id&#125;&quot;, sc.single)</div><div class="line">  // ...</div><div class="line">&#125;</div><div class="line"></div><div class="line">// ...</div><div class="line"></div><div class="line">type serviceResult struct &#123;</div><div class="line">  *models.Service</div><div class="line">  RandomCode *models.ReferralCode</div><div class="line">  UserCode   *models.ReferralCode</div><div class="line">&#125;</div><div class="line"></div><div class="line">type servicePage struct &#123;</div><div class="line">  utils.BasePage</div><div class="line">  ResultString string</div><div class="line">&#125;</div><div class="line"></div><div class="line">func (sc *ServiceControllerImpl) single(w http.ResponseWriter, r *http.Request) &#123;</div><div class="line">  data, err := sc.get(w, r)</div><div class="line"></div><div class="line">  if len(r.Header[&quot;Content-Type&quot;]) == 1 &amp;&amp; strings.Contains(r.Header[&quot;Content-Type&quot;][0], &quot;application/json&quot;) &#123;</div><div class="line">    if err != nil &#123;</div><div class="line">      sc.renderer.JSON(w, http.StatusBadRequest, map[string]string&#123;</div><div class="line">        &quot;error&quot;: err.Error(),</div><div class="line">      &#125;)</div><div class="line">      return</div><div class="line">    &#125;</div><div class="line">    sc.renderer.JSON(w, http.StatusOK, data)</div><div class="line">    return</div><div class="line">  &#125; else if err != nil &#123;</div><div class="line">    http.Error(w, err.Error(), http.StatusBadRequest)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  resultString, _ := json.Marshal(data)</div><div class="line">  t, _ := template.ParseFiles(&quot;views/layout.html&quot;, &quot;views/service.html&quot;)</div><div class="line">  t.Execute(w, servicePage&#123;sc.basePage.Get(r), string(resultString)&#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="utils"><a href="#utils" class="headerlink" title="utils/"></a>utils/</h4><p>&emsp;&emsp; 在<code>utils</code>目录下的文件提供了一些底层功能用来支持其他的代码。在这个例子中，主要是定义一个结构体来访问请求的上下文，处理session，定义一个特别的页面来继承。下面是通过访问上下文设置用户的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">package utils</div><div class="line"></div><div class="line">import (</div><div class="line">  &quot;github.com/gorilla/context&quot;</div><div class="line">  &quot;github.com/larryprice/refermadness/models&quot;</div><div class="line">  &quot;net/http&quot;</div><div class="line">)</div><div class="line"></div><div class="line">type CurrentUserAccessor struct &#123;</div><div class="line">  key int</div><div class="line">&#125;</div><div class="line"></div><div class="line">func NewCurrentUserAccessor(key int) *CurrentUserAccessor &#123;</div><div class="line">  return &amp;CurrentUserAccessor&#123;key&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">func (cua *CurrentUserAccessor) Set(r *http.Request, user *models.User) &#123;</div><div class="line">  context.Set(r, cua.key, user)</div><div class="line">&#125;</div><div class="line"></div><div class="line">func (cua *CurrentUserAccessor) Clear(r *http.Request) &#123;</div><div class="line">  context.Delete(r, cua.key)</div><div class="line">&#125;</div><div class="line"></div><div class="line">func (cua *CurrentUserAccessor) Get(r *http.Request) *models.User &#123;</div><div class="line">  if rv := context.Get(r, cua.key); rv != nil &#123;</div><div class="line">    return rv.(*models.User)</div><div class="line">  &#125;</div><div class="line">  return nil</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="models"><a href="#models" class="headerlink" title="models/"></a>models/</h4><p>&emsp;&emsp; model 是为了描述数据库中的数据的数据结构。在这个例子中使用model来访问数据库，创建一个空的model，然后通过查询数据库为其赋值。下面是一个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">package models</div><div class="line"></div><div class="line">import (</div><div class="line">  &quot;gopkg.in/mgo.v2&quot;</div><div class="line">  &quot;gopkg.in/mgo.v2/bson&quot;</div><div class="line">  &quot;strings&quot;</div><div class="line">  &quot;time&quot;</div><div class="line">)</div><div class="line"></div><div class="line">type Service struct &#123;</div><div class="line">  // identification information</div><div class="line">  ID          bson.ObjectId `bson:&quot;_id&quot;`</div><div class="line">  Name        string        `bson:&quot;name&quot;`</div><div class="line">  Description string        `bson:&quot;description&quot;`</div><div class="line">  URL         string        `bson:&quot;url&quot;`</div><div class="line">  Search      string        `bson:&quot;search&quot;`</div><div class="line">&#125;</div><div class="line"></div><div class="line">func NewService(name, description, url string, creatorID bson.ObjectId) *Service &#123;</div><div class="line">  url = strings.TrimPrefix(strings.TrimPrefix(url, &quot;http://&quot;), &quot;https://&quot;)</div><div class="line">  return &amp;Service&#123;</div><div class="line">    ID:            bson.NewObjectId(),</div><div class="line">    Name:          name,</div><div class="line">    URL:           url,</div><div class="line">    Description:   description,</div><div class="line">    Search:        strings.ToLower(name) + &quot;;&quot; + strings.ToLower(description) + &quot;;&quot; + strings.ToLower(url),</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">func (s *Service) Save(db *mgo.Database) error &#123;</div><div class="line">  _, err := s.coll(db).UpsertId(s.ID, s)</div><div class="line">  return err</div><div class="line">&#125;</div><div class="line"></div><div class="line">func (s *Service) FindByID(id bson.ObjectId, db *mgo.Database) error &#123;</div><div class="line">  return s.coll(db).FindId(id).One(s)</div><div class="line">&#125;</div><div class="line"></div><div class="line">func (*Service) coll(db *mgo.Database) *mgo.Collection &#123;</div><div class="line">  return db.C(&quot;service&quot;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">type Services []Service</div><div class="line"></div><div class="line">func (s *Services) FindByIDs(ids []bson.ObjectId, db *mgo.Database) error &#123;</div><div class="line">  return s.coll(db).Find(bson.M&#123;&quot;_id&quot;: bson.M&#123;&quot;$in&quot;: ids&#125;&#125;).Sort(&quot;name&quot;).All(s)</div><div class="line">&#125;</div><div class="line"></div><div class="line">func (*Services) coll(db *mgo.Database) *mgo.Collection &#123;</div><div class="line">  return db.C(&quot;service&quot;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="views"><a href="#views" class="headerlink" title="views/"></a>views/</h4><p>&emsp;&emsp; 将Golang的模板文件放到<code>views</code>目录下。这样，不管用什么样的模板引擎都可以直接放到<code>views</code>下。</p>
+<h4 id="public"><a href="#public" class="headerlink" title="public/"></a>public/</h4><p>&emsp;&emsp; 跟以前一样，这个文件都是放公开的文件的，例如<code>css</code>,<code>img</code>,<code>scripts</code>。</p>
+<h4 id="如何运行"><a href="#如何运行" class="headerlink" title="如何运行"></a>如何运行</h4><p>&emsp;&emsp; 毫无疑问，我最喜欢的就是<a href="https://www.docker.com/" target="_blank" rel="external">docker</a>，因此我将使用他来运行这个应用。如果不使用docker，那么可以将文件放到<code>$GOPATH/src/github.com/larryprice/refermadness</code>,运行<code>go get</code>来获取所有的依赖，然后运行 <code>go run main.go</code>或者<code>go build; ./refermadness</code>运行程序。如果你也喜欢使用docker，那么可以直接通过<code>Dockerfile</code>来运行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">FROM golang:1.4</div><div class="line"></div><div class="line">RUN go get github.com/codegangsta/gin</div><div class="line"></div><div class="line">ADD . /go/src/github.com/larryprice/refermadness</div><div class="line">WORKDIR /go/src/github.com/larryprice/refermadness</div><div class="line">RUN go get</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 同时我也很喜欢<a href="https://github.com/docker/compose" target="_blank" rel="external">compose</a>，所以我也通过compose 文件来运行所有的应用。我用了JSC ，SASS和mongodb，所以一下是我的<code>docker-compose.yml</code>文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">main:</div><div class="line">  build: .</div><div class="line">  command: gin run</div><div class="line">  env_file: .env</div><div class="line">  volumes:</div><div class="line">    - ./:/go/src/github.com/larryprice/refermadness</div><div class="line">  working_dir: /go/src/github.com/larryprice/refermadness</div><div class="line">  ports:</div><div class="line">    - &quot;3000:3000&quot;</div><div class="line">  links:</div><div class="line">    - db</div><div class="line">sass:</div><div class="line">  image: larryprice/sass</div><div class="line">  volumes:</div><div class="line">    - ./public/css:/src</div><div class="line">jsx:</div><div class="line">  image: larryprice/jsx</div><div class="line">  volumes:</div><div class="line">    - ./public/scripts:/src</div><div class="line">db:</div><div class="line">  image: mongo:3.0</div><div class="line">  command: mongod --smallfiles --quiet --logpath=/dev/null</div><div class="line">  volumes_from:</div><div class="line">    - dbvolume</div><div class="line">dbvolume:</div><div class="line">  image: busybox:ubuntu-14.04</div><div class="line">  volumes:</div><div class="line">    - /data/db</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 然后运行<code>docker-compose up</code>来运行所有的容器并启动服务器。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mashuai.github.io/2015/11/10/Go-Web-架构/" data-id="cj0j5e7yl0001ror8jgwq5j82" class="article-share-link">Share</a>
+      
+        <a href="https://mashuai.github.io/2015/11/10/Go-Web-架构/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Architecture/">Architecture</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go/">Go</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Ansible-入门指南" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/09/Ansible-入门指南/" class="article-date">
+  <time datetime="2015-11-09T10:26:35.000Z" itemprop="datePublished">2015-11-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/09/Ansible-入门指南/">Ansible 入门指南</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://docs.ansible.com/ansible/intro_getting_started.html" target="_blank" rel="external">原文地址</a></p>
+<h2 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>&emsp;&emsp; 现在你已经知道如何<a href="http://docs.ansible.com/ansible/intro_installation.html" target="_blank" rel="external">安装</a>Ansible了，现在可以深入并开始使用Ansible的一些命令了。<br>&emsp;&emsp; 我们开始展示的并不是Ansible强大的配置、部署、调度的功能。这些功能由其他章节要讲的Playbook来处理。<br>&emsp;&emsp; 这个章节是关于如何快速入门的。等你了解了Ansible的这些概念之后，就可以阅读<a href="http://docs.ansible.com/ansible/intro_adhoc.html" target="_blank" rel="external">特别命令简介</a>来学习更多细节，接着你就可以深入理解Playbook，并且浏览更多的有趣功能。</p>
+<h3 id="远程连接信息"><a href="#远程连接信息" class="headerlink" title="远程连接信息"></a>远程连接信息</h3><p>&emsp;&emsp; 在我们开始学习之前，理解Ansible是如何通过SSH连接到远程服务器是很重要的。<br>&emsp;&emsp; 默认情况下，如果可以，Ansible 1.3 及其后续版本会使用原生的OpenSSh来连接远程服务器。这样就可以在~/.ssh/config下开启ControPersist(一个高性能的功能),Kerbos和其他选项，例如跳板机设置。然后，如果使用了Enterprise Linux 6(Red Hat Enterprise Linux 和其衍生版本，例如CentOS) 系统作为控制机，OpenSSH的版本可能过低导致无法开启ControlPersist功能。在这些操作系统中，Ansible将会回退到使用“paramiko”，他是OpenSSH的一个高质量的Python实现。如果你想使用像Kerberized SSH 等这样的功能，那么可以使用Federa，OSX或者Ubuntu作为你的控制机，直到你使用的平台有了更新的OpenSSH，或者你可以开启加速功能。<a href="http://docs.ansible.com/ansible/playbooks_acceleration.html" target="_blank" rel="external">加速功能</a>。<br>&emsp;&emsp; 如果使用的版本小于等于1.2，那么默认使用的就是paramiko，如果想要使用原生的SSH，那么需要加上-c ssh 选项或者再配置文件中配置。<br>&emsp;&emsp; 可能偶尔在某些机器上不支持SFTP协议，虽然这种情况很少，但是也可能发生，这个时候可以在<a href="http://docs.ansible.com/ansible/intro_configuration.html" target="_blank" rel="external">配置文件</a>中切换到SCP模式。<br>&emsp;&emsp; 当需要和远程主机会话是，Ansible默认假设你使用SSH keys。Ansible鼓励使用SSH 免密码登陆，但是使用密码登陆也是可以的，在使用的时候加上参数<code>--ask-pass</code>。如果需要使用sudo权限，那么也要提供<code>--ask-sudo-pass</code>参数。<br>&emsp;&emsp; 任何管理系统运行时离被管理的系统越近越好。虽然这是个常识，但是还是值得分享的。如果你在云端使用Ansible，那么就把Ansible运行在云端。在大多数情况下，它都比直接在公共网络上运行更好。<br>&emsp;&emsp; 作为一个高级话题，Ansible并不仅仅通过SSH连接主机。连接系统是可插拔的，有很多配置选项可以用来本地管理，例如管理chroot，lxc，jail container。一个叫做“Ansible-pull”的模式可以反转系统。通过配置好的git checkout 从中央存储库pull配置文件获取系统的“phone home”。</p>
+<h3 id="第一个命令"><a href="#第一个命令" class="headerlink" title="第一个命令"></a>第一个命令</h3><p>&emsp;&emsp; 目前为止，已经安装好Ansible了，现在可以开始运行一些简单的命令了。<br>&emsp;&emsp; 编辑（或者创建）<code>/etc/ansible/hosts</code>文件，向其添加一个或者多个远程主机地址。本机的public ssh key 应该已经追加到远程主机的<code>authorized_keys</code>文件中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">192.168.1.50</div><div class="line">aserver.example.org</div><div class="line">bserver.example.org</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 这是一个清单文件，同样会再<a href="http://docs.ansible.com/ansible/intro_inventory.html" target="_blank" rel="external">主机清单</a>中介绍。<br>&emsp;&emsp; 假设你使用的是SSH授权方式，设置ssh angent 防止重复输入密码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ssh-agent bash</div><div class="line">ssh-add ~/.ssh/id_rsa</div></pre></td></tr></table></figure>
+<p>(根据你的设置，你可能需要使用<code>--private-key</code>选项来制定一个pem文件)<br>&emsp;&emsp; 现在可以ping一下所有的主机了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible all -m ping</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; Ansible会想SSH那样使用你本机的用户名去连接远程机器，如果不想使用本机用户名，可以加上<code>-u</code>的选项。<br>&emsp;&emsp; 如果你想使用sudo权限，同样也可以将上<code>--sudo</code>选项。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"># as bruce</div><div class="line">$ ansible all -m ping -u bruce</div><div class="line"># as bruce sudoing to root</div><div class="line">$ ansible all -m ping -u bruce --sudo</div><div class="line"># as bruce, sudoing to batman</div><div class="line">$ ansible all -m ping -u bruce --sudo --sudo-user batman</div><div class="line"></div><div class="line"># With latest version of ansible `sudo` is deprecated so use become</div><div class="line"># as bruce, sudoing to root</div><div class="line">$ ansible all -m ping -u bruce -b</div><div class="line"># as bruce, sudoing to batman</div><div class="line">$ ansible all -m ping -u bruce -b --become-user batman</div></pre></td></tr></table></figure>
+<p>(如果你突然想改变sudo 用户，可以再配置文件中修改。传递给sudo的标记例如-H也可以在那修改。)</p>
+<p>&emsp;&emsp; 现在在你所有的节点上运行一个实时的命令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ansible all -a &quot;/bin/echo hello&quot;</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 太棒了，刚刚通过Ansible与远程主机会话了。很快就可以阅读<a href="http://docs.ansible.com/ansible/intro_adhoc.html" target="_blank" rel="external">更多命令介绍</a>来学习更多的实际例子，浏览各个模块都可以做什么，以及学习Ansible <a href="http://docs.ansible.com/ansible/playbooks.html" target="_blank" rel="external">Playbooks</a>的语法。Ansible不仅仅只能用来运行命令，他还有强大的配置管理系统和部署功能。还有许多需要学习的知识，但是你现在已经有一个完全可以运行的环境了。</p>
+<h3 id="主机密钥检查"><a href="#主机密钥检查" class="headerlink" title="主机密钥检查"></a>主机密钥检查</h3><p>&emsp;&emsp; Ansible 1.2.1 及其之后的版本，默认是有主机密钥检查功能的。<br>&emsp;&emsp; 如果远程主机成新安装并且在<code>know_hosts</code>下有一个不同的key，直到修复之前，Ansible会一直返回错误。如果主机没有在<code>know_hosts</code>文件中，那么会出现提示来确认密钥。这样就会有一个你不希望的提示。<br>&emsp;&emps; 如果你知道这个功能的影响，并且希望关闭这个功能，可以修改<code>/etc/ansible/ansible.cfg</code>或者是<code>~/.ansible.cfg</code>来关闭这个功能。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[default]</div><div class="line">host_key_checking = False</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 同样也可以通过环境变量来修改。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ export ANSIBLE_HOST_KEY_CHECKING=False</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 同时要注意主机密钥检查再paramiko模式中是很慢的，所以如果要使用这个功能最好使用ssh模式。<br>&emsp;&emsp; 除非Ansible的任务被标记为”no_log:True”，否则Ansible会再远程注意的syslog中记录一些有用的信息。这个稍后再做解释。<br>&emsp;&emsp; 如果要再本机开启log可以查看<a href="http://docs.ansible.com/ansible/intro_configuration.html" target="_blank" rel="external">配置章节</a>来设置“log_path”开启。企业用户可能会对<a href="http://docs.ansible.com/ansible/tower.html" target="_blank" rel="external">Ansible Tower</a>。Tower提供了一个健壮的数据库记录日志的功能，这样就可以随时通过图形界面或者REST API 来查看主机，项目，特殊的列表的日志。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mashuai.github.io/2015/11/09/Ansible-入门指南/" data-id="cj0j5e7yr0003ror85opy7bc8" class="article-share-link">Share</a>
+      
+        <a href="https://mashuai.github.io/2015/11/09/Ansible-入门指南/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Vagrant-Ansible-快速入门教程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/08/Vagrant-Ansible-快速入门教程/" class="article-date">
+  <time datetime="2015-11-07T16:39:10.000Z" itemprop="datePublished">2015-11-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/08/Vagrant-Ansible-快速入门教程/">Vagrant &amp; Ansible 快速入门教程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://adamcod.es/2014/09/23/vagrant-ansible-quickstart-tutorial.html" target="_blank" rel="external">原文地址</a>  </p>
+<p>&emsp;&emsp; 就个人而言，我用过Chef，Puppet，简单的Bash脚本等用来配置服务器，其他服务和Vagrant Boxes。虽然Chef社区仍然在快速成长，但是我发布的关于<a href="https://adamcod.es/2013/01/15/vagrant-is-easy-chef-is-hard-part2.html" target="_blank" rel="external">Chef</a>的文章仍然是最受欢迎的文章。然而，两个月之前，当我在一个项目中使用Ansible的时候所有的事情都变了。从此之后我再也没用过其他的配置工具，也找不到用其他工具的理由了。<br>&emsp;&emsp; 看过了不少关于Ansible的教程，尝试这从中找出相应的模式和最佳实战，然而似乎在知识上有巨大的横沟。你可以用Ansible做很多事情，你也可以同时学习如何使用，但是跟我最新学习的工具一样，却反一个很简单地方入手学习的地方。今天我希望通过使用Vagrant和Ansible配置一个LAMP的技术栈来纠正他。  </p>
+<h2 id="为什么使用Ansible"><a href="#为什么使用Ansible" class="headerlink" title="为什么使用Ansible"></a>为什么使用Ansible</h2><p>&emsp;&emsp; Ansible和其他的配置管理工具最主要的区别就是Ansible是基于SSH的。Chef和Puppet都是有依赖的，而且必须在服务器上安装之后才能使用，而Ansible则不需要。它可以在你本机运行，使用SSH连接相应主机，在其运行相应命令。<br>&emsp;&emsp; 为什么不直接使用Bash脚本呢？Ansible之所以比Bash脚本好是因为他简单。Ansible只是运行了一系列使用YAML格式编写的任务。同样Ansible还具有幂等性，这就意味着你可以多次运行同样的任务，并且这些任务的输入会保持一致（例如除非明确要求运行两次否则它不会对同一个任务运行两次）。同样这个可以通过Bash脚本编写，但是会很复杂。</p>
+<h2 id="Ansible-和-Vagrant"><a href="#Ansible-和-Vagrant" class="headerlink" title="Ansible 和 Vagrant"></a>Ansible 和 Vagrant</h2><p>&emsp;&emsp; 首先给你要确定已经安装了Ansible和Vagrant。它们的安装文档可以在它们的相关网站找到，它们都很容易安装的。</p>
+<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><p>&emsp;&emsp; 我们将会创建一个新的文件夹来开始我们的项目。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir -p ~/Projects/vagrant-ansible</div><div class="line">cd ~/Projects/vagrant-ansible</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 接着我们创建一个基于最新的Ubuntu的Vagrantfile。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vagrant init ubuntu/trusty64</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 运行完这个命令后在项目目录下会有一个叫<code>Vagrantfile</code>的文件。它包含了你想要配置的关于box的一些基本信息和一堆你现在不需要管的注释。删除所有的注释，你就会简单的得到以下的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">VAGRANTFILE_API_VERSION = &quot;2&quot;</div><div class="line">Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|</div><div class="line">  config.vm.box = &quot;ubuntu/trusty64&quot;</div><div class="line">end</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 我们需要在他配置好的适合访问服务器，所以我们将会吧Vagrant的80端口转发到本机的8080端口，将以下代码添加到<code>end</code>之前。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">config.vm.network &quot;forworded_port&quot;, guest: 80, host:8080</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 现在Vagrant只需要配置一件事情。我们需要配置Vagrant使用Ansible作为配置器，并且知道去哪里需找这些命令。为了实现这个目的，我们将一下代码加到<code>Vagrantfile</code>的<code>end</code>之前。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">config.vm.provision :ansible do |ansible|</div><div class="line">  ansible.playbook = &quot;playbook.yml&quot;</div><div class="line">end</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 以上所有的任务完成之后你的<code>Vagrantfile</code>将会是一下的配置。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">VAGRANTFILE_API_VERSION = &quot;2&quot;</div><div class="line"></div><div class="line">Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|</div><div class="line">  config.vm.box = &quot;ubuntu/trusty64&quot;</div><div class="line"></div><div class="line">  config.vm.network &quot;forwarded_port&quot;, guest: 80, host: 8080</div><div class="line"></div><div class="line">  config.vm.provision :ansible do |ansible|</div><div class="line">    ansible.playbook = &quot;playbook.yml&quot;</div><div class="line">  end</div><div class="line">end</div></pre></td></tr></table></figure>
+<h2 id="基本术语"><a href="#基本术语" class="headerlink" title="基本术语"></a>基本术语</h2><p>&emsp;&emsp; Ansible再你的服务器上运行一系列的<em>Tasks</em>。把Task想象成一个单一的Bash命令。接着是<em>playbook</em>，Ansible通过Playbook得知将再服务器上运行什么任务。每一个Task运行一个Ansible的<em>Module</em>，Module是Ansible内建的各种命令，例如yun，创建用户等。稍后就会明白这些术语的具体意思。  </p>
+<h2 id="第一个Playbook"><a href="#第一个Playbook" class="headerlink" title="第一个Playbook"></a>第一个Playbook</h2><p>&emsp;&emsp; 创建一个叫<code>playbook.yml</code>的文件，这个名字必须和<code>Vagrantfile</code>的<code>ansible.playbook</code>相同。<br>&emsp;&emsp; 所有Ansible的Playbook都必须是YAML格式的。传统上YAML文件是以三条横线开头的，但是Ansible并不是强制要求的，不过社区仍然会遵循这个规则。<br>&emsp;&emsp; 新建的playbook是一个YAML的列表。这个列表应该包括要管理的host和各种要运行的task，将以下代码添加到<code>playbook.yml</code>文件中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">- host: all</div><div class="line">  sudo: true</div><div class="line">  tasks:</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 我们使用Vagrant并且只有一台主机，所以我们可以使用一个魔法值<code>all</code>，意思是在所有的机器上运行任务。然后我们告诉Ansible运行是需要sudo权限，最后我们添加了 <code>tasks:</code> 用来添加Task。</p>
+<p>&emsp;&emsp; 要安装LAMP技术栈的基本步骤是：  </p>
+<ol>
+<li>更新 Apt Cache</li>
+<li>安装 Apache</li>
+<li>安装 MySQL</li>
+<li>安装 PHP</li>
+</ol>
+<p>&emsp;&emsp; 这就是所有我们必须的步骤。因为我们用的是Ubuntu的box，所有我们需要Ansible的apt模块。<br>&emsp;&emsp; 首先我们给每一个task一个<code>name:</code>，这个可以是任何描述，它用来描述这个任务，如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- name: this should be some descriptive text</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 接着我们指定一个Ansible的模块作为值，在本例中使用的是apt模块。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apt</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 紧随其后的是一些<code>key=value</code>的由空格分隔的键值对。选择你想要传递给Ansible的键值对，可以通过Ansible的文档来查询所需要的键值对。</p>
+<p>&emsp;&emsp; 安装Apache的任务如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- name: install apache</div><div class="line">  apt: name=apache2 state=present</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 这样就配置好了，很简单，对吧。我们将继续添加MySQL和PHP的Task到<code>playbook.yml</code>中，最后代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">- hosts: all</div><div class="line">  sudo: true</div><div class="line">  tasks:</div><div class="line">    - name: update apt cache</div><div class="line">      apt: update_cache=yes</div><div class="line">    - name: install apache</div><div class="line">      apt: name=apache2 state=present</div><div class="line">    - name: install mysql</div><div class="line">      apt: name=mysql-server state=present</div><div class="line">    - name: install php</div><div class="line">      apt: name=php5 state=present</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 现在我们已经配置完了，然后运行<code>vagrant up</code>，你将会看到如下图所示：<br><img src="https://adamcod.es/img/posts/vagrant-ansible-lamp.gif" alt="result">  </p>
+<p>&emsp;&emsp; 这样就搭建好了。如果你想让LAMP运行起来，你就可以ssh到Vagrant，然后将<code>info.php</code>文件添加到<code>/var/www/html</code>下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;?php phpinfo();?&gt;</div></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp; 然后在本机浏览器打开<a href="http://localhost:8080/info.php" target="_blank" rel="external">http://localhost:8080/info.php</a>，就会看到你想要看到的。</p>
+<p><strong>翻译到此，剩下的就是关于Ansible的使用了，这些可以通过Ansible的官方文档来学习</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mashuai.github.io/2015/11/08/Vagrant-Ansible-快速入门教程/" data-id="cj0j5e7ys0004ror8hk1brfsv" class="article-share-link">Share</a>
+      
+        <a href="https://mashuai.github.io/2015/11/08/Vagrant-Ansible-快速入门教程/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vagrant/">Vagrant</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Vagrant-入门指南" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/06/Vagrant-入门指南/" class="article-date">
+  <time datetime="2015-11-06T08:49:47.000Z" itemprop="datePublished">2015-11-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/06/Vagrant-入门指南/">Vagrant 入门指南</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://docs.vagrantup.com/v2/getting-started/index.html" target="_blank" rel="external">原文地址</a></p>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>&emsp;&emsp;Vagrant 入门指南将会引导你完成你的第一个Vagrant项目，并且会向你展示Vagrant提供的基本的特色功能。<br>&emsp;&emsp;如果你好奇Vagrant提供了什么好的功能，你可以阅读一下<a href="https://docs.vagrantup.com/v2/why-vagrant/" target="_blank" rel="external">Why Vagrant</a>。<br>&emsp;&emsp;这篇入门指南将会基于<a href="https://www.virtualbox.org/" target="_blank" rel="external">VirtualBox</a>来使用Vagrant，因为它免费，支持主流平台，并且Vagrant内建支持。当你完成这篇指南的时候，可以参考更多的<a href="https://docs.vagrantup.com/v2/getting-started/providers.html" target="_blank" rel="external">提供商</a></p>
+<blockquote>
+<p>更喜欢读书？如果你更喜欢读实体书，那么你可能对由Vagrant作者编写，O’Reilly 出版的<a href="http://www.amazon.com/gp/product/1449335837/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1449335837&amp;linkCode=as2&amp;tag=vagrant-20" target="_blank" rel="external">Vagrant: Up and Running</a> 更感兴趣，</p>
+</blockquote>
+<h2 id="启动运行"><a href="#启动运行" class="headerlink" title="启动运行"></a>启动运行</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ vagrant init hashicorp/precise32</div><div class="line">$ vagrant up</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp;运行了上面两个命令之后，会得到一个运行在<a href="https://www.virtualbox.org/" target="_blank" rel="external">VirtualBox</a>虚拟机上的Ubuntu 12.04 LTS 32-bit。你可以通过<code>vagrant ssh</code> 以ssh的方式登陆，当你王城所有的操作的时候，也可以使用<code>vagrant destory</code>来删除所有的痕迹。<br>&emsp;&emsp;现在想象 一下，以前你所有工作过的项目，都可以通过这个简单的方式来设置了。<br>&emsp;&emsp;通过使用Vagrant,对于任何项目来说<code>vagrant up</code> 是你唯一需要你用到的命令，例如，安装项目依赖，设置网络和同步文件夹，仍然可以很舒服的使用本机系统。<br>&emsp;&emsp;指南剩下的内容将会引导你设置更复杂的项目，涵盖跟多的Vagrant的特色。  </p>
+<h2 id="项目配置"><a href="#项目配置" class="headerlink" title="项目配置"></a>项目配置</h2><p>&emsp;&emsp; 任何Vagrant项目配置的第一步都是创建一个<a href="https://docs.vagrantup.com/v2/vagrantfile/" target="_blank" rel="external">Vagrantfile</a>。该文件的作用有两个:  </p>
+<ol>
+<li>指定项目的根目录。很多Vagrant的配置跟这个目录有关。  </li>
+<li>描述项目所需要的机器类型和资源，以及如何安装软件，如何访问。  </li>
+</ol>
+<p>&emsp;&emsp; Vagrant 有一个内建的命令<code>vagrant init</code>用来初始化项目。出于本指南的目的，请在终端输入一下命令  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ mkdir vagrant_getting_started</div><div class="line">$ cd vagrant_getting_started</div><div class="line">$ vagrant init</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 以上命令将在你的当前目录下创建<code>Vagrantfile</code>。查看Vagrantfile会发现里面有各种注释和示例。不要因为他负责而感到恐惧，我们很快就能够修改它了。<br>&emsp;&emsp; 同样也可以在一个已存在的目录下运行<code>vagrant init</code>，来未一个已有项目设置Vagrant环境。<br>&emsp;&emsp; 如果你使用版本控制工具，那么Vagrantfile可以提交到版本库中。这样其他与这个项目相关的人就可以无需前期工作了。</p>
+<h2 id="Boxes"><a href="#Boxes" class="headerlink" title="Boxes"></a>Boxes</h2><p>&emsp;&emsp; 由于从头构建一个虚拟机是一个费时的过程，所以Vagrant使用一个基本镜像来快速克隆一个虚拟机。这些基本镜像再Vagrant中被称作boxes，而且在创建玩Vagrantfile后的第一步就是为你的Vagrant环境指定一个box。  </p>
+<h3 id="安装box"><a href="#安装box" class="headerlink" title="安装box"></a>安装box</h3><p>&emsp;&emsp; 如果你运行了<a href="https://docs.vagrantup.com/v2/getting-started/" target="_blank" rel="external">开始指南</a>的命令，那么你已经在本机安装了一个box，你就不需要再次运行一下命令了。但是这部分仍然是值得阅读的，这样你就可以了解更多关于如何管理box的知识。<br>&emsp;&emsp; Boxes 由Vagrant的<code>vagrant box add</code>命令添加。这个将box存储在一个指定命名的目录下，这个多个Vagrant的环境可以重复利用。如果你还未添加已给box，那么可以运行一下命令。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vagrant box add hashicorp/precise32</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 这个将从<a href="https://atlas.hashicorp.com/boxes/search" target="_blank" rel="external">HashiCorp’s Atlas box catalog</a>下载一个名字为<code>hashicorp/precise32</code>的box。你可以从HashiCorp’s Atlas box catalog中找到各种box。很容易从HashiCorp’s Atlas 下载镜像，同时你也可以通过本地文件，其他URL等添加。<br>&emsp;&emsp; 已添加的boxes可以被多个环境重复利用。每个环境都是将其作为基础镜像克隆，而不会修改他。这就意味着两个环境同时使用了刚刚添加的<code>hashicorp/precise32</code>的box，其中一个主机添加文件并不会影响另一个主机。  </p>
+<h3 id="使用box"><a href="#使用box" class="headerlink" title="使用box"></a>使用box</h3><p>&emsp;&emsp; 现在已经吧box添加到Vagrant了，我们就可以把他作为一个基础镜像使用了。打开Vagrantfile，修改一下代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Vagrant.configure(&quot;2&quot;) do |config|</div><div class="line">  config.vm.box = &quot;hashicorp/precise32&quot;</div><div class="line">end</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 在这个例子中，”hashicorp/precise32” 的名字必须跟你add box的名字相同。这是Vagrant知道box如何用的方式。如果这个box没有被安装过，那么Vagrant将会自动下载并且当它运行的时候自动添加。<br>&emsp;&emsp; 在下一节中我们将启动Vagrant并且与其进行交互。  </p>
+<h3 id="寻找更多box"><a href="#寻找更多box" class="headerlink" title="寻找更多box"></a>寻找更多box</h3><p>&emsp;&emsp; 在本入门指南的后半部分，我们只会使用之前添加的”hashicorp/precise32”的box。但是，结束本指南的时候你的第一个问题可能就是我从南找到更多的box。<br>&emsp;&emsp; 寻找更多box的最好的地方是<a href="https://atlas.hashicorp.com/boxes/search" target="_blank" rel="external">HashiCorp’s Atlas box catalog</a>。HashiCopr 的Altas有一个公共目录，在目录里可以找到各种免费的，可以运行各种平台和技术的box。<br>&emsp;&emsp; HashiCorp的Altas同样也有一个很棒的搜索功能，这样就可以更方便的找到需要的box。<br>&emsp;&emsp; 除了寻找免费的box外，HashiCorp的Altas还允许你构建自己的box，以及如果你想为自己的组织创建私有box。  </p>
+<h2 id="启动并且SSH登陆"><a href="#启动并且SSH登陆" class="headerlink" title="启动并且SSH登陆"></a>启动并且SSH登陆</h2><p>&emsp;&emsp; 是时候启动你第一个Vagrant环境了。运行一下命令:  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vagrant up</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 1分钟之内，这个命令运行完后，你就可以得到一个运行Ubuntu的虚拟机了。由于Vagrant运行虚拟机的时候没有UI，所以你不会看到任何输出。你可以SSH登陆到虚拟机来验证虚拟机是否运行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vagrant ssh</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 运行完这个命令后你就会进入ssh会话中。继续和机器交互，做任何你想做的事情。虽然是临时的虚拟机，但是还是要小心<code>rm -rf /</code> 这种命令，因为Vagrant的<code>/vagrant</code>目录与宿主机器共享了包含Vagrantfile的目录，如果运行了会删除所有的文件的。共享目录将会在下节描述。<br>&emsp;&emsp; 花一点时间思考一下刚刚发生的事情：通过仅仅1行配置和1行命令，我们就启动了一个功能完整的，可以ssh登陆的虚拟机，太酷了。<br>&emsp;&emsp; 当你用完虚拟机的时候，你可以在主机上使用<code>vagrant destory</code>来清除你再虚拟机的痕迹。</p>
+<h2 id="同步文件夹"><a href="#同步文件夹" class="headerlink" title="同步文件夹"></a>同步文件夹</h2><p>&emsp;&emsp;虽然这么容易就可以启动一个虚拟机是很爽，但是并不是所有的人都喜欢通过ssh登陆终端修改文件。幸运的是，通过Vagrant，你并不是必须这么做的。通过使用<em>同步文件夹</em>Vagrant将会自动的将文件从虚拟机同步或者同步到虚拟机中。<br>&emsp;&emsp; 默认情况下，Vagrant是共享你的项目目录（记住，这个是你Vagrantfile所在的目录）到虚拟机的<code>/vagrant</code>的。再次运行<code>vagrant up</code> 并且ssh到虚拟机。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ vagrant up</div><div class="line">...</div><div class="line">$ vagrant ssh</div><div class="line">...</div><div class="line">vagrant@precise32:~$ ls /vagrant</div><div class="line">Vagrantfile</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 不管相不相信，在虚拟机的这个Vagrantfile和再宿主机上的那个Vagrantfile是同一个。继续创建一个文件证明一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vagrant@precise32:~$ touch /vagrant/foo</div><div class="line">vagrant@precise32:~$ exit</div><div class="line">$ ls</div><div class="line">foo Vagrantfile</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 哇！<code>foo</code>已经在你的宿主机里创建了。正如你所见，Vagrant会保持那个文件夹的同步。<br>&emsp;&emsp; 通过使用<a href="https://docs.vagrantup.com/v2/synced-folders/" target="_blank" rel="external">同步文件夹</a>，你可以继续在你的主机上使用你喜欢的编辑器，文件会自动的同步到虚拟机上的。</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>&emsp;&emsp; 现在我们已经在虚拟机上运行了一份Ubuntu的拷贝，并且我们还可以从宿主机上编辑文件同时同步到虚拟机中。现在让我们通过webserver来提供这些文件。<br>&emsp;&emsp; 我们可以SSH到虚拟机然后安装webserver然后提供这些文件，但是这样做，每一个用Vagrant的用户都需要重复相同的事情。不过Vagrant内建提供了自动配置的功能。使用这个功能，Vagrant可以在你<code>vagrant up</code>的时候自动安装软件，这样虚拟机就可以被重复创建并且可以直接使用了。  </p>
+<h3 id="安装Apache"><a href="#安装Apache" class="headerlink" title="安装Apache"></a>安装Apache</h3><p>&emsp;&emsp; 对于我们的项目来说可以仅仅使用<a href="http://httpd.apache.org/" target="_blank" rel="external">Apache</a>，并且我们是通过一个shell脚本创建的。再Vagrantfile相同的目录下创建一个名字为<code>bootstrap.sh</code>的文件。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/env bash</div><div class="line"></div><div class="line">apt-get update</div><div class="line">apt-get install -y apache2</div><div class="line">if ! [ -L /var/www ]; then</div><div class="line">  rm -rf /var/www</div><div class="line">  ln -fs /vagrant /var/www</div><div class="line">fi</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 然后，我们需要配置Vagrant，让它在启动的时候运行这个脚本。我们通过修改Vagrantfile来实现这一功能，具体修改如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Vagrant.configure(&quot;2&quot;) do |config|</div><div class="line">  config.vm.box = &quot;hashicorp/precise32&quot;</div><div class="line">  config.vm.provision :shell, path: &quot;bootstrap.sh&quot;</div><div class="line">end</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; “provision”这一行是新添加的，告诉Vagrant使用<code>shell</code>配置器运行<code>bootstrap.sh</code>脚本启动机器。脚本的路径是项目更目录的相对路径。</p>
+<h3 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h3><p>&emsp;&emsp; 在所有的事情都配置好好，运行<code>vagrant up</code>来创建机器，Vagrant将会自动的配置它。运行的时候你会在终端看到shell脚本的输出。如果虚拟机已经开始运行了，运行<code>vagrant reload --provision</code>, 这个命令可以快速重启虚拟机并且跳过初始的导入步骤。<code>--provision</code>表示Vagrant需要运行配置，因为通常Vagrant只运行第一步。<br>&emsp;&emsp; 当Vagrant完全运行起来的时候，web server同时也启动了。现在还不都能通过宿主机的浏览器看到，但是可以通过ssh到虚拟机进行验证。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ vagrant ssh</div><div class="line">...</div><div class="line">vagrant@precise32:~$ wget -qO- 127.0.0.1</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 这个可以运行成功，因为我们我们已经安装了Apache服务器并且设置默认的<code>DocumentRoot</code>指向了<code>/vagrant</code>。<br>&emsp;&emsp; 你可以继续的创建文件，同时再终端里面验证，不过下一节我们将会讲述网络的相关知识，这样你就可以再本机的浏览器验证了。</p>
+<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><p>&emsp;&emsp; 目前为止我们运行了一个web server，并且可以再宿主机器上修改，同时自动同步到虚拟机中。然而，简单的从虚拟机的终端访问网页并不方便。在这一节中我们将使用Vagrant的网络特性，这样就可以方便的从宿主机器访问虚拟机了。</p>
+<h3 id="端口转发"><a href="#端口转发" class="headerlink" title="端口转发"></a>端口转发</h3><p>&emsp;&emsp; 一个方法是使用端口转发功能。端口转发允许你指定虚拟机的一个端口跟宿主机的一个端口共享。这样你就可以在宿主机访问宿主机的端口，但是都会转发到虚拟机中。<br>&emsp;&emsp; 现在我们配置端口来访问虚拟机的Apache服务。修改Vagrantfile如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Vagrant.configure(&quot;2&quot;) do |config|</div><div class="line">  config.vm.box = &quot;hashicorp/precise32&quot;</div><div class="line">  config.vm.provision :shell, path: &quot;bootstrap.sh&quot;</div><div class="line">  config.vm.network :forwarded_port, guest: 80, host: 4567</div><div class="line">end</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 运行<code>vagrant reload</code>，或者如果没有启动过虚拟机运行<code>vagrant up</code>。使配置生效。</p>
+<h3 id="其他的网络配置"><a href="#其他的网络配置" class="headerlink" title="其他的网络配置"></a>其他的网络配置</h3><p>&emsp;&emsp; Vagrant也有其他的网络配置，允许你给虚拟机配置固定ip，或者是桥接两台虚拟机。如果你对其感兴趣，可以阅读<a href="https://docs.vagrantup.com/v2/networking/" target="_blank" rel="external">networking</a>章节。</p>
+<h2 id="共享"><a href="#共享" class="headerlink" title="共享"></a>共享</h2><p>&emsp;&emsp; 现在我们已经有了一台可运行的服务器，并且可以从本机直接访问，我们构建了一个相当实用的开发环境。但是，除了提供一个开发环境，Vagrant还可以很容易的和其他环境分享和合作。这个主要的功能叫做<a href="https://docs.vagrantup.com/v2/share/" target="_blank" rel="external">Vagrant Share</a>。<br>&emsp;&emsp; Vagrant Share运行你把你的Vagrant环境分享你世界上的每一个人。它将分配给你一个URL，这样世界上任何一台机器都可以实用你的环境了。</p>
+<h3 id="登录Harshicorp’s-Altas"><a href="#登录Harshicorp’s-Altas" class="headerlink" title="登录Harshicorp’s Altas"></a>登录Harshicorp’s Altas</h3><p>&emsp;&emsp; 在分享你的Vagrant环境之前，你需要一个<a href="https://atlas.hashicorp.com/" target="_blank" rel="external">HashiCorp’s Altas</a>的账号。不必担心，它是免费的。<br>&emsp;&emsp; 当你有了账号后，你就可以使用<code>vagrant login</code>来登陆</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ vagrant login</div><div class="line">Username or Email: mitchellh</div><div class="line">Password (will be hidden):</div><div class="line">You&apos;re now logged in!</div></pre></td></tr></table></figure>
+<h3 id="共享-1"><a href="#共享-1" class="headerlink" title="共享"></a>共享</h3><p>&emsp;&emsp; 当你登录之后，你就可以使用<code>vagrant share</code>来共享环境了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ vagrant share</div><div class="line">...</div><div class="line">==&gt; default: Your Vagrant Share is running!</div><div class="line">==&gt; default: URL: http://frosty-weasel-0857.vagrantshare.com</div><div class="line">...</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 你的URL会是不同的，无需上面的URL。复制上面<code>vagrant share</code>生成的url到你的浏览器，你会看到我们已经做好的Apache的页面。<br>&emsp;&emsp; 如果你在共享目录中改动了某个文件，重新刷新URL，你会看到已经更新了。这个URL直接路由到你的Vagrant环境，并且可以直接再世界上任何一台联网的机器上访问。<br>&emsp;&emsp; 关闭共享只需要使用<code>Ctrl+C</code>即可，重新刷新URL，你会发现你的环境已经不再被共享了。<br>&emsp;&emsp; Vagrant Share比简单的HTTP share 更强大，想要了解更多可以阅读完整的<a href="https://docs.vagrantup.com/v2/share/" target="_blank" rel="external">Vagrant Share</a>文档。</p>
+<h2 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h2><p>&emsp;&emsp; 现在我们已经有一个开发web的基本环境。但是，现在是时候说一下开关了，可能是在运行其他的项目的时候使用，或者是吃午饭的时候使用，或者只是回家的时候。我们应该如何清理我们的开发环境。<br>&emsp;&emsp; 通过Vagrant，我们可以<em>suspend</em>,<em>halt</em>或者<em>destory</em>虚拟机。每一个都有他们的优缺点，选择最适合你的那个。  </p>
+<ul>
+<li><strong>suspend</strong> 使用<code>vagrant suspend</code>命令，保存当前运行环境并停止。当你想要继续运行的时候可以使用<code>vagrant up</code>命令，它会从你上次suspend中恢复。这个命令主要好处是速度非常快，通常关闭，启动都在5到10秒之间。缺点是虚拟机仍然会使用你的硬盘，并且在存储所有的状态的时候需要更大的硬盘。  </li>
+<li><strong>halting</strong> 使用<code>vagrant halt</code>命令实现优雅的关闭虚拟机的操作系统并关闭虚拟机。在你想要使用的时候再次运行<code>vagrant up</code>命令启动。这个的好处是可以完全的关闭虚拟机并保留使用的硬盘资源，再下次启动的时候会是一个干净的虚拟机。缺点是冷启动的时候会慢一点，并且仍然会使用硬盘空间。</li>
+<li><strong>destory</strong> 使用<code>vagrant destory</code>命令，将会清楚虚拟机所有的痕迹。它将会停止操作系统，关闭虚拟机，并且清除所使用的磁盘空间。下次使用<code>vagrant up</code>的时候会出现问题。好处是不会有任何的残留在你机器上，同事磁盘空间和RAM都会还给本机。坏处是<code>vagrant up</code>将会从头开始，这样会花费更长的时间。</li>
+</ul>
+<h2 id="重新构建"><a href="#重新构建" class="headerlink" title="重新构建"></a>重新构建</h2><p>&emsp;&emsp; 当你想重新使用虚拟机的时候，不管是是明天，一周之后，或者是一年之后，都可以通过<code>vagrant up</code>来轻松运行他。<br>&emsp;&emsp; 只需要这样。而且由于你的Vagrant都再Vagrantfile里面配置的，所有你或者你的同事只需要简单的运行<code>vagrant up</code>即可重新创建相同的环境。</p>
+<h3 id="Provider"><a href="#Provider" class="headerlink" title="Provider"></a>Provider</h3><p>&emsp;&emsp; 在本指南开始的时候，我们的项目一直支持<a href="https://www.virtualbox.org/" target="_blank" rel="external">VirtualBox</a>。但是Vagrant可以与多个后端Provider一起使用，例如<a href="https://docs.vagrantup.com/v2/vmware/" target="_blank" rel="external">VMware</a>,<a href="http://github.com/mitchellh/vagrant-aws" target="_blank" rel="external">AWS</a>等。继续阅读来了解如何它们的更多信息以及如何使用它们。<br>&emsp;&emsp; 当你安装了其他的Provider的时候,你不需要更改你的Vagrantfile，只需要在启动的时候加个参数即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vagrant up --provider=vmware_fusion</div></pre></td></tr></table></figure>
+<p>准备转移到云端了？使用AWS：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vagrant up --provider=aws</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 当你使用其他Provider运行<code>vagrant up</code>的时候，其他的Vagrant命令不行也要指定Provider。Vagrant将会自动的计算出来。所以当你ssh,destory的或者运行其他命令的时候，只需要输入平时的命令即可，例如：<code>vagrant destory</code>，无需额外的参数。<br>&emsp;&emsp; 更多信息请参考<a href="https://docs.vagrantup.com/v2/providers/" target="_blank" rel="external">provider</a>。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mashuai.github.io/2015/11/06/Vagrant-入门指南/" data-id="cj0j5e7yv0005ror8g9k9e5xx" class="article-share-link">Share</a>
+      
+        <a href="https://mashuai.github.io/2015/11/06/Vagrant-入门指南/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vagrant/">Vagrant</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </nav>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architecture/">Architecture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/">Go</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP-2/">HTTP/2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Middleware/">Middleware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OKHttp/">OKHttp</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OkHttp/">OkHttp</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Translate/">Translate</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Ansible/" style="font-size: 13.33px;">Ansible</a> <a href="/tags/Architecture/" style="font-size: 10px;">Architecture</a> <a href="/tags/Go/" style="font-size: 16.67px;">Go</a> <a href="/tags/HTTP/" style="font-size: 16.67px;">HTTP</a> <a href="/tags/HTTP-2/" style="font-size: 10px;">HTTP/2</a> <a href="/tags/Java/" style="font-size: 16.67px;">Java</a> <a href="/tags/Middleware/" style="font-size: 10px;">Middleware</a> <a href="/tags/Mybatis/" style="font-size: 10px;">Mybatis</a> <a href="/tags/OKHttp/" style="font-size: 13.33px;">OKHttp</a> <a href="/tags/OkHttp/" style="font-size: 13.33px;">OkHttp</a> <a href="/tags/Translate/" style="font-size: 20px;">Translate</a> <a href="/tags/Vagrant/" style="font-size: 13.33px;">Vagrant</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/03/21/mybatis/mybatis-started/">mybatis 入门</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/21/mybatis-started/">mybatis-started</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/19/okhttp/interceptors/">OKHttp 拦截器</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/18/okhttp/Recipes/">OKHttp Recipes</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/18/okhttp/connections/">OKHttp connections</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 mashuai<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+<script src="https://s4.cnzz.com/z_stat.php?id=1261529414&web_id=1261529414" language="JavaScript"></script>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'jabfor';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

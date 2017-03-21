@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>为Go Web App 创建一个主页面 | Mashuai&#39;s Notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="原文地址
+&amp;emsp;&amp;emsp; 大多数web app都有一个相同的布局。这个布局可能包含一个header或者footer，甚至可能包含一个导航菜单。Go的标准库提供一个简单的方式来创建这些基本元素，通过被不同的页面重用，创建出模板页的效果。&amp;emsp;&amp;emsp; 这个简单的例子来解释如何实现的：&amp;emsp;&amp;emsp; 让我们来创建一个简单的包含两个view的web app，一个是 main">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为Go Web App 创建一个主页面">
+<meta property="og:url" content="https://mashuai.github.io/2015/11/14/为Go-Web-App-创建一个主页面/index.html">
+<meta property="og:site_name" content="Mashuai's Notes">
+<meta property="og:description" content="原文地址
+&amp;emsp;&amp;emsp; 大多数web app都有一个相同的布局。这个布局可能包含一个header或者footer，甚至可能包含一个导航菜单。Go的标准库提供一个简单的方式来创建这些基本元素，通过被不同的页面重用，创建出模板页的效果。&amp;emsp;&amp;emsp; 这个简单的例子来解释如何实现的：&amp;emsp;&amp;emsp; 让我们来创建一个简单的包含两个view的web app，一个是 main">
+<meta property="og:image" content="https://raw.githubusercontent.com/mashuai/hexo-blog/master/goweb/main.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/mashuai/hexo-blog/master/goweb/about.png">
+<meta property="og:updated_time" content="2017-03-21T02:20:32.573Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="为Go Web App 创建一个主页面">
+<meta name="twitter:description" content="原文地址
+&amp;emsp;&amp;emsp; 大多数web app都有一个相同的布局。这个布局可能包含一个header或者footer，甚至可能包含一个导航菜单。Go的标准库提供一个简单的方式来创建这些基本元素，通过被不同的页面重用，创建出模板页的效果。&amp;emsp;&amp;emsp; 这个简单的例子来解释如何实现的：&amp;emsp;&amp;emsp; 让我们来创建一个简单的包含两个view的web app，一个是 main">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/mashuai/hexo-blog/master/goweb/main.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Mashuai&#39;s Notes" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mashuai&#39;s Notes</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://mashuai.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-为Go-Web-App-创建一个主页面" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/14/为Go-Web-App-创建一个主页面/" class="article-date">
+  <time datetime="2015-11-14T09:59:00.000Z" itemprop="datePublished">2015-11-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      为Go Web App 创建一个主页面
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://sanatgersappa.blogspot.com/2013/11/creating-master-page-for-your-go-web-app.html" target="_blank" rel="external">原文地址</a></p>
+<p>&emsp;&emsp; 大多数web app都有一个相同的布局。这个布局可能包含一个header或者footer，甚至可能包含一个导航菜单。Go的标准库提供一个简单的方式来创建这些基本元素，通过被不同的页面重用，创建出模板页的效果。<br>&emsp;&emsp; 这个简单的例子来解释如何实现的：<br>&emsp;&emsp; 让我们来创建一个简单的包含两个view的web app，一个是 main 一个是about。这两个view都有相同的header和footer。<br>&emsp;&emsp; header模板的代码如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&#123; &#123; define "header" &#125;&#125;</div><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">    &lt;head&gt;</div><div class="line">        &lt;title&gt;&#123; &#123;.Title&#125;&#125;&lt;/title&gt;</div><div class="line">        &lt;link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"&gt;</div><div class="line">        &lt;link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css"&gt;</div><div class="line">        &lt;style type="text/css"&gt;</div><div class="line">            body &#123;padding-bottom: 70px;&#125;</div><div class="line">            .content &#123;margin:10px;&#125;</div><div class="line">        &lt;/style&gt;</div><div class="line">    &lt;/head&gt;</div><div class="line">    &lt;body&gt;</div><div class="line">        &lt;nav class="navbar navbar-default" role="navigation"&gt;</div><div class="line">          &lt;div class="navbar-header"&gt;</div><div class="line">            &lt;a class="navbar-brand" href="/"&gt;Go App&lt;/a&gt;</div><div class="line">          &lt;/div&gt;</div><div class="line">          &lt;div class="collapse navbar-collapse navbar-ex1-collapse"&gt;  </div><div class="line">            &lt;ul class="nav navbar-nav"&gt;</div><div class="line">                &lt;li&gt;&lt;a href="/"&gt;Main&lt;/a&gt;&lt;/li&gt;</div><div class="line">                &lt;li&gt;&lt;a href="/about"&gt;About&lt;/a&gt;&lt;/li&gt;</div><div class="line">            &lt;/ul&gt;</div><div class="line">          &lt;/div&gt;</div><div class="line">        &lt;/nav&gt;</div><div class="line">&#123; &#123; end &#125;&#125;</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; footer模板的代码如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123; &#123; define "footer" &#125;&#125;</div><div class="line">        &lt;p class="navbar-text navbar-fixed-bottom"&gt;Go Rocks!&lt;/p&gt;    </div><div class="line">        &lt;script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"&gt;&lt;/script&gt;</div><div class="line">    &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div><div class="line">&#123; &#123; end &#125;&#125;</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; main 模板的代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123; &#123;define &quot;main&quot;&#125;&#125;</div><div class="line">&#123; &#123; template &quot;header&quot; .&#125;&#125;</div><div class="line">&lt;div class=&quot;content&quot;&gt;</div><div class="line">    &lt;h2&gt;Main&lt;/h2&gt;</div><div class="line">    &lt;div&gt;This is the Main page&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&#123; &#123;template &quot;footer&quot; .&#125;&#125;</div><div class="line">&#123; &#123; end&#125;&#125;</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; about 模板的代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123; &#123;define &quot;about&quot;&#125;&#125;</div><div class="line">&#123; &#123; template &quot;header&quot; .&#125;&#125;</div><div class="line">&lt;div class=&quot;content&quot;&gt;</div><div class="line">    &lt;h2&gt;About&lt;/h2&gt;</div><div class="line">    &lt;div&gt;This is the About page&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&#123; &#123;template &quot;footer&quot; .&#125;&#125;</div><div class="line">&#123; &#123; end&#125;&#125;</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 服务器代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">package main</div><div class="line"></div><div class="line">import (</div><div class="line">    &quot;html/template&quot;</div><div class="line">    &quot;net/http&quot;</div><div class="line">)</div><div class="line"></div><div class="line">//Compile templates on start</div><div class="line">var templates = template.Must(template.ParseFiles(&quot;header.html&quot;, &quot;footer.html&quot;, &quot;main.html&quot;, &quot;about.html&quot;))</div><div class="line"></div><div class="line">//A Page structure</div><div class="line">type Page struct &#123;</div><div class="line">    Title string</div><div class="line">&#125;</div><div class="line"></div><div class="line">//Display the named template</div><div class="line">func display(w http.ResponseWriter, tmpl string, data interface&#123;&#125;) &#123;</div><div class="line">    templates.ExecuteTemplate(w, tmpl, data)</div><div class="line">&#125;</div><div class="line"></div><div class="line">//The handlers.</div><div class="line">func mainHandler(w http.ResponseWriter, r *http.Request) &#123;</div><div class="line">    display(w, &quot;main&quot;, &amp;Page&#123;Title: &quot;Home&quot;&#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">func aboutHandler(w http.ResponseWriter, r *http.Request) &#123;</div><div class="line">    display(w, &quot;about&quot;, &amp;Page&#123;Title: &quot;About&quot;&#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">func main() &#123;</div><div class="line">    http.HandleFunc(&quot;/&quot;, mainHandler)</div><div class="line">    http.HandleFunc(&quot;/about&quot;, aboutHandler)</div><div class="line"></div><div class="line">    //Listen on port 8080</div><div class="line">    http.ListenAndServe(&quot;:8080&quot;, nil)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 每一个模板页都有一个 <code>{ { define &quot;name&quot; }}</code>的命令来定义模板的名字。main和about页面通过<code>{ { template &quot;name&quot; }}</code>来包含header和footer。<code>.</code> 出入上下文来命名模板。现在，不管main和about页面如何执行，他们的页面都会包含header和footer。<br>&emsp;&emsp; 两个页面的结果如下：</p>
+<p><img src="https://raw.githubusercontent.com/mashuai/hexo-blog/master/goweb/main.png" alt="main"><br><img src="https://raw.githubusercontent.com/mashuai/hexo-blog/master/goweb/about.png" alt="about">  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mashuai.github.io/2015/11/14/为Go-Web-App-创建一个主页面/" data-id="cj0j5e7zn0016ror8bu9y8cht" class="article-share-link">Share</a>
+      
+        <a href="https://mashuai.github.io/2015/11/14/为Go-Web-App-创建一个主页面/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go/">Go</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/03/18/okhttp/calls/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          OKHttp的调用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/11/12/http-Handler-与Go的错误处理/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">http.Handler 与Go的错误处理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architecture/">Architecture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/">Go</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP-2/">HTTP/2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Middleware/">Middleware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OKHttp/">OKHttp</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OkHttp/">OkHttp</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Translate/">Translate</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Ansible/" style="font-size: 13.33px;">Ansible</a> <a href="/tags/Architecture/" style="font-size: 10px;">Architecture</a> <a href="/tags/Go/" style="font-size: 16.67px;">Go</a> <a href="/tags/HTTP/" style="font-size: 16.67px;">HTTP</a> <a href="/tags/HTTP-2/" style="font-size: 10px;">HTTP/2</a> <a href="/tags/Java/" style="font-size: 16.67px;">Java</a> <a href="/tags/Middleware/" style="font-size: 10px;">Middleware</a> <a href="/tags/Mybatis/" style="font-size: 10px;">Mybatis</a> <a href="/tags/OKHttp/" style="font-size: 13.33px;">OKHttp</a> <a href="/tags/OkHttp/" style="font-size: 13.33px;">OkHttp</a> <a href="/tags/Translate/" style="font-size: 20px;">Translate</a> <a href="/tags/Vagrant/" style="font-size: 13.33px;">Vagrant</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/03/21/mybatis/mybatis-started/">mybatis 入门</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/21/mybatis-started/">mybatis-started</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/19/okhttp/interceptors/">OKHttp 拦截器</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/18/okhttp/Recipes/">OKHttp Recipes</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/18/okhttp/connections/">OKHttp connections</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 mashuai<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+<script src="https://s4.cnzz.com/z_stat.php?id=1261529414&web_id=1261529414" language="JavaScript"></script>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'jabfor';
+  
+  var disqus_url = 'https://mashuai.github.io/2015/11/14/为Go-Web-App-创建一个主页面/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

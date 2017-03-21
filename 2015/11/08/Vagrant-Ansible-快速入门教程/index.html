@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Vagrant &amp; Ansible 快速入门教程 | Mashuai&#39;s Notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="原文地址  
+&amp;emsp;&amp;emsp; 就个人而言，我用过Chef，Puppet，简单的Bash脚本等用来配置服务器，其他服务和Vagrant Boxes。虽然Chef社区仍然在快速成长，但是我发布的关于Chef的文章仍然是最受欢迎的文章。然而，两个月之前，当我在一个项目中使用Ansible的时候所有的事情都变了。从此之后我再也没用过其他的配置工具，也找不到用其他工具的理由了。&amp;emsp;&amp;ems">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vagrant & Ansible 快速入门教程">
+<meta property="og:url" content="https://mashuai.github.io/2015/11/08/Vagrant-Ansible-快速入门教程/index.html">
+<meta property="og:site_name" content="Mashuai's Notes">
+<meta property="og:description" content="原文地址  
+&amp;emsp;&amp;emsp; 就个人而言，我用过Chef，Puppet，简单的Bash脚本等用来配置服务器，其他服务和Vagrant Boxes。虽然Chef社区仍然在快速成长，但是我发布的关于Chef的文章仍然是最受欢迎的文章。然而，两个月之前，当我在一个项目中使用Ansible的时候所有的事情都变了。从此之后我再也没用过其他的配置工具，也找不到用其他工具的理由了。&amp;emsp;&amp;ems">
+<meta property="og:image" content="https://adamcod.es/img/posts/vagrant-ansible-lamp.gif">
+<meta property="og:updated_time" content="2017-03-21T02:20:32.561Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vagrant & Ansible 快速入门教程">
+<meta name="twitter:description" content="原文地址  
+&amp;emsp;&amp;emsp; 就个人而言，我用过Chef，Puppet，简单的Bash脚本等用来配置服务器，其他服务和Vagrant Boxes。虽然Chef社区仍然在快速成长，但是我发布的关于Chef的文章仍然是最受欢迎的文章。然而，两个月之前，当我在一个项目中使用Ansible的时候所有的事情都变了。从此之后我再也没用过其他的配置工具，也找不到用其他工具的理由了。&amp;emsp;&amp;ems">
+<meta name="twitter:image" content="https://adamcod.es/img/posts/vagrant-ansible-lamp.gif">
+  
+    <link rel="alternative" href="/atom.xml" title="Mashuai&#39;s Notes" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mashuai&#39;s Notes</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://mashuai.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Vagrant-Ansible-快速入门教程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/08/Vagrant-Ansible-快速入门教程/" class="article-date">
+  <time datetime="2015-11-07T16:39:10.000Z" itemprop="datePublished">2015-11-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Vagrant &amp; Ansible 快速入门教程
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://adamcod.es/2014/09/23/vagrant-ansible-quickstart-tutorial.html" target="_blank" rel="external">原文地址</a>  </p>
+<p>&emsp;&emsp; 就个人而言，我用过Chef，Puppet，简单的Bash脚本等用来配置服务器，其他服务和Vagrant Boxes。虽然Chef社区仍然在快速成长，但是我发布的关于<a href="https://adamcod.es/2013/01/15/vagrant-is-easy-chef-is-hard-part2.html" target="_blank" rel="external">Chef</a>的文章仍然是最受欢迎的文章。然而，两个月之前，当我在一个项目中使用Ansible的时候所有的事情都变了。从此之后我再也没用过其他的配置工具，也找不到用其他工具的理由了。<br>&emsp;&emsp; 看过了不少关于Ansible的教程，尝试这从中找出相应的模式和最佳实战，然而似乎在知识上有巨大的横沟。你可以用Ansible做很多事情，你也可以同时学习如何使用，但是跟我最新学习的工具一样，却反一个很简单地方入手学习的地方。今天我希望通过使用Vagrant和Ansible配置一个LAMP的技术栈来纠正他。  </p>
+<h2 id="为什么使用Ansible"><a href="#为什么使用Ansible" class="headerlink" title="为什么使用Ansible"></a>为什么使用Ansible</h2><p>&emsp;&emsp; Ansible和其他的配置管理工具最主要的区别就是Ansible是基于SSH的。Chef和Puppet都是有依赖的，而且必须在服务器上安装之后才能使用，而Ansible则不需要。它可以在你本机运行，使用SSH连接相应主机，在其运行相应命令。<br>&emsp;&emsp; 为什么不直接使用Bash脚本呢？Ansible之所以比Bash脚本好是因为他简单。Ansible只是运行了一系列使用YAML格式编写的任务。同样Ansible还具有幂等性，这就意味着你可以多次运行同样的任务，并且这些任务的输入会保持一致（例如除非明确要求运行两次否则它不会对同一个任务运行两次）。同样这个可以通过Bash脚本编写，但是会很复杂。</p>
+<h2 id="Ansible-和-Vagrant"><a href="#Ansible-和-Vagrant" class="headerlink" title="Ansible 和 Vagrant"></a>Ansible 和 Vagrant</h2><p>&emsp;&emsp; 首先给你要确定已经安装了Ansible和Vagrant。它们的安装文档可以在它们的相关网站找到，它们都很容易安装的。</p>
+<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><p>&emsp;&emsp; 我们将会创建一个新的文件夹来开始我们的项目。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir -p ~/Projects/vagrant-ansible</div><div class="line">cd ~/Projects/vagrant-ansible</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 接着我们创建一个基于最新的Ubuntu的Vagrantfile。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vagrant init ubuntu/trusty64</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 运行完这个命令后在项目目录下会有一个叫<code>Vagrantfile</code>的文件。它包含了你想要配置的关于box的一些基本信息和一堆你现在不需要管的注释。删除所有的注释，你就会简单的得到以下的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">VAGRANTFILE_API_VERSION = &quot;2&quot;</div><div class="line">Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|</div><div class="line">  config.vm.box = &quot;ubuntu/trusty64&quot;</div><div class="line">end</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 我们需要在他配置好的适合访问服务器，所以我们将会吧Vagrant的80端口转发到本机的8080端口，将以下代码添加到<code>end</code>之前。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">config.vm.network &quot;forworded_port&quot;, guest: 80, host:8080</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 现在Vagrant只需要配置一件事情。我们需要配置Vagrant使用Ansible作为配置器，并且知道去哪里需找这些命令。为了实现这个目的，我们将一下代码加到<code>Vagrantfile</code>的<code>end</code>之前。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">config.vm.provision :ansible do |ansible|</div><div class="line">  ansible.playbook = &quot;playbook.yml&quot;</div><div class="line">end</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 以上所有的任务完成之后你的<code>Vagrantfile</code>将会是一下的配置。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">VAGRANTFILE_API_VERSION = &quot;2&quot;</div><div class="line"></div><div class="line">Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|</div><div class="line">  config.vm.box = &quot;ubuntu/trusty64&quot;</div><div class="line"></div><div class="line">  config.vm.network &quot;forwarded_port&quot;, guest: 80, host: 8080</div><div class="line"></div><div class="line">  config.vm.provision :ansible do |ansible|</div><div class="line">    ansible.playbook = &quot;playbook.yml&quot;</div><div class="line">  end</div><div class="line">end</div></pre></td></tr></table></figure>
+<h2 id="基本术语"><a href="#基本术语" class="headerlink" title="基本术语"></a>基本术语</h2><p>&emsp;&emsp; Ansible再你的服务器上运行一系列的<em>Tasks</em>。把Task想象成一个单一的Bash命令。接着是<em>playbook</em>，Ansible通过Playbook得知将再服务器上运行什么任务。每一个Task运行一个Ansible的<em>Module</em>，Module是Ansible内建的各种命令，例如yun，创建用户等。稍后就会明白这些术语的具体意思。  </p>
+<h2 id="第一个Playbook"><a href="#第一个Playbook" class="headerlink" title="第一个Playbook"></a>第一个Playbook</h2><p>&emsp;&emsp; 创建一个叫<code>playbook.yml</code>的文件，这个名字必须和<code>Vagrantfile</code>的<code>ansible.playbook</code>相同。<br>&emsp;&emsp; 所有Ansible的Playbook都必须是YAML格式的。传统上YAML文件是以三条横线开头的，但是Ansible并不是强制要求的，不过社区仍然会遵循这个规则。<br>&emsp;&emsp; 新建的playbook是一个YAML的列表。这个列表应该包括要管理的host和各种要运行的task，将以下代码添加到<code>playbook.yml</code>文件中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">- host: all</div><div class="line">  sudo: true</div><div class="line">  tasks:</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 我们使用Vagrant并且只有一台主机，所以我们可以使用一个魔法值<code>all</code>，意思是在所有的机器上运行任务。然后我们告诉Ansible运行是需要sudo权限，最后我们添加了 <code>tasks:</code> 用来添加Task。</p>
+<p>&emsp;&emsp; 要安装LAMP技术栈的基本步骤是：  </p>
+<ol>
+<li>更新 Apt Cache</li>
+<li>安装 Apache</li>
+<li>安装 MySQL</li>
+<li>安装 PHP</li>
+</ol>
+<p>&emsp;&emsp; 这就是所有我们必须的步骤。因为我们用的是Ubuntu的box，所有我们需要Ansible的apt模块。<br>&emsp;&emsp; 首先我们给每一个task一个<code>name:</code>，这个可以是任何描述，它用来描述这个任务，如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- name: this should be some descriptive text</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 接着我们指定一个Ansible的模块作为值，在本例中使用的是apt模块。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apt</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 紧随其后的是一些<code>key=value</code>的由空格分隔的键值对。选择你想要传递给Ansible的键值对，可以通过Ansible的文档来查询所需要的键值对。</p>
+<p>&emsp;&emsp; 安装Apache的任务如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- name: install apache</div><div class="line">  apt: name=apache2 state=present</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 这样就配置好了，很简单，对吧。我们将继续添加MySQL和PHP的Task到<code>playbook.yml</code>中，最后代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">- hosts: all</div><div class="line">  sudo: true</div><div class="line">  tasks:</div><div class="line">    - name: update apt cache</div><div class="line">      apt: update_cache=yes</div><div class="line">    - name: install apache</div><div class="line">      apt: name=apache2 state=present</div><div class="line">    - name: install mysql</div><div class="line">      apt: name=mysql-server state=present</div><div class="line">    - name: install php</div><div class="line">      apt: name=php5 state=present</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 现在我们已经配置完了，然后运行<code>vagrant up</code>，你将会看到如下图所示：<br><img src="https://adamcod.es/img/posts/vagrant-ansible-lamp.gif" alt="result">  </p>
+<p>&emsp;&emsp; 这样就搭建好了。如果你想让LAMP运行起来，你就可以ssh到Vagrant，然后将<code>info.php</code>文件添加到<code>/var/www/html</code>下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;?php phpinfo();?&gt;</div></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp; 然后在本机浏览器打开<a href="http://localhost:8080/info.php" target="_blank" rel="external">http://localhost:8080/info.php</a>，就会看到你想要看到的。</p>
+<p><strong>翻译到此，剩下的就是关于Ansible的使用了，这些可以通过Ansible的官方文档来学习</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mashuai.github.io/2015/11/08/Vagrant-Ansible-快速入门教程/" data-id="cj0j5e7ys0004ror8hk1brfsv" class="article-share-link">Share</a>
+      
+        <a href="https://mashuai.github.io/2015/11/08/Vagrant-Ansible-快速入门教程/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vagrant/">Vagrant</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/11/09/Ansible-入门指南/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Ansible 入门指南
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/11/06/Vagrant-入门指南/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Vagrant 入门指南</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architecture/">Architecture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/">Go</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP-2/">HTTP/2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Middleware/">Middleware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OKHttp/">OKHttp</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OkHttp/">OkHttp</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Translate/">Translate</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Ansible/" style="font-size: 13.33px;">Ansible</a> <a href="/tags/Architecture/" style="font-size: 10px;">Architecture</a> <a href="/tags/Go/" style="font-size: 16.67px;">Go</a> <a href="/tags/HTTP/" style="font-size: 16.67px;">HTTP</a> <a href="/tags/HTTP-2/" style="font-size: 10px;">HTTP/2</a> <a href="/tags/Java/" style="font-size: 16.67px;">Java</a> <a href="/tags/Middleware/" style="font-size: 10px;">Middleware</a> <a href="/tags/Mybatis/" style="font-size: 10px;">Mybatis</a> <a href="/tags/OKHttp/" style="font-size: 13.33px;">OKHttp</a> <a href="/tags/OkHttp/" style="font-size: 13.33px;">OkHttp</a> <a href="/tags/Translate/" style="font-size: 20px;">Translate</a> <a href="/tags/Vagrant/" style="font-size: 13.33px;">Vagrant</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/03/21/mybatis/mybatis-started/">mybatis 入门</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/21/mybatis-started/">mybatis-started</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/19/okhttp/interceptors/">OKHttp 拦截器</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/18/okhttp/Recipes/">OKHttp Recipes</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/18/okhttp/connections/">OKHttp connections</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 mashuai<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+<script src="https://s4.cnzz.com/z_stat.php?id=1261529414&web_id=1261529414" language="JavaScript"></script>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'jabfor';
+  
+  var disqus_url = 'https://mashuai.github.io/2015/11/08/Vagrant-Ansible-快速入门教程/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
