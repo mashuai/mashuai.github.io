@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+    
+  <url>
+    <loc>https://mashuai.github.io/2017/03/23/okhttp/https/</loc>
+    <lastmod>2017-03-24T03:21:06.334Z</lastmod>
+    <data>
+        <display>
+        <title>OKHttp https</title>
+        <pubTime>2017-03-23T05:32:29.000Z</pubTime>
+        
+        <tag>Translate</tag>
+         
+        <tag>HTTP</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>OKHttp</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mashuai.github.io/2017/03/19/okhttp/interceptors/</loc>
+    <lastmod>2017-03-21T11:39:28.350Z</lastmod>
+    <data>
+        <display>
+        <title>OKHttp 拦截器</title>
+        <pubTime>2017-03-19T07:47:42.000Z</pubTime>
+        
+        <tag>Translate</tag>
+         
+        <tag>HTTP</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>OKHttp</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mashuai.github.io/2017/03/18/okhttp/calls/</loc>
+    <lastmod>2017-03-21T11:39:23.317Z</lastmod>
+    <data>
+        <display>
+        <title>OKHttp的调用</title>
+        <pubTime>2017-03-18T07:10:03.000Z</pubTime>
+        
+        <tag>Translate</tag>
+         
+        <tag>HTTP</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>OKHttp</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mashuai.github.io/2017/03/21/mybatis/mybatis-started/</loc>
+    <lastmod>2017-03-21T06:17:08.756Z</lastmod>
+    <data>
+        <display>
+        <title>mybatis 入门</title>
+        <pubTime>2017-03-21T03:58:14.000Z</pubTime>
+        
+        <tag>Translate</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>Mybatis</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mashuai.github.io/2015/11/12/%E4%BD%BF%E7%94%A8Go%E5%BC%80%E5%8F%91HTTP%E4%B8%AD%E9%97%B4%E4%BB%B6/</loc>
+    <lastmod>2017-03-21T02:20:32.574Z</lastmod>
+    <data>
+        <display>
+        <title>使用Go开发HTTP中间件</title>
+        <pubTime>2015-11-12T04:07:49.000Z</pubTime>
+        
+        <tag>Go</tag>
+         
+        <tag>HTTP</tag>
+         
+        <tag>Middleware</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mashuai.github.io/2015/11/14/%E4%B8%BAGo-Web-App-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E4%B8%BB%E9%A1%B5%E9%9D%A2/</loc>
+    <lastmod>2017-03-21T02:20:32.573Z</lastmod>
+    <data>
+        <display>
+        <title>为Go Web App 创建一个主页面</title>
+        <pubTime>2015-11-14T09:59:00.000Z</pubTime>
+        
+        <tag>Translate</tag>
+         
+        <tag>Go</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mashuai.github.io/2017/03/18/okhttp/connections/</loc>
+    <lastmod>2017-03-21T02:20:32.570Z</lastmod>
+    <data>
+        <display>
+        <title>OKHttp connections</title>
+        <pubTime>2017-03-18T11:05:48.000Z</pubTime>
+        
+        <tag>Translate</tag>
+         
+        <tag>HTTP</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>OKHttp</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mashuai.github.io/2017/03/18/okhttp/Recipes/</loc>
+    <lastmod>2017-03-21T02:20:32.567Z</lastmod>
+    <data>
+        <display>
+        <title>OKHttp Recipes</title>
+        <pubTime>2017-03-18T11:44:10.000Z</pubTime>
+        
+        <tag>Translate</tag>
+         
+        <tag>HTTP</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>OKHttp</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mashuai.github.io/2015/11/12/http-Handler-%E4%B8%8EGo%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/</loc>
+    <lastmod>2017-03-21T02:20:32.565Z</lastmod>
+    <data>
+        <display>
+        <title>http.Handler 与Go的错误处理</title>
+        <pubTime>2015-11-12T13:24:57.000Z</pubTime>
+        
+        <tag>Translate</tag>
+         
+        <tag>Go</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mashuai.github.io/2015/11/06/Vagrant-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/</loc>
+    <lastmod>2017-03-21T02:20:32.563Z</lastmod>
+    <data>
+        <display>
+        <title>Vagrant 入门指南</title>
+        <pubTime>2015-11-06T08:49:47.000Z</pubTime>
+        
+        <tag>Translate</tag>
+         
+        <tag>Vagrant</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mashuai.github.io/2015/11/08/Vagrant-Ansible-%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</loc>
+    <lastmod>2017-03-21T02:20:32.561Z</lastmod>
+    <data>
+        <display>
+        <title>Vagrant & Ansible 快速入门教程</title>
+        <pubTime>2015-11-07T16:39:10.000Z</pubTime>
+        
+        <tag>Translate</tag>
+         
+        <tag>Ansible</tag>
+         
+        <tag>Vagrant</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mashuai.github.io/2015/11/12/HTTP-2-%E5%92%8CGO/</loc>
+    <lastmod>2017-03-21T02:20:32.560Z</lastmod>
+    <data>
+        <display>
+        <title>HTTP/2 和GO</title>
+        <pubTime>2015-11-12T03:39:21.000Z</pubTime>
+        
+        <tag>HTTP/2</tag>
+         
+        <tag>Translate</tag>
+         
+        <tag>Go</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mashuai.github.io/2015/11/10/Go-Web-%E6%9E%B6%E6%9E%84/</loc>
+    <lastmod>2017-03-21T02:20:32.542Z</lastmod>
+    <data>
+        <display>
+        <title>Go Web 架构</title>
+        <pubTime>2015-11-10T11:01:21.000Z</pubTime>
+        
+        <tag>Translate</tag>
+         
+        <tag>Go</tag>
+         
+        <tag>Architecture</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mashuai.github.io/2015/11/09/Ansible-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/</loc>
+    <lastmod>2017-03-21T02:20:32.540Z</lastmod>
+    <data>
+        <display>
+        <title>Ansible 入门指南</title>
+        <pubTime>2015-11-09T10:26:35.000Z</pubTime>
+        
+        <tag>Translate</tag>
+         
+        <tag>Ansible</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+</urlset>
