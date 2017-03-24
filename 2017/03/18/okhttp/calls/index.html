@@ -1,20 +1,288 @@
-extends partial/layout
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>OKHttp的调用 | Mashuai&#39;s Notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="原文地址
+&amp;emsp;&amp;emsp;HTTP客户端的任务是接受请求和产生响应。理论很简单，但是实战的时候就有点棘手了。
+Requests&amp;emsp;&amp;emsp;每一个HTTP请求都包含一个URL，一个方法（例如，GET，POST）和一些headers。请求同时可以包含一个特定类型的数据流作为body。
+Responses&amp;emsp;&amp;emsp;Response 通过一个一个状态码（例如，200 成功">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OKHttp的调用">
+<meta property="og:url" content="https://mashuai.github.io/2017/03/18/okhttp/calls/index.html">
+<meta property="og:site_name" content="Mashuai's Notes">
+<meta property="og:description" content="原文地址
+&amp;emsp;&amp;emsp;HTTP客户端的任务是接受请求和产生响应。理论很简单，但是实战的时候就有点棘手了。
+Requests&amp;emsp;&amp;emsp;每一个HTTP请求都包含一个URL，一个方法（例如，GET，POST）和一些headers。请求同时可以包含一个特定类型的数据流作为body。
+Responses&amp;emsp;&amp;emsp;Response 通过一个一个状态码（例如，200 成功">
+<meta property="og:updated_time" content="2017-03-21T11:39:23.317Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OKHttp的调用">
+<meta name="twitter:description" content="原文地址
+&amp;emsp;&amp;emsp;HTTP客户端的任务是接受请求和产生响应。理论很简单，但是实战的时候就有点棘手了。
+Requests&amp;emsp;&amp;emsp;每一个HTTP请求都包含一个URL，一个方法（例如，GET，POST）和一些headers。请求同时可以包含一个特定类型的数据流作为body。
+Responses&amp;emsp;&amp;emsp;Response 通过一个一个状态码（例如，200 成功">
+  
+    <link rel="alternative" href="/atom.xml" title="Mashuai&#39;s Notes" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
 
-block site_title
-    != page.title + " · " + config.title
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mashuai&#39;s Notes</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://mashuai.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-okhttp/calls" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/18/okhttp/calls/" class="article-date">
+  <time datetime="2017-03-18T07:10:03.000Z" itemprop="datePublished">2017-03-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      OKHttp的调用
+    </h1>
+  
 
-block description
-    - var desc = page.desc || page.title + ' - ' + config.author;
-    meta(name="description", content=desc)
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://github.com/square/okhttp/wiki/Calls" target="_blank" rel="external">原文地址</a></p>
+<p>&emsp;&emsp;HTTP客户端的任务是接受请求和产生响应。理论很简单，但是实战的时候就有点棘手了。</p>
+<h4 id="Requests"><a href="#Requests" class="headerlink" title="Requests"></a>Requests</h4><p>&emsp;&emsp;每一个HTTP请求都包含一个URL，一个方法（例如，GET，POST）和一些headers。请求同时可以包含一个特定类型的数据流作为body。</p>
+<h4 id="Responses"><a href="#Responses" class="headerlink" title="Responses"></a>Responses</h4><p>&emsp;&emsp;Response 通过一个一个状态码（例如，200 成功，404未找到），headers，和一个可选的Body来响应请求。</p>
+<h5 id="重写请求"><a href="#重写请求" class="headerlink" title="重写请求"></a>重写请求</h5><p>&emsp;&emsp;当使用OkHttp发送HTTP请求的时候，可以在高层次描述这个请求：通过这个URL和这些headers来获取响应。为了准确和更高的效率，OKHttp会在发送之前重现请求。<br>&emsp;&emsp;OkHttp将会添加原请求没有的header，包括<code>Content-length</code>,<code>Transfer-Encoding</code>,<code>User-Agent</code>,<code>Host</code>,<code>Connection</code>，<code>Content-Type</code>。除非已经提供了，否则OKHttp回会添加 <code>Acceept-Encoding</code>来压缩响应。如果有Cookie，也会添加<code>Cookie</code>。<br>&emsp;&emsp;有些请求会缓存响应。当被缓存的响应过期后，OKHttp会发送一个有条件的GET请求来获取新的响应，如果新现在的比缓存的响应更新，将会更新缓存过的响应。这要求<code>If-Modified-Since</code>和<code>If-None-Match</code>添加到headers中。</p>
+<h5 id="重写响应"><a href="#重写响应" class="headerlink" title="重写响应"></a>重写响应</h5><p>&emsp;&emsp;如果透明压缩启用了，OKHttp将会把<code>Content-Encoding</code>和<code>Content-Length</code>从headers中移除，因为他们不是用来解压缩的。<br>&emsp;&emsp;如果条件GET请求成功，从网上下载的响应和缓存的响应根据Spec合并。</p>
+<h5 id="后续请求"><a href="#后续请求" class="headerlink" title="后续请求"></a>后续请求</h5><p>&emsp;&emsp;当请求的URL被转移了，web server 将会返回一个302的状态码来表示这个文档的新URL，OKHttp将会重定向到新的URL获取最终的响应。<br>&emsp;&emsp;如果响应需要认证，OKHttp将会使用<code>Authenticator</code>（如果提供了一个）来认证。如果认证器提供了凭证，请求回使用凭证重试。</p>
+<h5 id="重试请求"><a href="#重试请求" class="headerlink" title="重试请求"></a>重试请求</h5><p>&emsp;&emsp;有时连接失败，例如：连接池过期断开链接，或者无法连接服务器。OKHttp会通过不同的可用路由来重试请求。</p>
+<h4 id="calls"><a href="#calls" class="headerlink" title="calls"></a>calls</h4><p>&emsp;&emsp;通过重写，重定向，继续请求和重试，一个简单的请求可能会产生很多请求和响应。OKHttp使用<code>call</code>建立一个不管多少中间请求和响应的任务模型。总的来说这不多。但是了解代码将会继续工作，不管是URL重定向或者是转移故障其他IP。<br>&emsp;&emsp;call有两种工作方</p>
+<ul>
+<li>同步：线程将会阻塞道到响应可读。</li>
+<li>异步：将请求加入到其他线程的队列，当响应可读诗时，会在其他的线程获取回调。<br>&emsp;&emsp;请求调用可以在任何线程取消。如果调用未完成，这个请求将会失败。当调用取消时，在先请求踢体或者读响应体的代码将会跑出IOException的异常。<h5 id="调度"><a href="#调度" class="headerlink" title="调度"></a>调度</h5>&emsp;&emsp;对于同步调用，将会由自身线程控制多少并发请求。太多并发连接浪费资源，太少又回有高延迟。<br>&emsp;&emsp;对于异步来说，Dispatcher实现了最大并发的策略。可以设置没个服务器的最大并发（默认是5）和总体的并发（默认64）。</li>
+</ul>
 
-block container
-    include mixins/post
-    +post(page)
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mashuai.github.io/2017/03/18/okhttp/calls/" data-id="cj0nhz9f60019twr8vujamq6p" class="article-share-link">Share</a>
+      
+        <a href="https://mashuai.github.io/2017/03/18/okhttp/calls/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OKHttp/">OKHttp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li></ul>
 
-block pagination
-    include mixins/paginator
-    +post()
-    include partial/comment
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/03/18/okhttp/connections/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          OKHttp connections
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/11/14/为Go-Web-App-创建一个主页面/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">为Go Web App 创建一个主页面</div>
+    </a>
+  
+</nav>
 
-block copyright
-    include partial/copyright
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architecture/">Architecture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/">Go</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP-2/">HTTP/2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Middleware/">Middleware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OKHttp/">OKHttp</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Translate/">Translate</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Ansible/" style="font-size: 12.5px;">Ansible</a> <a href="/tags/Architecture/" style="font-size: 10px;">Architecture</a> <a href="/tags/Go/" style="font-size: 15px;">Go</a> <a href="/tags/HTTP/" style="font-size: 17.5px;">HTTP</a> <a href="/tags/HTTP-2/" style="font-size: 10px;">HTTP/2</a> <a href="/tags/Java/" style="font-size: 17.5px;">Java</a> <a href="/tags/Middleware/" style="font-size: 10px;">Middleware</a> <a href="/tags/Mybatis/" style="font-size: 10px;">Mybatis</a> <a href="/tags/OKHttp/" style="font-size: 15px;">OKHttp</a> <a href="/tags/Translate/" style="font-size: 20px;">Translate</a> <a href="/tags/Vagrant/" style="font-size: 12.5px;">Vagrant</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/03/23/okhttp/https/">OKHttp https</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/21/mybatis/mybatis-started/">mybatis 入门</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/19/okhttp/interceptors/">OKHttp 拦截器</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/18/okhttp/Recipes/">OKHttp Recipes</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/18/okhttp/connections/">OKHttp connections</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 mashuai<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+<script src="https://s4.cnzz.com/z_stat.php?id=1261529414&web_id=1261529414" language="JavaScript"></script>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'jabfor';
+  
+  var disqus_url = 'https://mashuai.github.io/2017/03/18/okhttp/calls/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+    <!-- ad start -->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 测试广告 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2889123346235419"
+     data-ad-slot="8165482683"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+    <!-- ad end -->
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48348924-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </div>
+
+</body>
+</html>
