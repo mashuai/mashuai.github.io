@@ -3,27 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>OKHttp connections | Mashuai&#39;s Notes</title>
+  <title>test | Mashuai&#39;s Notes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原文地址&amp;emsp;&amp;emsp;虽然只提供了URL，但是OKHttp会使用URL，Address，Route三种方式来连接服务器。
-URLS&amp;emsp;&amp;emsp;URLs例如（https://github.com/square/okhttp) 是HTTP和Internet的基础。除了是一个表示互联网一切的命名方案，也指定了如何访问Web资源。URLs是抽象的：
-
-它指出，调用可以是纯文本（htt">
-<meta property="og:type" content="article">
-<meta property="og:title" content="OKHttp connections">
-<meta property="og:url" content="https://mashuai.github.io/2017/03/18/okhttp/connections/index.html">
+  <meta name="description" content="hello world">
+<meta property="og:type" content="website">
+<meta property="og:title" content="test">
+<meta property="og:url" content="https://mashuai.github.io/projects/index.html">
 <meta property="og:site_name" content="Mashuai's Notes">
-<meta property="og:description" content="原文地址&amp;emsp;&amp;emsp;虽然只提供了URL，但是OKHttp会使用URL，Address，Route三种方式来连接服务器。
-URLS&amp;emsp;&amp;emsp;URLs例如（https://github.com/square/okhttp) 是HTTP和Internet的基础。除了是一个表示互联网一切的命名方案，也指定了如何访问Web资源。URLs是抽象的：
-
-它指出，调用可以是纯文本（htt">
-<meta property="og:updated_time" content="2017-03-21T02:20:32.570Z">
+<meta property="og:description" content="hello world">
+<meta property="og:updated_time" content="2017-03-28T05:22:48.669Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OKHttp connections">
-<meta name="twitter:description" content="原文地址&amp;emsp;&amp;emsp;虽然只提供了URL，但是OKHttp会使用URL，Address，Route三种方式来连接服务器。
-URLS&amp;emsp;&amp;emsp;URLs例如（https://github.com/square/okhttp) 是HTTP和Internet的基础。除了是一个表示互联网一切的命名方案，也指定了如何访问Web资源。URLs是抽象的：
-
-它指出，调用可以是纯文本（htt">
+<meta name="twitter:title" content="test">
+<meta name="twitter:description" content="hello world">
   
     <link rel="alternative" href="/atom.xml" title="Mashuai&#39;s Notes" type="application/atom+xml">
   
@@ -88,10 +79,10 @@ var _hmt = _hmt || [];
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-okhttp/connections" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/03/18/okhttp/connections/" class="article-date">
-  <time datetime="2017-03-18T11:05:48.000Z" itemprop="datePublished">2017-03-18</time>
+    <a href="/projects/index.html" class="article-date">
+  <time datetime="2017-03-28T05:22:18.000Z" itemprop="datePublished">2017-03-28</time>
 </a>
     
   </div>
@@ -102,7 +93,7 @@ var _hmt = _hmt || [];
         
   
     <h1 class="article-title" itemprop="name">
-      OKHttp connections
+      test
     </h1>
   
 
@@ -110,57 +101,19 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a href="https://github.com/square/okhttp/wiki/Connections" target="_blank" rel="external">原文地址</a><br>&emsp;&emsp;虽然只提供了URL，但是OKHttp会使用URL，Address，Route三种方式来连接服务器。</p>
-<h4 id="URLS"><a href="#URLS" class="headerlink" title="URLS"></a>URLS</h4><p>&emsp;&emsp;URLs例如（<a href="https://github.com/square/okhttp" target="_blank" rel="external">https://github.com/square/okhttp</a>) 是HTTP和Internet的基础。除了是一个表示互联网一切的命名方案，也指定了如何访问Web资源。<br>URLs是抽象的：</p>
-<ul>
-<li>它指出，调用可以是纯文本（http）或者加密（https），但是并没有指定一种加密算法。也没有指定如何验证各个端点的证书(<a href="http://developer.android.com/reference/javax/net/ssl/HostnameVerifier.html" target="_blank" rel="external">HostnameVerifier</a>)，或者是哪个证书可信(<a href="http://developer.android.com/reference/org/apache/http/conn/ssl/SSLSocketFactory.html" target="_blank" rel="external">SSLSocketFactory</a>)</li>
-<li><p>它为指定是否需要使用代理服务器以及代理服务器如何授权。<br>&emsp;&emsp;它也是具体的，每个URL标识一个具体的路径（/square/okhttp)和查询（?q=sharks&amp;lang=en)。每个服务器有很多URL。</p>
-<h4 id="Addresses"><a href="#Addresses" class="headerlink" title="Addresses"></a>Addresses</h4><p>&emsp;&emsp;Address指定了一个服务器（例如：github.com），以及连接服务器必要的所有的静态配置，包括：端口号，HTTPS设置，优先协议（例如，HTTP／2，SPDY）。<br>&emsp;&emsp;URL使用了相同的Address，底层也可能实用了相同的TCP链接。复用连接可以提高性能：低延迟，高吞吐（<a href="http://www.igvita.com/2011/10/20/faster-web-vs-tcp-slow-start/" target="_blank" rel="external">TCP 慢启动</a>)，低电量。OKHttp使用<a href="http://square.github.io/okhttp/3.x/okhttp/okhttp3/ConnectionPool.html" target="_blank" rel="external">ConnectionPool</a>自动复用HTTP／1.x连接，多路复用HTT／2和SPDY的连接。<br>&emsp;&emsp;在OKHttp，address的一些字段来源于URL（协议，主机名，端口），剩下的来自<a href="http://square.github.io/okhttp/3.x/okhttp/okhttp3/OkHttpClient.html" target="_blank" rel="external">OKHttpClient</a>。</p>
-<h4 id="Routes"><a href="#Routes" class="headerlink" title="Routes"></a>Routes</h4><p>&emsp;&emsp;Route提供了连接服务器必要的动态信息。包括，具体的IP地址（通过DNS查询），具体使用那个代理（<a href="http://developer.android.com/reference/java/net/ProxySelector.html" target="_blank" rel="external">ProxySelector</a>），协n哪个TLS版本（HTTPS).<br>&emsp;&emsp;一个服务器可能有多条路有信息。例如：多台服务器部署在多个数据中心，DNS查询返回多个IP地址。</p>
-<h4 id="Connections"><a href="#Connections" class="headerlink" title="Connections"></a>Connections</h4><p>&emsp;&emsp;当发起一个URL的请求的时候：</p>
-<ol>
-<li>使用URL和OKHttpCLient确定具体的<strong>Address</strong>。这个地址明确如何连接服务器。</li>
-<li>尝试从<strong>连接池</strong>中查找具体Address的连接。</li>
-<li>如果未找到有效的连接，使用Route来尝试获取。一般这样意味着通过DNS或去IP地址。然后，如果需要，选择一个TLS的版本和代理服务器。</li>
-<li>如果是一个新的Route，要么使用Socket直连，TLS隧道（HTTS方式），或者直接使用TLS。也会进行必要的TLS握手。</li>
-<li>发送请求，接受响应。<br>&emsp;&emsp;如果连接发生错误，OKHttp会选择另一个路由重试。这样OKHttp就可以在服务器端一些地址无法访问的时候恢复访问。同时如果连接池的连接失效或者常识的TLS 版本不支持也很有用。<br>&emsp;&emsp;当响应接收到了之后，连接会放回到连接池以便之后使用。连接在一段时间过期后回被移除连接池。</li>
-</ol>
-</li>
-</ul>
-
+        <h4 id="hello-world"><a href="#hello-world" class="headerlink" title="hello world"></a>hello world</h4>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/03/18/okhttp/connections/" data-id="cj0t3r87e001pvir8rk6ddkm2" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/projects/index.html" data-id="cj0t3r8580006vir8cgdy8dhh" class="article-share-link">Share</a>
       
-        <a href="https://mashuai.github.io/2017/03/18/okhttp/connections/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="https://mashuai.github.io/projects/index.html#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OKHttp/">OKHttp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li></ul>
-
     </footer>
   </div>
   
     
-<nav id="article-nav">
-  
-    <a href="/2017/03/18/okhttp/Recipes/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          OKHttp Recipes
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2017/03/18/okhttp/calls/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">OKHttp的调用</div>
-    </a>
-  
-</nav>
-
   
 </article>
 
@@ -262,7 +215,7 @@ var _hmt = _hmt || [];
 <script>
   var disqus_shortname = 'jabfor';
   
-  var disqus_url = 'https://mashuai.github.io/2017/03/18/okhttp/connections/';
+  var disqus_url = 'https://mashuai.github.io/projects/index.html';
   
   (function(){
     var dsq = document.createElement('script');
