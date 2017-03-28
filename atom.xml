@@ -1,146 +1,54 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
   <title>Mashuai&#39;s Notes</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Mashuai's Notes">
-<meta property="og:url" content="https://mashuai.github.io/index.html">
-<meta property="og:site_name" content="Mashuai's Notes">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mashuai's Notes">
   
-    <link rel="alternative" href="/atom.xml" title="Mashuai&#39;s Notes" type="application/atom+xml">
+  <link href="/atom.xml" rel="self"/>
   
+  <link href="https://mashuai.github.io/"/>
+  <updated>2017-03-28T02:39:09.249Z</updated>
+  <id>https://mashuai.github.io/</id>
   
-    <link rel="icon" href="/favicon.png">
-  
-  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="/css/style.css">
-  
-
-  
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-      google_ad_client: "ca-pub-2889123346235419",
-      enable_page_level_ads: true
-    });
-  </script>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?1cf66cb20b7f58505ec9ca2e88537f6e";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
-</head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Mashuai&#39;s Notes</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://mashuai.github.io"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-cup-load-high" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/25/cup-load-high/" class="article-date">
-  <time datetime="2017-03-25T03:20:26.000Z" itemprop="datePublished">2017-03-25</time>
-</a>
+  <author>
+    <name>mashuai</name>
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+  </author>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/25/cup-load-high/">Linux 如何查找Java 程序CPU负载过高</a>
-    </h1>
+  <generator uri="http://hexo.io/">Hexo</generator>
   
-
-      </header>
+  <entry>
+    <title>Linux 如何查找Java 程序CPU负载过高</title>
+    <link href="https://mashuai.github.io/2017/03/25/cup-load-high/"/>
+    <id>https://mashuai.github.io/2017/03/25/cup-load-high/</id>
+    <published>2017-03-25T03:20:26.000Z</published>
+    <updated>2017-03-28T02:39:09.249Z</updated>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&emsp;&emsp;准备程序：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">package test;</div><div class="line"></div><div class="line">public class Test&#123;</div><div class="line">    public static void main(String[] args)&#123;</div><div class="line">        new Thread(new Runnable()&#123;</div><div class="line">            public void run()&#123;</div><div class="line">                while(true)&#123;</div><div class="line"></div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;).start();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+    <content type="html"><![CDATA[<p>&emsp;&emsp;准备程序：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">package test;</div><div class="line"></div><div class="line">public class Test&#123;</div><div class="line">    public static void main(String[] args)&#123;</div><div class="line">        new Thread(new Runnable()&#123;</div><div class="line">            public void run()&#123;</div><div class="line">                while(true)&#123;</div><div class="line"></div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;).start();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>&emsp;&emsp;其中一个线程回导致一直占用CPU，编译运行。通过<code>top</code> 获取CPU占用信息<br><img src="https://raw.githubusercontent.com/mashuai/hexo-blog/master/images/top.png" alt="top cpu"><br>可以看到占用最高的 pid是 25955<br>通过<code>top -p 25955 -H</code> 获取进程内部线程的CPU使用率。<br><img src="https://raw.githubusercontent.com/mashuai/hexo-blog/master/images/tophp.png" alt="topph"><br>可以发现占用最高的线程ID是 <code>25965</code> 将其转换为16进制<code>python -c &#39;print hex(25965)&#39;</code> 得到的值是<code>0x656d</code><br>使用 <code>jstack -l 25955 &gt; jstack.log</code> 得到Java进程的Thread dump，通过 <code>grep -i 0x656d -A 30 jstack.log</code> 获取Java Thread id为0x656d的线程的thread dump。<br><img src="https://raw.githubusercontent.com/mashuai/hexo-blog/master/images/jstack.png" alt="jstack"><br>然后就可以定位相应代码查找代码占用CPU过高问题。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/03/25/cup-load-high/" data-id="cj0t3jcwz0007e7r8fi3zja0i" class="article-share-link">Share</a>
-      
-        <a href="https://mashuai.github.io/2017/03/25/cup-load-high/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CPU/">CPU</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Git分支" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/24/Git分支/" class="article-date">
-  <time datetime="2017-03-24T03:32:02.000Z" itemprop="datePublished">2017-03-24</time>
-</a>
+]]></content>
     
-  </div>
-  <div class="article-inner">
+    <summary type="html">
+    
+      &lt;p&gt;&amp;emsp;&amp;emsp;准备程序：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div
+    
+    </summary>
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/24/Git分支/">Git - 分支管理</a>
-    </h1>
-  
-
-      </header>
+      <category term="CPU" scheme="https://mashuai.github.io/tags/CPU/"/>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="分支概要-Nutshell"><a href="#分支概要-Nutshell" class="headerlink" title="分支概要(Nutshell)"></a>分支概要(Nutshell)</h3><p>&emsp;&emsp; 几乎每个版本管理系统（<em>VCS</em>）都对分支有一些支持。分支就是从开发的主线分开，在其他地方继续开发，这样不至于和主线的开发产生混乱。在大多的VCS工具里，分支管理是一个复杂的流程，经常需要你为源代码目录创建一份拷贝，对于一些大型项目这会花费大量时间。</p>
+      <category term="Java" scheme="https://mashuai.github.io/tags/Java/"/>
+    
+      <category term="Linux" scheme="https://mashuai.github.io/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Git - 分支管理</title>
+    <link href="https://mashuai.github.io/2017/03/24/Git%E5%88%86%E6%94%AF/"/>
+    <id>https://mashuai.github.io/2017/03/24/Git分支/</id>
+    <published>2017-03-24T03:32:02.000Z</published>
+    <updated>2017-03-27T11:34:00.898Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="分支概要-Nutshell"><a href="#分支概要-Nutshell" class="headerlink" title="分支概要(Nutshell)"></a>分支概要(Nutshell)</h3><p>&emsp;&emsp; 几乎每个版本管理系统（<em>VCS</em>）都对分支有一些支持。分支就是从开发的主线分开，在其他地方继续开发，这样不至于和主线的开发产生混乱。在大多的VCS工具里，分支管理是一个复杂的流程，经常需要你为源代码目录创建一份拷贝，对于一些大型项目这会花费大量时间。</p>
 <p>&emsp;&emsp; 真正理解分支首先需要明白<strong>Git</strong>是如何存储数据的：<strong>Git</strong>不会储存不同的或变化的点，而是保存一个快照（snapshot）。</p>
 <p>&emsp;&emsp; 当你提交一个commit，<strong>Git</strong>会存储一个commit对象，这个对象包含：</p>
 <ul>
@@ -161,47 +69,29 @@ var _hmt = _hmt || [];
 <p>&emsp;&emsp; 如果文件做了变动，再次提交，这次提交会存储一个指向上一次提交的引用</p>
 <p><img src="https://git-scm.com/book/en/v2/images/commits-and-parents.png" alt="Interceptors"></p>
 <p>&emsp;&emsp; <strong>Git</strong>的分支就是一个的简单的、轻量的、可移动的、指向这些个commit的引用。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/03/24/Git分支/" data-id="cj0t3jcwy0005e7r8ceugr7am" class="article-share-link">Share</a>
-      
-        <a href="https://mashuai.github.io/2017/03/24/Git分支/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git分支/">Git分支</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-okhttp/https" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/23/okhttp/https/" class="article-date">
-  <time datetime="2017-03-23T05:32:29.000Z" itemprop="datePublished">2017-03-23</time>
-</a>
+]]></content>
     
-  </div>
-  <div class="article-inner">
+    <summary type="html">
+    
+      &lt;h3 id=&quot;分支概要-Nutshell&quot;&gt;&lt;a href=&quot;#分支概要-Nutshell&quot; class=&quot;headerlink&quot; title=&quot;分支概要(Nutshell)&quot;&gt;&lt;/a&gt;分支概要(Nutshell)&lt;/h3&gt;&lt;p&gt;&amp;emsp;&amp;emsp; 几乎每个版本管理系统（
+    
+    </summary>
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/23/okhttp/https/">OKHttp https</a>
-    </h1>
-  
-
-      </header>
+      <category term="Git" scheme="https://mashuai.github.io/tags/Git/"/>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://github.com/square/okhttp/wiki/HTTPS" target="_blank" rel="external">原文链接</a></p>
+      <category term="Git分支" scheme="https://mashuai.github.io/tags/Git%E5%88%86%E6%94%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>OKHttp https</title>
+    <link href="https://mashuai.github.io/2017/03/23/okhttp/https/"/>
+    <id>https://mashuai.github.io/2017/03/23/okhttp/https/</id>
+    <published>2017-03-23T05:32:29.000Z</published>
+    <updated>2017-03-24T03:21:06.334Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://github.com/square/okhttp/wiki/HTTPS" target="_blank" rel="external">原文链接</a></p>
 <p>&emsp;&emsp;OKHttp尝试平衡两个相互矛盾的内容：</p>
 <ul>
 <li>连接尽可能多的主机。包括使用<a href="https://boringssl.googlesource.com/boringssl/" target="_blank" rel="external">boringssl</a>的高级的主机和一些使用<a href="https://www.openssl.org/" target="_blank" rel="external">openssl</a>的过时的主机。</li>
@@ -216,47 +106,34 @@ var _hmt = _hmt || [];
 <p>&emsp;&emsp;默认OKHttp会尝试使用<code>MODERN_TLS</code>连接，如果现代配置失败，回到使用<code>COMPATIBLE_TLS</code>配置。<br>&emsp;&emsp;TLS版本和密码套件在任一一个发布版本的人一个规范中都可能改变。例如，在OKHttp2.2，因为<a href="http://googleonlinesecurity.blogspot.ca/2014/10/this-poodle-bites-exploiting-ssl-30.html" target="_blank" rel="external">POODLE</a>攻击就移除了SSL 3.0的支持。在OKHttp 3.0，移除了<a href="http://en.wikipedia.org/wiki/RC4#Security" target="_blank" rel="external">RC4</a>的支持。同桌面浏览器一样，使用罪行的OKHttp版本可以获得最好的安全保障。<br>&emsp;&emsp;也可以根据一组定制的TLS 版本和密码套件构建自己的规范。例如，下面这个配置要求使用三组高强度的密码套件。它的缺点就是必须是Android5.0+或者是最新的浏览器。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">ConnectionSpec spec = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)  </div><div class="line">    .tlsVersions(TlsVersion.TLS_1_2)</div><div class="line">    .cipherSuites(</div><div class="line">          CipherSuite.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,</div><div class="line">          CipherSuite.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,</div><div class="line">          CipherSuite.TLS_DHE_RSA_WITH_AES_128_GCM_SHA256)</div><div class="line">    .build();</div><div class="line"></div><div class="line">OkHttpClient client = new OkHttpClient.Builder() </div><div class="line">    .connectionSpecs(Collections.singletonList(spec))</div><div class="line">    .build();</div></pre></td></tr></table></figure></p>
 <h4 id="证书锁定"><a href="#证书锁定" class="headerlink" title="证书锁定"></a>证书锁定</h4><p>&emsp;&emsp;默认情况下OKHttp信任主机平台的证书颁发机构。这个策略可以最大化连接，但是也有可能收到权威证书攻击，例如<a href="http://www.computerworld.com/article/2510951/cybercrime-hacking/hackers-spied-on-300-000-iranians-using-fake-google-certificate.html" target="_blank" rel="external">2011 DigiNotar attack</a>。同样也假设你的证书是权威机构颁发的。<br>&emsp;&emsp;使用<a href="http://square.github.io/okhttp/3.x/okhttp/okhttp3/CertificatePinner.html" target="_blank" rel="external">CertificatePinner</a>限制了哪些证书和证书颁发机构值得信任。使用证书锁定可以提高安全性，但是限制了服务端团队升级他们的TLS证书。<strong>在没的到服务端团队的许可的时候不要使用证书锁定</strong>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">public CertificatePinning() &#123;</div><div class="line">  client = new OkHttpClient.Builder()</div><div class="line">      .certificatePinner(new CertificatePinner.Builder()</div><div class="line">          .add(&quot;publicobject.com&quot;, &quot;sha256/afwiKY3RxoMmLkuRW1l7QsPZTJPwDS2pdDROQjXw8ig=&quot;)</div><div class="line">          .build())</div><div class="line">      .build();</div><div class="line">&#125;</div><div class="line"></div><div class="line">public void run() throws Exception &#123;</div><div class="line">  Request request = new Request.Builder()</div><div class="line">      .url(&quot;https://publicobject.com/robots.txt&quot;)</div><div class="line">      .build();</div><div class="line"></div><div class="line">  Response response = client.newCall(request).execute();</div><div class="line">  if (!response.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response);</div><div class="line"></div><div class="line">  for (Certificate certificate : response.handshake().peerCertificates()) &#123;</div><div class="line">    System.out.println(CertificatePinner.pin(certificate));</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h4 id="定制信任证书"><a href="#定制信任证书" class="headerlink" title="定制信任证书"></a>定制信任证书</h4><p>&emsp;&emsp;下面所有的代码展示了如何使用你自己的配置代替服务端的证书配置。正如上述所言，<em>*在没的到服务端团队的许可的时候不要使用定制证书</em>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">private final OkHttpClient client;</div><div class="line"></div><div class="line">public CustomTrust() &#123;</div><div class="line">  SSLContext sslContext = sslContextForTrustedCertificates(trustedCertificatesInputStream());</div><div class="line">  client = new OkHttpClient.Builder()</div><div class="line">      .sslSocketFactory(sslContext.getSocketFactory())</div><div class="line">      .build();</div><div class="line">&#125;</div><div class="line"></div><div class="line">public void run() throws Exception &#123;</div><div class="line">  Request request = new Request.Builder()</div><div class="line">      .url(&quot;https://publicobject.com/helloworld.txt&quot;)</div><div class="line">      .build();</div><div class="line"></div><div class="line">  Response response = client.newCall(request).execute();</div><div class="line">  System.out.println(response.body().string());</div><div class="line">&#125;</div><div class="line"></div><div class="line">private InputStream trustedCertificatesInputStream() &#123;</div><div class="line">  ... // Full source omitted. See sample.</div><div class="line">&#125;</div><div class="line"></div><div class="line">public SSLContext sslContextForTrustedCertificates(InputStream in) &#123;</div><div class="line">  ... // Full source omitted. See sample.</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/03/23/okhttp/https/" data-id="cj0t3jcyq001le7r8lxt2tqbu" class="article-share-link">Share</a>
-      
-        <a href="https://mashuai.github.io/2017/03/23/okhttp/https/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OKHttp/">OKHttp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-mybatis/mybatis-started" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/21/mybatis/mybatis-started/" class="article-date">
-  <time datetime="2017-03-21T03:58:14.000Z" itemprop="datePublished">2017-03-21</time>
-</a>
+]]></content>
     
-  </div>
-  <div class="article-inner">
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://github.com/square/okhttp/wiki/HTTPS&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;原文链接&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&amp;emsp;&amp;emsp;OKHttp尝试平衡两个相互矛盾的内容：&lt;/p&gt;
+    
+    </summary>
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/21/mybatis/mybatis-started/">mybatis 入门</a>
-    </h1>
-  
-
-      </header>
+      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://www.mybatis.org/mybatis-3/getting-started.html" target="_blank" rel="external">原文链接</a></p>
+      <category term="Java" scheme="https://mashuai.github.io/tags/Java/"/>
+    
+      <category term="HTTP" scheme="https://mashuai.github.io/tags/HTTP/"/>
+    
+      <category term="OKHttp" scheme="https://mashuai.github.io/tags/OKHttp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mybatis 入门</title>
+    <link href="https://mashuai.github.io/2017/03/21/mybatis/mybatis-started/"/>
+    <id>https://mashuai.github.io/2017/03/21/mybatis/mybatis-started/</id>
+    <published>2017-03-21T03:58:14.000Z</published>
+    <updated>2017-03-21T06:17:08.756Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="http://www.mybatis.org/mybatis-3/getting-started.html" target="_blank" rel="external">原文链接</a></p>
 <h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>&emsp;&emsp;使用Mybatis只需要将<a href="https://github.com/mybatis/mybatis-3/releases" target="_blank" rel="external">mybatis-x.x.x.jar</a>添加到类路径即可。<br>&emsp;&emsp;如果使用maven只需要将下列代码添加到pom.xml中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.mybatis&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;mybatis&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;x.x.x&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure></p>
 <h4 id="根据XML配置构建SqlSessionFactory"><a href="#根据XML配置构建SqlSessionFactory" class="headerlink" title="根据XML配置构建SqlSessionFactory"></a>根据XML配置构建SqlSessionFactory</h4><p>&emsp;&emsp;每一个Mybatis应用都围绕SqlSessionFactory展开。一个SqlSessionFactory实例由SqlSessionFactoryBuilder创建。SqlSessionFacotryBuilder可以通过XML的配置文件或者一个配置好的Configuration类来创建SqlSessionFactory。<br>&emsp;&emsp;根据XML配置来构建SqlSessionFacotry非常的简单。推荐使用在类路径来配置，但是同样可以使用任何的InputStream实例，包括一个普通的文件路径或者是file:// 的URL。Mybatis有一个叫<code>Resource</code>的工具函数，可以很容易的从类路径或者其他文件路径加载资源。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">String resource = &quot;org/mybatis/example/mybatis-config.xml&quot;;</div><div class="line">InputStream inputStream = Resources.getResourceAsStream(resource);</div><div class="line">SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);</div></pre></td></tr></table></figure></p>
 <p>&emsp;&emsp;XML配置文件包含了Mybatis的核心设置，包括对应数据库连接的数据源，同样还有一个事务管理器来决定事务的范围和控制。完整的XML配置稍后会在文档中列出，下面是一个示例配置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</div><div class="line">&lt;!DOCTYPE configuration</div><div class="line">  PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;</div><div class="line">  &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;</div><div class="line">&lt;configuration&gt;</div><div class="line">  &lt;environments default=&quot;development&quot;&gt;</div><div class="line">    &lt;environment id=&quot;development&quot;&gt;</div><div class="line">      &lt;transactionManager type=&quot;JDBC&quot;/&gt;</div><div class="line">      &lt;dataSource type=&quot;POOLED&quot;&gt;</div><div class="line">        &lt;property name=&quot;driver&quot; value=&quot;$&#123;driver&#125;&quot;/&gt;</div><div class="line">        &lt;property name=&quot;url&quot; value=&quot;$&#123;url&#125;&quot;/&gt;</div><div class="line">        &lt;property name=&quot;username&quot; value=&quot;$&#123;username&#125;&quot;/&gt;</div><div class="line">        &lt;property name=&quot;password&quot; value=&quot;$&#123;password&#125;&quot;/&gt;</div><div class="line">      &lt;/dataSource&gt;</div><div class="line">    &lt;/environment&gt;</div><div class="line">  &lt;/environments&gt;</div><div class="line">  &lt;mappers&gt;</div><div class="line">    &lt;mapper resource=&quot;org/mybatis/example/BlogMapper.xml&quot;/&gt;</div><div class="line">  &lt;/mappers&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure></p>
@@ -288,47 +165,32 @@ var _hmt = _hmt || [];
 <h5 id="SqlSession"><a href="#SqlSession" class="headerlink" title="SqlSession"></a>SqlSession</h5><p>&emsp;&emsp;每个线程都应该有自己的SqlSession。SqlSession的示例不能分享且非线程安全。因此最好的作用域是请求作用域和方法作用域。永远不要在静态域或者类实例中引用SqlSession。永远不要将SqlSession放到managed 作用域中，例如Servlet框架的HttpSession。如果使用的是web框架，可以将其放到HTTP 请求的作用域中。换句话说就是，接收到HTTP请求的时候可以打开SqlSesslion连接，响应的时候关闭。关闭SqlSession非常的重要，永远记得将其放在finally块中来关闭他。下面这个例子就是确保在finally中关闭SqlSesslion<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">SqlSession session = sqlSessionFactory.openSession();</div><div class="line">try &#123;</div><div class="line">  // do work</div><div class="line">&#125; finally &#123;</div><div class="line">  session.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>&emsp;&emsp;使用这个模式可以保证你的代码关闭了数据库的连接。</p>
 <h5 id="Mapper-Instances"><a href="#Mapper-Instances" class="headerlink" title="Mapper Instances"></a>Mapper Instances</h5><p>&emsp;&emsp;Mappers是你创建用来绑定映射语句的接口。每一个mapper实例都从SqlSession中获取。因此mapper的作用域和获取他们的SqlSession的作用域是一样的。然而mapper最好的租用与是方法作用域。他们应该在一个方法使用时创建，方法结束时丢弃。他们不需要显示的关闭。和SqlSession相同，将它们放到请求作用域中也是没问题的，但是在这个层次上处理如此多的资源会很棘手。所以就简单一点，把mapper实例放到方法作用域中，下面这个例子解释了如何使用他<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">SqlSession session = sqlSessionFactory.openSession();</div><div class="line">try &#123;</div><div class="line">  BlogMapper mapper = session.getMapper(BlogMapper.class);</div><div class="line">  // do work</div><div class="line">&#125; finally &#123;</div><div class="line">  session.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/03/21/mybatis/mybatis-started/" data-id="cj0t3jcyx001pe7r8iz2iuo6u" class="article-share-link">Share</a>
-      
-        <a href="https://mashuai.github.io/2017/03/21/mybatis/mybatis-started/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mybatis/">Mybatis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-okhttp/interceptors" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/19/okhttp/interceptors/" class="article-date">
-  <time datetime="2017-03-19T07:47:42.000Z" itemprop="datePublished">2017-03-19</time>
-</a>
+]]></content>
     
-  </div>
-  <div class="article-inner">
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;http://www.mybatis.org/mybatis-3/getting-started.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;原文链接&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; cla
+    
+    </summary>
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/19/okhttp/interceptors/">OKHttp 拦截器</a>
-    </h1>
-  
-
-      </header>
+      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://github.com/square/okhttp/wiki/Interceptors" target="_blank" rel="external">原文地址</a><br>&emsp;&emsp;拦截器是一种监控，重写，重试请求的强大机制。下面这个例子是一个记录出发出请求和接受响应的简单的拦截器的例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">class LoggingInterceptor implements Interceptor &#123;</div><div class="line">  @Override public Response intercept(Interceptor.Chain chain) throws IOException &#123;</div><div class="line">    Request request = chain.request();</div><div class="line"></div><div class="line">    long t1 = System.nanoTime();</div><div class="line">    logger.info(String.format(&quot;Sending request %s on %s%n%s&quot;,</div><div class="line">        request.url(), chain.connection(), request.headers()));</div><div class="line"></div><div class="line">    Response response = chain.proceed(request);</div><div class="line"></div><div class="line">    long t2 = System.nanoTime();</div><div class="line">    logger.info(String.format(&quot;Received response for %s in %.1fms%n%s&quot;,</div><div class="line">        response.request().url(), (t2 - t1) / 1e6d, response.headers()));</div><div class="line"></div><div class="line">    return response;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+      <category term="Java" scheme="https://mashuai.github.io/tags/Java/"/>
+    
+      <category term="Mybatis" scheme="https://mashuai.github.io/tags/Mybatis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>OKHttp 拦截器</title>
+    <link href="https://mashuai.github.io/2017/03/19/okhttp/interceptors/"/>
+    <id>https://mashuai.github.io/2017/03/19/okhttp/interceptors/</id>
+    <published>2017-03-19T07:47:42.000Z</published>
+    <updated>2017-03-21T11:39:28.350Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://github.com/square/okhttp/wiki/Interceptors" target="_blank" rel="external">原文地址</a><br>&emsp;&emsp;拦截器是一种监控，重写，重试请求的强大机制。下面这个例子是一个记录出发出请求和接受响应的简单的拦截器的例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">class LoggingInterceptor implements Interceptor &#123;</div><div class="line">  @Override public Response intercept(Interceptor.Chain chain) throws IOException &#123;</div><div class="line">    Request request = chain.request();</div><div class="line"></div><div class="line">    long t1 = System.nanoTime();</div><div class="line">    logger.info(String.format(&quot;Sending request %s on %s%n%s&quot;,</div><div class="line">        request.url(), chain.connection(), request.headers()));</div><div class="line"></div><div class="line">    Response response = chain.proceed(request);</div><div class="line"></div><div class="line">    long t2 = System.nanoTime();</div><div class="line">    logger.info(String.format(&quot;Received response for %s in %.1fms%n%s&quot;,</div><div class="line">        response.request().url(), (t2 - t1) / 1e6d, response.headers()));</div><div class="line"></div><div class="line">    return response;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>&emsp;&emsp;调用<code>chain.proceed(request)</code>是每个拦截器最重要的实现。这个看起来简单的方法是所有HTTP工作的地方，也是对请求响应的地方。<br>&emsp;&emsp;拦截器可以链式调用。假设你有一个压缩的拦截器和一个校验和的拦截器：你要先确定是先压缩再校验，还是先校验再压缩。OKHTTP使用列表跟踪拦截器，而且拦截器是顺序取消的。<br><img src="https://raw.githubusercontent.com/wiki/square/okhttp/interceptors@2x.png" alt="Interceptors"></p>
 <h4 id="应用拦截器"><a href="#应用拦截器" class="headerlink" title="应用拦截器"></a>应用拦截器</h4><p>&emsp;&emsp;拦截器注册为应用拦截器或者网络拦截器。我们将使用上面定义的<code>LoggingInterceptor</code>来展示这两者的不同。<br>&emsp;&emsp;通过调用<code>OkHttpClient.Builder</code>的<code>addInterceptor()</code>来注册一个应用拦截器。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">OkHttpClient client = new OkHttpClient.Builder()</div><div class="line">    .addInterceptor(new LoggingInterceptor())</div><div class="line">    .build();</div><div class="line"></div><div class="line">Request request = new Request.Builder()</div><div class="line">    .url(&quot;http://www.publicobject.com/helloworld.txt&quot;)</div><div class="line">    .header(&quot;User-Agent&quot;, &quot;OkHttp Example&quot;)</div><div class="line">    .build();</div><div class="line"></div><div class="line">Response response = client.newCall(request).execute();</div><div class="line">response.body().close();</div></pre></td></tr></table></figure></p>
 <p>&emsp;&emsp;链接<code>http://www.publicobject.com/helloworld.txt</code>重定向到链接<code>http://www.publicobject.com/helloworld.txt</code>,OKHttp回自动重定向。应用拦截器只会被调用一次。<code>chain.proceed()</code>返回的响应是重定向之后的响应。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">INFO: Sending request http://www.publicobject.com/helloworld.txt on null</div><div class="line">User-Agent: OkHttp Example</div><div class="line"></div><div class="line">INFO: Received response for https://publicobject.com/helloworld.txt in 1179.7ms</div><div class="line">Server: nginx/1.4.6 (Ubuntu)</div><div class="line">Content-Type: text/plain</div><div class="line">Content-Length: 1759</div><div class="line">Connection: keep-alive</div></pre></td></tr></table></figure></p>
@@ -352,47 +214,33 @@ var _hmt = _hmt || [];
 <h4 id="重写响应"><a href="#重写响应" class="headerlink" title="重写响应"></a>重写响应</h4><p>&emsp;&emsp;同样拦截器也可以重写响应，转化请求体。通常这样做比重写请求头更危险，因为这样做可能返回的并不是服务器预期值。<br>&emsp;&emsp;如果你处在一个比较棘手的场景，并且准备处理后果，重写响应头就是一个很好的方式处理这类问题。例如：可以修复服务器未配置的<code>Cache-Control</code>来获取更好的缓存响应配置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">/** Dangerous interceptor that rewrites the server&apos;s cache-control header. */</div><div class="line">private static final Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = new Interceptor() &#123;</div><div class="line">  @Override public Response intercept(Interceptor.Chain chain) throws IOException &#123;</div><div class="line">    Response originalResponse = chain.proceed(chain.request());</div><div class="line">    return originalResponse.newBuilder()</div><div class="line">        .header(&quot;Cache-Control&quot;, &quot;max-age=60&quot;)</div><div class="line">        .build();</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
 <p>&emsp;&emsp;通常为了补充服务器相应的修复，这个方法是最好的。</p>
 <h4 id="那些可以使用拦截器"><a href="#那些可以使用拦截器" class="headerlink" title="那些可以使用拦截器"></a>那些可以使用拦截器</h4><p>&emsp;&emsp;使用拦截器要求OKHttp 2.0即以上。不行的是拦截器不可以和<code>OkUrlFactory</code>，或者依赖于他的库同时使用，包括<a href="http://square.github.io/retrofit/" target="_blank" rel="external">Retrofit</a>1.8以下，<a href="http://square.github.io/picasso/" target="_blank" rel="external">Picasso</a>2.4以下。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/03/19/okhttp/interceptors/" data-id="cj0t3jcyt001oe7r8nk529ca6" class="article-share-link">Share</a>
-      
-        <a href="https://mashuai.github.io/2017/03/19/okhttp/interceptors/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OKHttp/">OKHttp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-okhttp/Recipes" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/18/okhttp/Recipes/" class="article-date">
-  <time datetime="2017-03-18T11:44:10.000Z" itemprop="datePublished">2017-03-18</time>
-</a>
+]]></content>
     
-  </div>
-  <div class="article-inner">
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://github.com/square/okhttp/wiki/Interceptors&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;原文地址&lt;/a&gt;&lt;br&gt;&amp;emsp;&amp;emsp;拦截器是一种监控，重写，重试请求的强大机制
+    
+    </summary>
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/18/okhttp/Recipes/">OKHttp Recipes</a>
-    </h1>
-  
-
-      </header>
+      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://github.com/square/okhttp/wiki/Recipes" target="_blank" rel="external">原文地址</a><br>&emsp;&emsp;我们写了一些建议，来演示如何使用OKHttp来解决一些常见问题。</p>
+      <category term="Java" scheme="https://mashuai.github.io/tags/Java/"/>
+    
+      <category term="HTTP" scheme="https://mashuai.github.io/tags/HTTP/"/>
+    
+      <category term="OKHttp" scheme="https://mashuai.github.io/tags/OKHttp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>OKHttp Recipes</title>
+    <link href="https://mashuai.github.io/2017/03/18/okhttp/Recipes/"/>
+    <id>https://mashuai.github.io/2017/03/18/okhttp/Recipes/</id>
+    <published>2017-03-18T11:44:10.000Z</published>
+    <updated>2017-03-21T02:20:32.567Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://github.com/square/okhttp/wiki/Recipes" target="_blank" rel="external">原文地址</a><br>&emsp;&emsp;我们写了一些建议，来演示如何使用OKHttp来解决一些常见问题。</p>
 <h4 id="同步GET"><a href="#同步GET" class="headerlink" title="同步GET"></a>同步GET</h4><p>&emsp;&emsp;下载文件，打印header，打印body。<br>&emsp;&emsp;<code>string()</code>方法对于小文档的响应来说是个既方便有高效的方法。但是如果一个文档太大（大于1M），就不要使用<code>string()</code>方法了，以为他会把整个文档加载到内存中,在这种情况下可以把body当作流来处理。  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">private final OkHttpClient client = new OkHttpClient();</div><div class="line">public void run() throws Exception &#123;</div><div class="line">Request request = new Request.Builder()</div><div class="line">    .url(&quot;http://publicobject.com/helloworld.txt&quot;)</div><div class="line">    .build();</div><div class="line"></div><div class="line">Response response = client.newCall(request).execute();</div><div class="line">if (!response.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response);</div><div class="line"></div><div class="line">Headers responseHeaders = response.headers();</div><div class="line">for (int i = 0; i &lt; responseHeaders.size(); i++) &#123;</div><div class="line">System.out.println(responseHeaders.name(i) + &quot;: &quot; + responseHeaders.value(i));</div><div class="line">&#125;</div><div class="line">System.out.println(response.body().string());</div></pre></td></tr></table></figure>
 <h4 id="异步GET"><a href="#异步GET" class="headerlink" title="异步GET"></a>异步GET</h4><p> &emsp;&emsp;在工作线程下载文件，响应可读后回调。在响应的header准备好的时候回调。响应体可能仍然阻塞。现在OKHttp没有提供获取响应体的异步API。</p>
@@ -424,47 +272,33 @@ var _hmt = _hmt || [];
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">private final OkHttpClient client = new OkHttpClient();</div><div class="line"></div><div class="line">public void run() throws Exception &#123;</div><div class="line">Request request = new Request.Builder()</div><div class="line">    .url(&quot;http://httpbin.org/delay/1&quot;) // This URL is served with a 1 second delay.</div><div class="line">    .build();</div><div class="line"></div><div class="line">try &#123;</div><div class="line">    // Copy to customize OkHttp for this request.</div><div class="line">    OkHttpClient copy = client.newBuilder()</div><div class="line">        .readTimeout(500, TimeUnit.MILLISECONDS)</div><div class="line">        .build();</div><div class="line"></div><div class="line">    Response response = copy.newCall(request).execute();</div><div class="line">    System.out.println(&quot;Response 1 succeeded: &quot; + response);</div><div class="line">&#125; catch (IOException e) &#123;</div><div class="line">    System.out.println(&quot;Response 1 failed: &quot; + e);</div><div class="line">&#125;</div><div class="line"></div><div class="line">try &#123;</div><div class="line">    // Copy to customize OkHttp for this request.</div><div class="line">    OkHttpClient copy = client.newBuilder()</div><div class="line">        .readTimeout(3000, TimeUnit.MILLISECONDS)</div><div class="line">        .build();</div><div class="line"></div><div class="line">    Response response = copy.newCall(request).execute();</div><div class="line">    System.out.println(&quot;Response 2 succeeded: &quot; + response);</div><div class="line">&#125; catch (IOException e) &#123;</div><div class="line">    System.out.println(&quot;Response 2 failed: &quot; + e);</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h4 id="处理认证"><a href="#处理认证" class="headerlink" title="处理认证"></a>处理认证</h4><p> &emsp;&emsp;OKHttp会自动重试认证请求。当响应是<code>401 Not Authorized</code>,<code>Authenticator</code>需要用来提供凭证。将会重新实现一个带有凭证的请求，如果没有凭证可用跳过重试，返回null。<br> &emsp;&emsp;使用<code>Response.challenges()</code>来获取任何认证口令的方案和域。当使用<code>Basic</code>认证的时候使用<code>Credentials.basic(username,password)</code>来编码一个header。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">private final OkHttpClient client;</div><div class="line"></div><div class="line">public Authenticate() &#123;</div><div class="line">client = new OkHttpClient.Builder()</div><div class="line">    .authenticator(new Authenticator() &#123;</div><div class="line">        @Override public Request authenticate(Route route, Response response) throws IOException &#123;</div><div class="line">        System.out.println(&quot;Authenticating for response: &quot; + response);</div><div class="line">        System.out.println(&quot;Challenges: &quot; + response.challenges());</div><div class="line">        String credential = Credentials.basic(&quot;jesse&quot;, &quot;password1&quot;);</div><div class="line">        return response.request().newBuilder()</div><div class="line">            .header(&quot;Authorization&quot;, credential)</div><div class="line">            .build();</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">    .build();</div><div class="line">&#125;</div><div class="line"></div><div class="line">public void run() throws Exception &#123;</div><div class="line">Request request = new Request.Builder()</div><div class="line">    .url(&quot;http://publicobject.com/secrets/hellosecret.txt&quot;)</div><div class="line">    .build();</div><div class="line"></div><div class="line">Response response = client.newCall(request).execute();</div><div class="line">if (!response.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response);</div><div class="line"></div><div class="line">System.out.println(response.body().string());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/03/18/okhttp/Recipes/" data-id="cj0t3jcyr001ne7r8ual3b8nu" class="article-share-link">Share</a>
-      
-        <a href="https://mashuai.github.io/2017/03/18/okhttp/Recipes/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OKHttp/">OKHttp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-okhttp/connections" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/18/okhttp/connections/" class="article-date">
-  <time datetime="2017-03-18T11:05:48.000Z" itemprop="datePublished">2017-03-18</time>
-</a>
+]]></content>
     
-  </div>
-  <div class="article-inner">
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://github.com/square/okhttp/wiki/Recipes&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;原文地址&lt;/a&gt;&lt;br&gt;&amp;emsp;&amp;emsp;我们写了一些建议，来演示如何使用OKHttp来解决一
+    
+    </summary>
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/18/okhttp/connections/">OKHttp connections</a>
-    </h1>
-  
-
-      </header>
+      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://github.com/square/okhttp/wiki/Connections" target="_blank" rel="external">原文地址</a><br>&emsp;&emsp;虽然只提供了URL，但是OKHttp会使用URL，Address，Route三种方式来连接服务器。</p>
+      <category term="Java" scheme="https://mashuai.github.io/tags/Java/"/>
+    
+      <category term="HTTP" scheme="https://mashuai.github.io/tags/HTTP/"/>
+    
+      <category term="OKHttp" scheme="https://mashuai.github.io/tags/OKHttp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>OKHttp connections</title>
+    <link href="https://mashuai.github.io/2017/03/18/okhttp/connections/"/>
+    <id>https://mashuai.github.io/2017/03/18/okhttp/connections/</id>
+    <published>2017-03-18T11:05:48.000Z</published>
+    <updated>2017-03-21T02:20:32.570Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://github.com/square/okhttp/wiki/Connections" target="_blank" rel="external">原文地址</a><br>&emsp;&emsp;虽然只提供了URL，但是OKHttp会使用URL，Address，Route三种方式来连接服务器。</p>
 <h4 id="URLS"><a href="#URLS" class="headerlink" title="URLS"></a>URLS</h4><p>&emsp;&emsp;URLs例如（<a href="https://github.com/square/okhttp" target="_blank" rel="external">https://github.com/square/okhttp</a>) 是HTTP和Internet的基础。除了是一个表示互联网一切的命名方案，也指定了如何访问Web资源。<br>URLs是抽象的：</p>
 <ul>
 <li>它指出，调用可以是纯文本（http）或者加密（https），但是并没有指定一种加密算法。也没有指定如何验证各个端点的证书(<a href="http://developer.android.com/reference/javax/net/ssl/HostnameVerifier.html" target="_blank" rel="external">HostnameVerifier</a>)，或者是哪个证书可信(<a href="http://developer.android.com/reference/org/apache/http/conn/ssl/SSLSocketFactory.html" target="_blank" rel="external">SSLSocketFactory</a>)</li>
@@ -481,47 +315,33 @@ var _hmt = _hmt || [];
 </ol>
 </li>
 </ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/03/18/okhttp/connections/" data-id="cj0t3jcyq001ke7r8nywzvza5" class="article-share-link">Share</a>
-      
-        <a href="https://mashuai.github.io/2017/03/18/okhttp/connections/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OKHttp/">OKHttp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-okhttp/calls" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/18/okhttp/calls/" class="article-date">
-  <time datetime="2017-03-18T07:10:03.000Z" itemprop="datePublished">2017-03-18</time>
-</a>
+]]></content>
     
-  </div>
-  <div class="article-inner">
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://github.com/square/okhttp/wiki/Connections&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;原文地址&lt;/a&gt;&lt;br&gt;&amp;emsp;&amp;emsp;虽然只提供了URL，但是OKHttp会使用U
+    
+    </summary>
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/18/okhttp/calls/">OKHttp的调用</a>
-    </h1>
-  
-
-      </header>
+      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://github.com/square/okhttp/wiki/Calls" target="_blank" rel="external">原文地址</a></p>
+      <category term="Java" scheme="https://mashuai.github.io/tags/Java/"/>
+    
+      <category term="HTTP" scheme="https://mashuai.github.io/tags/HTTP/"/>
+    
+      <category term="OKHttp" scheme="https://mashuai.github.io/tags/OKHttp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>OKHttp的调用</title>
+    <link href="https://mashuai.github.io/2017/03/18/okhttp/calls/"/>
+    <id>https://mashuai.github.io/2017/03/18/okhttp/calls/</id>
+    <published>2017-03-18T07:10:03.000Z</published>
+    <updated>2017-03-21T11:39:23.317Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://github.com/square/okhttp/wiki/Calls" target="_blank" rel="external">原文地址</a></p>
 <p>&emsp;&emsp;HTTP客户端的任务是接受请求和产生响应。理论很简单，但是实战的时候就有点棘手了。</p>
 <h4 id="Requests"><a href="#Requests" class="headerlink" title="Requests"></a>Requests</h4><p>&emsp;&emsp;每一个HTTP请求都包含一个URL，一个方法（例如，GET，POST）和一些headers。请求同时可以包含一个特定类型的数据流作为body。</p>
 <h4 id="Responses"><a href="#Responses" class="headerlink" title="Responses"></a>Responses</h4><p>&emsp;&emsp;Response 通过一个一个状态码（例如，200 成功，404未找到），headers，和一个可选的Body来响应请求。</p>
@@ -534,47 +354,34 @@ var _hmt = _hmt || [];
 <li>同步：线程将会阻塞道到响应可读。</li>
 <li>异步：将请求加入到其他线程的队列，当响应可读诗时，会在其他的线程获取回调。<br>&emsp;&emsp;请求调用可以在任何线程取消。如果调用未完成，这个请求将会失败。当调用取消时，在先请求踢体或者读响应体的代码将会跑出IOException的异常。<h5 id="调度"><a href="#调度" class="headerlink" title="调度"></a>调度</h5>&emsp;&emsp;对于同步调用，将会由自身线程控制多少并发请求。太多并发连接浪费资源，太少又回有高延迟。<br>&emsp;&emsp;对于异步来说，Dispatcher实现了最大并发的策略。可以设置没个服务器的最大并发（默认是5）和总体的并发（默认64）。</li>
 </ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/03/18/okhttp/calls/" data-id="cj0t3jcz0001se7r8z2fzcngp" class="article-share-link">Share</a>
-      
-        <a href="https://mashuai.github.io/2017/03/18/okhttp/calls/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OKHttp/">OKHttp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-为Go-Web-App-创建一个主页面" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/11/14/为Go-Web-App-创建一个主页面/" class="article-date">
-  <time datetime="2015-11-14T09:59:00.000Z" itemprop="datePublished">2015-11-14</time>
-</a>
+]]></content>
     
-  </div>
-  <div class="article-inner">
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://github.com/square/okhttp/wiki/Calls&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;原文地址&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&amp;emsp;&amp;emsp;HTTP客户端的任务是接受请求和产生响应。理论很
+    
+    </summary>
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/14/为Go-Web-App-创建一个主页面/">为Go Web App 创建一个主页面</a>
-    </h1>
-  
-
-      </header>
+      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://sanatgersappa.blogspot.com/2013/11/creating-master-page-for-your-go-web-app.html" target="_blank" rel="external">原文地址</a></p>
+      <category term="Java" scheme="https://mashuai.github.io/tags/Java/"/>
+    
+      <category term="HTTP" scheme="https://mashuai.github.io/tags/HTTP/"/>
+    
+      <category term="OKHttp" scheme="https://mashuai.github.io/tags/OKHttp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>为Go Web App 创建一个主页面</title>
+    <link href="https://mashuai.github.io/2015/11/14/%E4%B8%BAGo-Web-App-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E4%B8%BB%E9%A1%B5%E9%9D%A2/"/>
+    <id>https://mashuai.github.io/2015/11/14/为Go-Web-App-创建一个主页面/</id>
+    <published>2015-11-14T09:59:00.000Z</published>
+    <updated>2017-03-21T02:20:32.573Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="http://sanatgersappa.blogspot.com/2013/11/creating-master-page-for-your-go-web-app.html" target="_blank" rel="external">原文地址</a></p>
 <p>&emsp;&emsp; 大多数web app都有一个相同的布局。这个布局可能包含一个header或者footer，甚至可能包含一个导航菜单。Go的标准库提供一个简单的方式来创建这些基本元素，通过被不同的页面重用，创建出模板页的效果。<br>&emsp;&emsp; 这个简单的例子来解释如何实现的：<br>&emsp;&emsp; 让我们来创建一个简单的包含两个view的web app，一个是 main 一个是about。这两个view都有相同的header和footer。<br>&emsp;&emsp; header模板的代码如下：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&#123; &#123; define "header" &#125;&#125;</div><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">    &lt;head&gt;</div><div class="line">        &lt;title&gt;&#123; &#123;.Title&#125;&#125;&lt;/title&gt;</div><div class="line">        &lt;link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"&gt;</div><div class="line">        &lt;link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css"&gt;</div><div class="line">        &lt;style type="text/css"&gt;</div><div class="line">            body &#123;padding-bottom: 70px;&#125;</div><div class="line">            .content &#123;margin:10px;&#125;</div><div class="line">        &lt;/style&gt;</div><div class="line">    &lt;/head&gt;</div><div class="line">    &lt;body&gt;</div><div class="line">        &lt;nav class="navbar navbar-default" role="navigation"&gt;</div><div class="line">          &lt;div class="navbar-header"&gt;</div><div class="line">            &lt;a class="navbar-brand" href="/"&gt;Go App&lt;/a&gt;</div><div class="line">          &lt;/div&gt;</div><div class="line">          &lt;div class="collapse navbar-collapse navbar-ex1-collapse"&gt;  </div><div class="line">            &lt;ul class="nav navbar-nav"&gt;</div><div class="line">                &lt;li&gt;&lt;a href="/"&gt;Main&lt;/a&gt;&lt;/li&gt;</div><div class="line">                &lt;li&gt;&lt;a href="/about"&gt;About&lt;/a&gt;&lt;/li&gt;</div><div class="line">            &lt;/ul&gt;</div><div class="line">          &lt;/div&gt;</div><div class="line">        &lt;/nav&gt;</div><div class="line">&#123; &#123; end &#125;&#125;</div></pre></td></tr></table></figure>
 <p>&emsp;&emsp; footer模板的代码如下：</p>
@@ -587,47 +394,29 @@ var _hmt = _hmt || [];
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">package main</div><div class="line"></div><div class="line">import (</div><div class="line">    &quot;html/template&quot;</div><div class="line">    &quot;net/http&quot;</div><div class="line">)</div><div class="line"></div><div class="line">//Compile templates on start</div><div class="line">var templates = template.Must(template.ParseFiles(&quot;header.html&quot;, &quot;footer.html&quot;, &quot;main.html&quot;, &quot;about.html&quot;))</div><div class="line"></div><div class="line">//A Page structure</div><div class="line">type Page struct &#123;</div><div class="line">    Title string</div><div class="line">&#125;</div><div class="line"></div><div class="line">//Display the named template</div><div class="line">func display(w http.ResponseWriter, tmpl string, data interface&#123;&#125;) &#123;</div><div class="line">    templates.ExecuteTemplate(w, tmpl, data)</div><div class="line">&#125;</div><div class="line"></div><div class="line">//The handlers.</div><div class="line">func mainHandler(w http.ResponseWriter, r *http.Request) &#123;</div><div class="line">    display(w, &quot;main&quot;, &amp;Page&#123;Title: &quot;Home&quot;&#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">func aboutHandler(w http.ResponseWriter, r *http.Request) &#123;</div><div class="line">    display(w, &quot;about&quot;, &amp;Page&#123;Title: &quot;About&quot;&#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">func main() &#123;</div><div class="line">    http.HandleFunc(&quot;/&quot;, mainHandler)</div><div class="line">    http.HandleFunc(&quot;/about&quot;, aboutHandler)</div><div class="line"></div><div class="line">    //Listen on port 8080</div><div class="line">    http.ListenAndServe(&quot;:8080&quot;, nil)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>&emsp;&emsp; 每一个模板页都有一个 <code>{ { define &quot;name&quot; }}</code>的命令来定义模板的名字。main和about页面通过<code>{ { template &quot;name&quot; }}</code>来包含header和footer。<code>.</code> 出入上下文来命名模板。现在，不管main和about页面如何执行，他们的页面都会包含header和footer。<br>&emsp;&emsp; 两个页面的结果如下：</p>
 <p><img src="https://raw.githubusercontent.com/mashuai/hexo-blog/master/goweb/main.png" alt="main"><br><img src="https://raw.githubusercontent.com/mashuai/hexo-blog/master/goweb/about.png" alt="about">  </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2015/11/14/为Go-Web-App-创建一个主页面/" data-id="cj0t3jcxy001be7r81gt8slks" class="article-share-link">Share</a>
-      
-        <a href="https://mashuai.github.io/2015/11/14/为Go-Web-App-创建一个主页面/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go/">Go</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-http-Handler-与Go的错误处理" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/11/12/http-Handler-与Go的错误处理/" class="article-date">
-  <time datetime="2015-11-12T13:24:57.000Z" itemprop="datePublished">2015-11-12</time>
-</a>
+]]></content>
     
-  </div>
-  <div class="article-inner">
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;http://sanatgersappa.blogspot.com/2013/11/creating-master-page-for-your-go-web-app.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;原文地址&lt;/a&gt;
+    
+    </summary>
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/12/http-Handler-与Go的错误处理/">http.Handler 与Go的错误处理</a>
-    </h1>
-  
-
-      </header>
+      <category term="Go" scheme="https://mashuai.github.io/tags/Go/"/>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://elithrar.github.io/article/http-handler-error-handling-revisited/" target="_blank" rel="external">原文地址</a></p>
+      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>http.Handler 与Go的错误处理</title>
+    <link href="https://mashuai.github.io/2015/11/12/http-Handler-%E4%B8%8EGo%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"/>
+    <id>https://mashuai.github.io/2015/11/12/http-Handler-与Go的错误处理/</id>
+    <published>2015-11-12T13:24:57.000Z</published>
+    <updated>2017-03-21T02:20:32.565Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="http://elithrar.github.io/article/http-handler-error-handling-revisited/" target="_blank" rel="external">原文地址</a></p>
 <p>&emsp;&emsp; 在之前我写过一篇关于通过使用<code>http.HandlerFunc</code>来实现一个定制handler类型用来避免一些平常的错误的<a href="http://elithrar.github.io/article/custom-handlers-avoiding-globals/" target="_blank" rel="external">文章</a>。<code>func MyHandler(w http.ResponseWriter, r *http.Request)</code>的签名经常可以看到。这是一个有用的通用的包含一些基本功能的handler类型，但是和其他事情一样，也有一些不足：</p>
 <ul>
 <li>当你想要在一个handler中停止处理的时候，必须记得显示的调用一个return。这个在当你想要跑出一个从定向（301、302），未找到（404）或者服务器端错误（500）的状态的时候是很平常的。如果不这么做可能会引起一些微妙的错误（函数会继续执行），因为函数不需要一个返回值，编译器也不会警告你。</li>
@@ -651,163 +440,369 @@ var _hmt = _hmt || [];
 <p>&emsp;&emsp; main包：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">package main</div><div class="line"></div><div class="line">import (</div><div class="line">    &quot;net/http&quot;</div><div class="line">    &quot;github.com/you/somepkg/handler&quot;</div><div class="line">)</div><div class="line"></div><div class="line">func main() &#123;</div><div class="line">    db, err := sql.Open(&quot;connectionstringhere&quot;)</div><div class="line">    if err != nil &#123;</div><div class="line">          log.Fatal(err)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // Initialise our app-wide environment with the services/info we need.</div><div class="line">    env := &amp;handler.Env&#123;</div><div class="line">        DB: db,</div><div class="line">        Port: os.Getenv(&quot;PORT&quot;),</div><div class="line">        Host: os.Getenv(&quot;HOST&quot;),</div><div class="line">        // We might also have a custom log.Logger, our </div><div class="line">        // template instance, and a config struct as fields </div><div class="line">        // in our Env struct.</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // Note that we&apos;re using http.Handle, not http.HandleFunc. The </div><div class="line">    // latter only accepts the http.HandlerFunc type, which is not </div><div class="line">    // what we have here.</div><div class="line">    http.Handle(&quot;/&quot;, handler.Handler&#123;env, handler.GetIndex&#125;)</div><div class="line"></div><div class="line">    // Logs the error if ListenAndServe fails.</div><div class="line">    log.Fatal(http.ListenAndServe(&quot;:8000&quot;, nil))</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>&emsp;&emsp; 在实际使用时，会将handler和Env放入不同的包中，这里只是为了简单放在了同一个包中。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2015/11/12/http-Handler-与Go的错误处理/" data-id="cj0t3jcwq0003e7r8awgs4d9m" class="article-share-link">Share</a>
-      
-        <a href="https://mashuai.github.io/2015/11/12/http-Handler-与Go的错误处理/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go/">Go</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
-  
-</section>
-        
-          <aside id="sidebar">
-  
+]]></content>
     
-  
+    <summary type="html">
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architecture/">Architecture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CPU/">CPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git分支/">Git分支</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/">Go</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP-2/">HTTP/2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Middleware/">Middleware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OKHttp/">OKHttp</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Translate/">Translate</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">2</span></li></ul>
-    </div>
-  </div>
-
-  
+      &lt;p&gt;&lt;a href=&quot;http://elithrar.github.io/article/http-handler-error-handling-revisited/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;原文地址&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&amp;emsp;&amp;
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Ansible/" style="font-size: 12px;">Ansible</a> <a href="/tags/Architecture/" style="font-size: 10px;">Architecture</a> <a href="/tags/CPU/" style="font-size: 10px;">CPU</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Git分支/" style="font-size: 10px;">Git分支</a> <a href="/tags/Go/" style="font-size: 14px;">Go</a> <a href="/tags/HTTP/" style="font-size: 16px;">HTTP</a> <a href="/tags/HTTP-2/" style="font-size: 10px;">HTTP/2</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Middleware/" style="font-size: 10px;">Middleware</a> <a href="/tags/Mybatis/" style="font-size: 10px;">Mybatis</a> <a href="/tags/OKHttp/" style="font-size: 14px;">OKHttp</a> <a href="/tags/Translate/" style="font-size: 20px;">Translate</a> <a href="/tags/Vagrant/" style="font-size: 12px;">Vagrant</a>
-    </div>
-  </div>
-
-  
+    </summary>
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">8</span></li></ul>
-    </div>
-  </div>
-
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recents</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2017/03/25/cup-load-high/">Linux 如何查找Java 程序CPU负载过高</a>
-          </li>
-        
-          <li>
-            <a href="/2017/03/24/Git分支/">Git - 分支管理</a>
-          </li>
-        
-          <li>
-            <a href="/2017/03/23/okhttp/https/">OKHttp https</a>
-          </li>
-        
-          <li>
-            <a href="/2017/03/21/mybatis/mybatis-started/">mybatis 入门</a>
-          </li>
-        
-          <li>
-            <a href="/2017/03/19/okhttp/interceptors/">OKHttp 拦截器</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2017 mashuai<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-<script src="https://s4.cnzz.com/z_stat.php?id=1261529414&web_id=1261529414" language="JavaScript"></script>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+      <category term="Go" scheme="https://mashuai.github.io/tags/Go/"/>
     
-<script>
-  var disqus_shortname = 'jabfor';
+      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
+    
+  </entry>
   
-  (function(){
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  })();
-</script>
-
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-    <!-- ad start -->
-<!--    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- 测试广告 -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-2889123346235419"
-     data-ad-slot="8165482683"
-     data-ad-format="auto"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
- -->
-    <!-- ad end -->
-    <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-48348924-2', 'auto');
-  ga('send', 'pageview');
-
-</script>
-
-  </div>
-
-</body>
-</html>
+  <entry>
+    <title>使用Go开发HTTP中间件</title>
+    <link href="https://mashuai.github.io/2015/11/12/%E4%BD%BF%E7%94%A8Go%E5%BC%80%E5%8F%91HTTP%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    <id>https://mashuai.github.io/2015/11/12/使用Go开发HTTP中间件/</id>
+    <published>2015-11-12T04:07:49.000Z</published>
+    <updated>2017-03-21T02:20:32.574Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://justinas.org/writing-http-middleware-in-go/" target="_blank" rel="external">原文地址</a></p>
+<p>&emsp;&emsp; 再web开发的背景下，“中间件”通常意思是“包装原始应用并添加一些额外的功能的应用的一部分”。这个概念似乎总是不被人理解，但是我认为中间件非常棒。<br>&emsp;&emsp; 首先，一个好的中间件有一个责任就是可插拔并且自足。这就意味着你可以在接口级别嵌入你的中间件他就能直接运行。它不会影响你编码方式，不是框架，仅仅是你请求处理里面的一层而已。完全没必要重写你的代码，如果你想使用中间件的一个功能，你就帮他插入到那里，如果不想使用了，就可以直接移除。<br>&emsp;&emsp; 纵观Go语言，中间件是非常普遍的，即使在标准库中。虽然开始的时候不会那么明显，在标准库<code>net/http</code>中的函数<code>StripText</code>或者<code>TimeoutHandler</code>就是我们要定义和的中间件的样子，处理请求和相应的时候他们包装你的handler，并处理一些额外的步骤。<br>&emsp;&emsp; 我最近写的Go包<a href="https://github.com/justinas/nosurf" target="_blank" rel="external">nosurf</a>同样也是个中间件。我特意将他从头开始设计。在大多数情况下，你不需要在应用层担心CSRF攻击，nosurf像其他的中间件一样可以自足，并且和<code>net/http</code>的接口无缝衔接。<br>&emsp;&emsp; 同样你还可以使用中间件做：</p>
+<ul>
+<li>隐藏长度防止缓冲攻击</li>
+<li>速度限制</li>
+<li>屏蔽爬虫</li>
+<li>提供调试信息</li>
+<li>添加HSTS，X-Frame-Options头</li>
+<li>从错误中恢复</li>
+<li>等等</li>
+</ul>
+<h3 id="编写一个简单的中间件"><a href="#编写一个简单的中间件" class="headerlink" title="编写一个简单的中间件"></a>编写一个简单的中间件</h3><p>&emsp;&emsp; 我们的第一个例子是写一个只允许一个域名下的用户访问的中间件，通过HTTP的<code>HOST</code>header实现。这样的中间件可以防止<a href="http://www.skeletonscribe.net/2013/05/practical-http-host-header-attacks.html" target="_blank" rel="external">主机欺骗攻击</a>。</p>
+<h3 id="类型的机构"><a href="#类型的机构" class="headerlink" title="类型的机构"></a>类型的机构</h3><p>&emsp;&emsp; 首先我们定义一个结构体，叫做<code>SingleHost</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">type SingleHost struct &#123;</div><div class="line">    handler     http.Handler</div><div class="line">    allowedHost string</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 它只包含两个field。</p>
+<ul>
+<li>如果是一个可用的Host，那么我们会调用嵌入的handler。</li>
+<li>allowedHost 就是允许的Host。<br>&emsp;&emsp; 因为我们将其首字母小写，因此他们只对本包可见。我们需要给它定义已给构造函数。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">func NewSingleHost(handler http.Handler, allowedHost string) *SingleHost &#123;</div><div class="line">    return &amp;SingleHost&#123;handler: handler, allowedHost: allowedHost&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="请求处理"><a href="#请求处理" class="headerlink" title="请求处理"></a>请求处理</h3><p>&emsp;&emsp; 现在需要实现真正的逻辑功能了。想要实现<code>http.Handler</code>，我们只需要实现他的一个方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">type Handler interface &#123;</div><div class="line">        ServeHTTP(ResponseWriter, *Request)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 实现如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">func (s *SingleHost) ServeHTTP(w http.ResponseWriter, r *http.Request) &#123;</div><div class="line">    host := r.Host</div><div class="line">    if host == s.allowedHost &#123;</div><div class="line">        s.handler.ServeHTTP(w, r)</div><div class="line">    &#125; else &#123;</div><div class="line">        w.WriteHeader(403)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>ServeHTTP</code>只是检查请求的Host：</p>
+<ul>
+<li>如果Host和配置的allowed一直，那么调用handler的ServeHTTP。</li>
+<li>如果不一直返回403<br>&emsp;&emsp;对于后一种情况，不仅不会得到应答，设置不知道有这个请求。<br>&emsp;&emsp;现在我们已经开发哈了中间件，只需要将其插入到需要的地方。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">singleHosted = NewSingleHost(myHandler, &quot;example.com&quot;)</div><div class="line">http.ListenAndServe(&quot;:8080&quot;, singleHosted)</div></pre></td></tr></table></figure>
+<h3 id="另一种方式"><a href="#另一种方式" class="headerlink" title="另一种方式"></a>另一种方式</h3><p>&emsp;&emsp; 我们刚刚写的那个中间件很简单，它只有15行代码。写这样的中间件，可以使用样板方法。由于Go支持函数为一等公民和闭包，并且有<code>http.HandlerFunc</code>包装函数，我们可以通过他创建一个中间件，而不是将其放入到一个结构体中。下面是这个中间件的写法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">func SingleHost(handler http.Handler, allowedHost string) http.Handler &#123;</div><div class="line">    ourFunc := func(w http.ResponseWriter, r *http.Request) &#123;</div><div class="line">        host := r.Host</div><div class="line">        if host == allowedHost &#123;</div><div class="line">            handler.ServeHTTP(w, r)</div><div class="line">        &#125; else &#123;</div><div class="line">            w.WriteHeader(403)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return http.HandlerFunc(ourFunc)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp; 我们定义了一个简单的函数<code>SingleHost</code>，它包装了<code>Handler</code>和允许的Host，在其内部我们实现了一个跟上面中间件类似的功能。我们内部的函数就是一个闭包，因此他可以访问外部函数的变量。最终HandlerFunc让我们可以将其变为Handler。<br>&emsp;&emsp; 觉得是使用HandlerFunc还是自己实现一个http.Handler完全取决于你自己。对于简单的情况，一个简单的函数就完全够了。如果你的中间件越来越多，那么就可以考虑实现自己的结构并把它们分开。<br>&emsp;&emsp; 同时标准库同时使用了两种功能。<code>StripPrefix</code>使用的是HandlerFunc，TimeoutHandler使用的是自定义的结构体。</p>
+<h3 id="一个更复杂的例子"><a href="#一个更复杂的例子" class="headerlink" title="一个更复杂的例子"></a>一个更复杂的例子</h3><p>&emsp;&emsp; 我们的<code>SingleHost</code>并不重要，我们只检测一个属性，要么将他传递给其他的handler，要么直接返回。然而存在这种情况，我们的程序需要对处理完进行后续处理。</p>
+<h3 id="添加数据是简单的"><a href="#添加数据是简单的" class="headerlink" title="添加数据是简单的"></a>添加数据是简单的</h3><p>&emsp;&emsp; 如果只是想简单的添加数据，那么使用Write就可以了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">type AppendMiddleware struct &#123;</div><div class="line">    handler http.Handler</div><div class="line">&#125;</div><div class="line"></div><div class="line">func (a *AppendMiddleware) ServeHTTP(w http.ResponseWriter, r *http.Request) &#123;</div><div class="line">    a.handler.ServeHTTP(w, r)</div><div class="line">    w.Write([]byte(&quot;Middleware says hello.&quot;))</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 返回的结构肯定会包含<code>Middleware says hello.</code></p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>&emsp;&emsp; 但是操作其他的数据有点困难。例如我们想要在它前面添加数据而不是后面追加。如果我们在原Handler之前调用Write，那么将会失去控制，因为第一个Write已经将他写入了。<br>&emsp;&emsp; 通过其他方法修改原始输出，例如替换字符串，改变响应header，或者设置状态码都不会起作用，因为当handler返回的时候数据已经返回到客户端了。<br>&emsp;&emsp; 为了实现这个功能，我们需要一个特殊的ResponseWriter，他可以想buffer一样工作，收集数据，存储以备使用和修改。然后我们将这个ResponseWriter传递给handler，而不是传递真是的RW，这样在其之前我们已经修改了它了。<br>&emsp;&emsp; 幸运的是在标准库中有这样的一个工具。在<code>net/http/httptest</code>包里的ResponseRecorder能做所有我们需要的：保存状态码，一个响应header的map，将body放入byte 缓冲中。虽然它是再测试中中使用的，但是很服务我们的情况。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">type ModifierMiddleware struct &#123;</div><div class="line">    handler http.Handler</div><div class="line">&#125;</div><div class="line"></div><div class="line">func (m *ModifierMiddleware) ServeHTTP(w http.ResponseWriter, r *http.Request) &#123;</div><div class="line">    rec := httptest.NewRecorder()</div><div class="line">    // passing a ResponseRecorder instead of the original RW</div><div class="line">    m.handler.ServeHTTP(rec, r)</div><div class="line">    // after this finishes, we have the response recorded</div><div class="line">    // and can modify it before copying it to the original RW</div><div class="line"></div><div class="line">    // we copy the original headers first</div><div class="line">    for k, v := range rec.Header() &#123;</div><div class="line">        w.Header()[k] = v</div><div class="line">    &#125;</div><div class="line">    // and set an additional one</div><div class="line">    w.Header().Set(&quot;X-We-Modified-This&quot;, &quot;Yup&quot;)</div><div class="line">    // only then the status code, as this call writes out the headers </div><div class="line">    w.WriteHeader(418)</div><div class="line"></div><div class="line">    // The body hasn&apos;t been written (to the real RW) yet,</div><div class="line">    // so we can prepend some data.</div><div class="line">    data := []byte(&quot;Middleware says hello again. &quot;)</div><div class="line"></div><div class="line">    // But the Content-Length might have been set already,</div><div class="line">    // we should modify it by adding the length</div><div class="line">    // of our own data.</div><div class="line">    // Ignoring the error is fine here:</div><div class="line">    // if Content-Length is empty or otherwise invalid,</div><div class="line">    // Atoi() will return zero,</div><div class="line">    // which is just what we&apos;d want in that case.</div><div class="line">    clen, _ := strconv.Atoi(r.Header.Get(&quot;Content-Length&quot;))</div><div class="line">    clen += len(data)</div><div class="line">    r.Header.Set(&quot;Content-Length&quot;, strconv.Itoa(clen))</div><div class="line"></div><div class="line">    // finally, write out our data</div><div class="line">    w.Write(data)</div><div class="line">    // then write out the original body</div><div class="line">    w.Write(rec.Body.Bytes())</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp;最后僵尸我们中间件的输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">HTTP/1.1 418 I&apos;m a teapot</div><div class="line">X-We-Modified-This: Yup</div><div class="line">Content-Type: text/plain; charset=utf-8</div><div class="line">Content-Length: 37</div><div class="line">Date: Tue, 03 Sep 2013 18:41:39 GMT</div><div class="line"></div><div class="line">Middleware says hello again. Success!</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp;这样就开启了一种新的可能，包装的handler完全手控制。</p>
+<h3 id="和其他handler分享数据"><a href="#和其他handler分享数据" class="headerlink" title="和其他handler分享数据"></a>和其他handler分享数据</h3><p>&emsp;&emsp; 在其他例子中，中间件可能需要暴露一些信息给其他中间件或者应用本身。例如nosurf需要给其他用户访问CSRF token的权限。<br>&emsp;&emsp; 最简单是是使用一个map，但是通常不希望这样。它将http.Request 的指针作为key，其他数据作为value。下面是nosurf的例子，Go的map非线程安全，所以要自己是实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">type csrfContext struct &#123;</div><div class="line">    token string</div><div class="line">    reason error</div><div class="line">&#125;</div><div class="line"></div><div class="line">var (</div><div class="line">    contextMap = make(map[*http.Request]*csrfContext)</div><div class="line">    cmMutex    = new(sync.RWMutex)</div><div class="line">)</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 数据由Token设置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">func Token(req *http.Request) string &#123;</div><div class="line">    cmMutex.RLock()</div><div class="line">    defer cmMutex.RUnlock()</div><div class="line"></div><div class="line">    ctx, ok := contextMap[req]</div><div class="line">    if !ok &#123;</div><div class="line">            return &quot;&quot;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return ctx.token</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp;源码可以再nosurf的项目的<a href="https://github.com/justinas/nosurf/blob/master/context.go" target="_blank" rel="external">context.go</a>中找到。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://justinas.org/writing-http-middleware-in-go/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;原文地址&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&amp;emsp;&amp;emsp; 再web开发的背景下，“中间件
+    
+    </summary>
+    
+    
+      <category term="Go" scheme="https://mashuai.github.io/tags/Go/"/>
+    
+      <category term="HTTP" scheme="https://mashuai.github.io/tags/HTTP/"/>
+    
+      <category term="Middleware" scheme="https://mashuai.github.io/tags/Middleware/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HTTP/2 和GO</title>
+    <link href="https://mashuai.github.io/2015/11/12/HTTP-2-%E5%92%8CGO/"/>
+    <id>https://mashuai.github.io/2015/11/12/HTTP-2-和GO/</id>
+    <published>2015-11-12T03:39:21.000Z</published>
+    <updated>2017-03-21T02:20:32.560Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://www.ianlewis.org/en/http2-and-go" target="_blank" rel="external">原文地址</a><br>&emsp;&emsp; HTTP/2是一个添加了一些新功能的HTTP的新版本，这些功能包括连接复用，首部压缩。再Go的标准库中暂时还没有HTTP/2的实现，但是现在有很多正在开发的库可以用来在Go中实现HTTP/2的server和client。<br>&emsp;&emsp; Brad Fitzpatrick实现了一个<a href="https://godoc.org/golang.org/x/net/http2" target="_blank" rel="external">golang.org/x/net/http2</a>的库，这个库甚至最终会加入到标准库中，不过他现在正在开发，所以在其他的库中。因为他现在的开发很活跃，所有情况因人而异，但是如果你想实现HTTP/2的服务器，仍然可以使用这个库。</p>
+<h3 id="创建HTTP-2服务器"><a href="#创建HTTP-2服务器" class="headerlink" title="创建HTTP/2服务器"></a>创建HTTP/2服务器</h3><p>&emsp;&emsp; 使用http2的库写一个服务器是很简单的。http2库和标准库的http包集成在一起，需要调用<code>http2.ConfigureServer()</code>来配置一个普通http使用HTTP/2协议。如果需要通过浏览器访问或者降级到HTTP 1.x 协议，那么你需要设置TLS 加密。虽然加密不是必须的，但是现在还没有浏览器支持非加密的HTTP/2协议。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">package main</div><div class="line"></div><div class="line">import (</div><div class="line">    &quot;log&quot;</div><div class="line">    &quot;net/http&quot;</div><div class="line">    &quot;os&quot;</div><div class="line"></div><div class="line">    &quot;golang.org/x/net/http2&quot;</div><div class="line">)</div><div class="line"></div><div class="line">func main() &#123;</div><div class="line">    cwd, err := os.Getwd()</div><div class="line">    if err != nil &#123;</div><div class="line">        log.Fatal(err)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    srv := &amp;http.Server&#123;</div><div class="line">        Addr:    &quot;:8000&quot;, // Normally &quot;:443&quot;</div><div class="line">        Handler: http.FileServer(http.Dir(cwd)),</div><div class="line">    &#125;</div><div class="line">    http2.ConfigureServer(srv, &amp;http2.Server&#123;&#125;)</div><div class="line">    log.Fatal(srv.ListenAndServeTLS(&quot;server.crt&quot;, &quot;server.key&quot;))</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="创建HTTP-2-客户端"><a href="#创建HTTP-2-客户端" class="headerlink" title="创建HTTP/2 客户端"></a>创建HTTP/2 客户端</h3><p>&emsp;&emsp; 现在使用http2的库创建客户端很hacky。虽然它会输出很多调试日志，但是对于大多数情况下运行的很好。可以使用<code>http2.Transport</code>对象，将他传给<code>http</code>包的client。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">package main</div><div class="line"></div><div class="line">import (</div><div class="line">    &quot;fmt&quot;</div><div class="line">    &quot;io/ioutil&quot;</div><div class="line">    &quot;log&quot;</div><div class="line">    &quot;net/http&quot;</div><div class="line"></div><div class="line">    &quot;golang.org/x/net/http2&quot;</div><div class="line">)</div><div class="line"></div><div class="line">func main() &#123;</div><div class="line">    client := http.Client&#123;</div><div class="line">        // InsecureTLSDial is temporary and will likely be</div><div class="line">        // replaced by a different API later.</div><div class="line">        Transport: &amp;http2.Transport&#123;InsecureTLSDial: true&#125;,</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    resp, err := client.Get(&quot;https://localhost:8000/&quot;)</div><div class="line">    if err != nil &#123;</div><div class="line">        log.Fatal(err)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    body, err := ioutil.ReadAll(resp.Body)</div><div class="line">    if err != nil &#123;</div><div class="line">        log.Fatal(err)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    fmt.Println(string(body))</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="更多阅读"><a href="#更多阅读" class="headerlink" title="更多阅读"></a>更多阅读</h3><p>&emsp;&emsp; 如果你对HTTP/2协议感兴趣，那么可以参考<a href="https://http2.github.io/" target="_blank" rel="external">HTTP/2 主页</a>，这个页面有很多其他资料的连接还有其他语言的实现。<br>&emsp;&emsp; 如果你想知道HTTP/2的服务端和客户端是如何实现的，那么<a href="https://github.com/Jxck/http2" target="_blank" rel="external">Jxck’s http2 implementation</a>的实现就很值得一读。Jxck通过对标准的HTTP库的TLSNextProto设置一个钩子来实现的。你可以再这里阅读一些<a href="https://github.com/Jxck/http2/blob/master/sample/http.go" target="_blank" rel="external">示例</a>。<br>&emsp;&emsp; grpc-go 库同样也有自己的服务端和客户端的实现。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://www.ianlewis.org/en/http2-and-go&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;原文地址&lt;/a&gt;&lt;br&gt;&amp;emsp;&amp;emsp; HTTP/2是一个添加了一些新功能的HTTP的新版本，这些功
+    
+    </summary>
+    
+    
+      <category term="Go" scheme="https://mashuai.github.io/tags/Go/"/>
+    
+      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
+    
+      <category term="HTTP/2" scheme="https://mashuai.github.io/tags/HTTP-2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Go Web 架构</title>
+    <link href="https://mashuai.github.io/2015/11/10/Go-Web-%E6%9E%B6%E6%9E%84/"/>
+    <id>https://mashuai.github.io/2015/11/10/Go-Web-架构/</id>
+    <published>2015-11-10T11:01:21.000Z</published>
+    <updated>2017-03-21T02:20:32.542Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://larry-price.com/blog/2015/06/25/architecture-for-a-golang-web-app" target="_blank" rel="external">原文地址</a></p>
+<p>&emsp;&emsp; 使用Golang来创建Web项目是一件很麻烦的事情。如果你使用Rails，那么你可能不会有这个感触。我在<a href="https://www.refer-madness.com/" target="_blank" rel="external">Refer Madness</a>中使用了下面这个架构。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">-public/</div><div class="line">-views/</div><div class="line">-models/</div><div class="line">-utils/</div><div class="line">-controllers/</div><div class="line">-web/</div><div class="line">-main.go</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 我将打破这个体系，介绍各个目录的作用。在每个目录下，文件只能访问其同级或者上一级。这就意味着<code>utils</code>只能访问他自己和<code>models</code>，<code>web</code>只能访问它自己，<code>controllers</code>，<code>utils</code>，<code>models</code>。<code>models</code>只能访问它自己。我这么做是为了让层次清晰，防止出现递归依赖。现在来分析每一个目录，文件的作用。</p>
+<h4 id="main-go"><a href="#main-go" class="headerlink" title="main.go"></a>main.go</h4><p>&emsp;&emsp; <code>main.go</code>是创建依赖，获取环境变量，启动服务的主要文件。下面是它的实例。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">package main</div><div class="line"></div><div class="line">import (</div><div class="line">  &quot;github.com/larryprice/refermadness/utils&quot;</div><div class="line">  &quot;github.com/larryprice/refermadness/web&quot;</div><div class="line">  &quot;github.com/stretchr/graceful&quot;</div><div class="line">  &quot;os&quot;</div><div class="line">)</div><div class="line"></div><div class="line">func main() &#123;</div><div class="line">  isDevelopment := os.Getenv(&quot;ENVIRONMENT&quot;) == &quot;development&quot;</div><div class="line">  dbURL := os.Getenv(&quot;MONGOLAB_URI&quot;)</div><div class="line">  if isDevelopment &#123;</div><div class="line">    dbURL = os.Getenv(&quot;DB_PORT_27017_TCP_ADDR&quot;)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  dbAccessor := utils.NewDatabaseAccessor(dbURL, os.Getenv(&quot;DATABASE_NAME&quot;), 0)</div><div class="line">  cuAccessor := utils.NewCurrentUserAccessor(1)</div><div class="line">  s := web.NewServer(*dbAccessor, *cuAccessor, os.Getenv(&quot;GOOGLE_OAUTH2_CLIENT_ID&quot;),</div><div class="line">    os.Getenv(&quot;GOOGLE_OAUTH2_CLIENT_SECRET&quot;), os.Getenv(&quot;SESSION_SECRET&quot;),</div><div class="line">    isDevelopment, os.Getenv(&quot;GOOGLE_ANALYTICS_KEY&quot;))</div><div class="line"></div><div class="line">  port := os.Getenv(&quot;PORT&quot;)</div><div class="line">  if port == &quot;&quot; &#123;</div><div class="line">    port = &quot;3000&quot;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  graceful.Run(&quot;:&quot;+port, 0, s)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 因为<code>main.go</code>实在最低的层级，所以它可以访问所有的目录：在这个例子里是<code>web</code>和<code>utils</code>。在这里获取了所有的环境变量并把它们注入到合适的地方。在<code>main.go</code>中创建了服务器，注入依赖，并且在配置的端口启动服务器。</p>
+<h4 id="web"><a href="#web" class="headerlink" title="web"></a>web</h4><p>&emsp;&emsp; <code>web</code>目录下是主要的服务代码，同时也包括了中间件代码。下面是<code>web</code>目录的内部结构：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-web/</div><div class="line">|-middleware/</div><div class="line">|-server.go</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; <code>server.go</code>包含了web server的定义。这个web server 创建了所有的web controller并且给negroni添加了中间件。下面是他的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">package web</div><div class="line"></div><div class="line">import (</div><div class="line">  &quot;github.com/codegangsta/negroni&quot;</div><div class="line">  &quot;github.com/goincremental/negroni-sessions&quot;</div><div class="line">  &quot;github.com/goincremental/negroni-sessions/cookiestore&quot;</div><div class="line">  &quot;github.com/gorilla/mux&quot;</div><div class="line">  &quot;github.com/larryprice/refermadness/controllers&quot;</div><div class="line">  &quot;github.com/larryprice/refermadness/utils&quot;</div><div class="line">  &quot;github.com/larryprice/refermadness/web/middleware&quot;</div><div class="line">  &quot;github.com/unrolled/secure&quot;</div><div class="line">  &quot;gopkg.in/unrolled/render.v1&quot;</div><div class="line">  &quot;html/template&quot;</div><div class="line">  &quot;net/http&quot;</div><div class="line">)</div><div class="line"></div><div class="line">type Server struct &#123;</div><div class="line">  *negroni.Negroni</div><div class="line">&#125;</div><div class="line"></div><div class="line">func NewServer(dba utils.DatabaseAccessor, cua utils.CurrentUserAccessor, clientID, clientSecret,</div><div class="line">  sessionSecret string, isDevelopment bool, gaKey string) *Server &#123;</div><div class="line">  s := Server&#123;negroni.Classic()&#125;</div><div class="line">  session := utils.NewSessionManager()</div><div class="line">  basePage := utils.NewBasePageCreator(cua, gaKey)</div><div class="line">  renderer := render.New()</div><div class="line"></div><div class="line">  router := mux.NewRouter()</div><div class="line"></div><div class="line">  // ...</div><div class="line"></div><div class="line">  accountController := controllers.NewAccountController(clientID, clientSecret, isDevelopment, session, dba, cua, basePage, renderer)</div><div class="line">  accountController.Register(router)</div><div class="line"></div><div class="line">  // ...</div><div class="line"></div><div class="line">  s.Use(sessions.Sessions(&quot;refermadness&quot;, cookiestore.New([]byte(sessionSecret))))</div><div class="line">  s.Use(middleware.NewAuthenticator(dba, session, cua).Middleware())</div><div class="line">  s.UseHandler(router)</div><div class="line">  return &amp;s</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; <code>Server</code>结构体是一个<code>negroni.Negroni</code>的web server，在这个文件里有对<code>utils</code>和其他第三方包的引用，创建了一个router，一些controller，并且将controller注册到当前router。同时也引入了必要的中间件。说到中间件，下面是它的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">package middleware</div><div class="line"></div><div class="line">import (</div><div class="line">  &quot;github.com/codegangsta/negroni&quot;</div><div class="line">  &quot;github.com/larryprice/refermadness/utils&quot;</div><div class="line">  &quot;net/http&quot;</div><div class="line">)</div><div class="line"></div><div class="line">type Database struct &#123;</div><div class="line">  da utils.DatabaseAccessor</div><div class="line">&#125;</div><div class="line"></div><div class="line">func NewDatabase(da utils.DatabaseAccessor) *Database &#123;</div><div class="line">  return &amp;Database&#123;da&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">func (d *Database) Middleware() negroni.HandlerFunc &#123;</div><div class="line">  return func(rw http.ResponseWriter, r *http.Request, next http.HandlerFunc) &#123;</div><div class="line">    reqSession := d.da.Clone()</div><div class="line">    defer reqSession.Close()</div><div class="line">    d.da.Set(r, reqSession)</div><div class="line">    next(rw, r)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 这个是通过HTTP router访问数据库session的标注中间件。基本文件是从<a href="http://modocache.svbtle.com/restful-go" target="_blank" rel="external">Brian Gesiak’s blog post on RESTful Go</a>中得到，将其修改为适合我的文件。</p>
+<h4 id="controllers"><a href="#controllers" class="headerlink" title="controllers/"></a>controllers/</h4><p>&emsp;&emsp; 这里的controller与Rails里的controller的概念很像。Controller注册自己的router，设置自己的函数调用。一个简短的例子如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line">package controllers</div><div class="line"></div><div class="line">import (</div><div class="line">  &quot;encoding/json&quot;</div><div class="line">  &quot;errors&quot;</div><div class="line">  &quot;github.com/gorilla/mux&quot;</div><div class="line">  &quot;github.com/larryprice/refermadness/models&quot;</div><div class="line">  &quot;github.com/larryprice/refermadness/utils&quot;</div><div class="line">  &quot;gopkg.in/mgo.v2/bson&quot;</div><div class="line">  &quot;gopkg.in/unrolled/render.v1&quot;</div><div class="line">  &quot;html/template&quot;</div><div class="line">  &quot;net/http&quot;</div><div class="line">  &quot;strings&quot;</div><div class="line">)</div><div class="line"></div><div class="line">type ServiceControllerImpl struct &#123;</div><div class="line">  currentUser utils.CurrentUserAccessor</div><div class="line">  basePage    utils.BasePageCreator</div><div class="line">  renderer    *render.Render</div><div class="line">  database    utils.DatabaseAccessor</div><div class="line">&#125;</div><div class="line"></div><div class="line">func NewServiceController(currentUser utils.CurrentUserAccessor, basePage utils.BasePageCreator,</div><div class="line">  renderer *render.Render, database utils.DatabaseAccessor) *ServiceControllerImpl &#123;</div><div class="line">  return &amp;ServiceControllerImpl&#123;</div><div class="line">    currentUser: currentUser,</div><div class="line">    basePage:    basePage,</div><div class="line">    renderer:    renderer,</div><div class="line">    database:    database,</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">func (sc *ServiceControllerImpl) Register(router *mux.Router) &#123;</div><div class="line">  router.HandleFunc(&quot;/service/&#123;id&#125;&quot;, sc.single)</div><div class="line">  // ...</div><div class="line">&#125;</div><div class="line"></div><div class="line">// ...</div><div class="line"></div><div class="line">type serviceResult struct &#123;</div><div class="line">  *models.Service</div><div class="line">  RandomCode *models.ReferralCode</div><div class="line">  UserCode   *models.ReferralCode</div><div class="line">&#125;</div><div class="line"></div><div class="line">type servicePage struct &#123;</div><div class="line">  utils.BasePage</div><div class="line">  ResultString string</div><div class="line">&#125;</div><div class="line"></div><div class="line">func (sc *ServiceControllerImpl) single(w http.ResponseWriter, r *http.Request) &#123;</div><div class="line">  data, err := sc.get(w, r)</div><div class="line"></div><div class="line">  if len(r.Header[&quot;Content-Type&quot;]) == 1 &amp;&amp; strings.Contains(r.Header[&quot;Content-Type&quot;][0], &quot;application/json&quot;) &#123;</div><div class="line">    if err != nil &#123;</div><div class="line">      sc.renderer.JSON(w, http.StatusBadRequest, map[string]string&#123;</div><div class="line">        &quot;error&quot;: err.Error(),</div><div class="line">      &#125;)</div><div class="line">      return</div><div class="line">    &#125;</div><div class="line">    sc.renderer.JSON(w, http.StatusOK, data)</div><div class="line">    return</div><div class="line">  &#125; else if err != nil &#123;</div><div class="line">    http.Error(w, err.Error(), http.StatusBadRequest)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  resultString, _ := json.Marshal(data)</div><div class="line">  t, _ := template.ParseFiles(&quot;views/layout.html&quot;, &quot;views/service.html&quot;)</div><div class="line">  t.Execute(w, servicePage&#123;sc.basePage.Get(r), string(resultString)&#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="utils"><a href="#utils" class="headerlink" title="utils/"></a>utils/</h4><p>&emsp;&emsp; 在<code>utils</code>目录下的文件提供了一些底层功能用来支持其他的代码。在这个例子中，主要是定义一个结构体来访问请求的上下文，处理session，定义一个特别的页面来继承。下面是通过访问上下文设置用户的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">package utils</div><div class="line"></div><div class="line">import (</div><div class="line">  &quot;github.com/gorilla/context&quot;</div><div class="line">  &quot;github.com/larryprice/refermadness/models&quot;</div><div class="line">  &quot;net/http&quot;</div><div class="line">)</div><div class="line"></div><div class="line">type CurrentUserAccessor struct &#123;</div><div class="line">  key int</div><div class="line">&#125;</div><div class="line"></div><div class="line">func NewCurrentUserAccessor(key int) *CurrentUserAccessor &#123;</div><div class="line">  return &amp;CurrentUserAccessor&#123;key&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">func (cua *CurrentUserAccessor) Set(r *http.Request, user *models.User) &#123;</div><div class="line">  context.Set(r, cua.key, user)</div><div class="line">&#125;</div><div class="line"></div><div class="line">func (cua *CurrentUserAccessor) Clear(r *http.Request) &#123;</div><div class="line">  context.Delete(r, cua.key)</div><div class="line">&#125;</div><div class="line"></div><div class="line">func (cua *CurrentUserAccessor) Get(r *http.Request) *models.User &#123;</div><div class="line">  if rv := context.Get(r, cua.key); rv != nil &#123;</div><div class="line">    return rv.(*models.User)</div><div class="line">  &#125;</div><div class="line">  return nil</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="models"><a href="#models" class="headerlink" title="models/"></a>models/</h4><p>&emsp;&emsp; model 是为了描述数据库中的数据的数据结构。在这个例子中使用model来访问数据库，创建一个空的model，然后通过查询数据库为其赋值。下面是一个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">package models</div><div class="line"></div><div class="line">import (</div><div class="line">  &quot;gopkg.in/mgo.v2&quot;</div><div class="line">  &quot;gopkg.in/mgo.v2/bson&quot;</div><div class="line">  &quot;strings&quot;</div><div class="line">  &quot;time&quot;</div><div class="line">)</div><div class="line"></div><div class="line">type Service struct &#123;</div><div class="line">  // identification information</div><div class="line">  ID          bson.ObjectId `bson:&quot;_id&quot;`</div><div class="line">  Name        string        `bson:&quot;name&quot;`</div><div class="line">  Description string        `bson:&quot;description&quot;`</div><div class="line">  URL         string        `bson:&quot;url&quot;`</div><div class="line">  Search      string        `bson:&quot;search&quot;`</div><div class="line">&#125;</div><div class="line"></div><div class="line">func NewService(name, description, url string, creatorID bson.ObjectId) *Service &#123;</div><div class="line">  url = strings.TrimPrefix(strings.TrimPrefix(url, &quot;http://&quot;), &quot;https://&quot;)</div><div class="line">  return &amp;Service&#123;</div><div class="line">    ID:            bson.NewObjectId(),</div><div class="line">    Name:          name,</div><div class="line">    URL:           url,</div><div class="line">    Description:   description,</div><div class="line">    Search:        strings.ToLower(name) + &quot;;&quot; + strings.ToLower(description) + &quot;;&quot; + strings.ToLower(url),</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">func (s *Service) Save(db *mgo.Database) error &#123;</div><div class="line">  _, err := s.coll(db).UpsertId(s.ID, s)</div><div class="line">  return err</div><div class="line">&#125;</div><div class="line"></div><div class="line">func (s *Service) FindByID(id bson.ObjectId, db *mgo.Database) error &#123;</div><div class="line">  return s.coll(db).FindId(id).One(s)</div><div class="line">&#125;</div><div class="line"></div><div class="line">func (*Service) coll(db *mgo.Database) *mgo.Collection &#123;</div><div class="line">  return db.C(&quot;service&quot;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">type Services []Service</div><div class="line"></div><div class="line">func (s *Services) FindByIDs(ids []bson.ObjectId, db *mgo.Database) error &#123;</div><div class="line">  return s.coll(db).Find(bson.M&#123;&quot;_id&quot;: bson.M&#123;&quot;$in&quot;: ids&#125;&#125;).Sort(&quot;name&quot;).All(s)</div><div class="line">&#125;</div><div class="line"></div><div class="line">func (*Services) coll(db *mgo.Database) *mgo.Collection &#123;</div><div class="line">  return db.C(&quot;service&quot;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="views"><a href="#views" class="headerlink" title="views/"></a>views/</h4><p>&emsp;&emsp; 将Golang的模板文件放到<code>views</code>目录下。这样，不管用什么样的模板引擎都可以直接放到<code>views</code>下。</p>
+<h4 id="public"><a href="#public" class="headerlink" title="public/"></a>public/</h4><p>&emsp;&emsp; 跟以前一样，这个文件都是放公开的文件的，例如<code>css</code>,<code>img</code>,<code>scripts</code>。</p>
+<h4 id="如何运行"><a href="#如何运行" class="headerlink" title="如何运行"></a>如何运行</h4><p>&emsp;&emsp; 毫无疑问，我最喜欢的就是<a href="https://www.docker.com/" target="_blank" rel="external">docker</a>，因此我将使用他来运行这个应用。如果不使用docker，那么可以将文件放到<code>$GOPATH/src/github.com/larryprice/refermadness</code>,运行<code>go get</code>来获取所有的依赖，然后运行 <code>go run main.go</code>或者<code>go build; ./refermadness</code>运行程序。如果你也喜欢使用docker，那么可以直接通过<code>Dockerfile</code>来运行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">FROM golang:1.4</div><div class="line"></div><div class="line">RUN go get github.com/codegangsta/gin</div><div class="line"></div><div class="line">ADD . /go/src/github.com/larryprice/refermadness</div><div class="line">WORKDIR /go/src/github.com/larryprice/refermadness</div><div class="line">RUN go get</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 同时我也很喜欢<a href="https://github.com/docker/compose" target="_blank" rel="external">compose</a>，所以我也通过compose 文件来运行所有的应用。我用了JSC ，SASS和mongodb，所以一下是我的<code>docker-compose.yml</code>文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">main:</div><div class="line">  build: .</div><div class="line">  command: gin run</div><div class="line">  env_file: .env</div><div class="line">  volumes:</div><div class="line">    - ./:/go/src/github.com/larryprice/refermadness</div><div class="line">  working_dir: /go/src/github.com/larryprice/refermadness</div><div class="line">  ports:</div><div class="line">    - &quot;3000:3000&quot;</div><div class="line">  links:</div><div class="line">    - db</div><div class="line">sass:</div><div class="line">  image: larryprice/sass</div><div class="line">  volumes:</div><div class="line">    - ./public/css:/src</div><div class="line">jsx:</div><div class="line">  image: larryprice/jsx</div><div class="line">  volumes:</div><div class="line">    - ./public/scripts:/src</div><div class="line">db:</div><div class="line">  image: mongo:3.0</div><div class="line">  command: mongod --smallfiles --quiet --logpath=/dev/null</div><div class="line">  volumes_from:</div><div class="line">    - dbvolume</div><div class="line">dbvolume:</div><div class="line">  image: busybox:ubuntu-14.04</div><div class="line">  volumes:</div><div class="line">    - /data/db</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 然后运行<code>docker-compose up</code>来运行所有的容器并启动服务器。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://larry-price.com/blog/2015/06/25/architecture-for-a-golang-web-app&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;原文地址&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&amp;emsp;
+    
+    </summary>
+    
+    
+      <category term="Go" scheme="https://mashuai.github.io/tags/Go/"/>
+    
+      <category term="Architecture" scheme="https://mashuai.github.io/tags/Architecture/"/>
+    
+      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ansible 入门指南</title>
+    <link href="https://mashuai.github.io/2015/11/09/Ansible-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/"/>
+    <id>https://mashuai.github.io/2015/11/09/Ansible-入门指南/</id>
+    <published>2015-11-09T10:26:35.000Z</published>
+    <updated>2017-03-21T02:20:32.540Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="http://docs.ansible.com/ansible/intro_getting_started.html" target="_blank" rel="external">原文地址</a></p>
+<h2 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>&emsp;&emsp; 现在你已经知道如何<a href="http://docs.ansible.com/ansible/intro_installation.html" target="_blank" rel="external">安装</a>Ansible了，现在可以深入并开始使用Ansible的一些命令了。<br>&emsp;&emsp; 我们开始展示的并不是Ansible强大的配置、部署、调度的功能。这些功能由其他章节要讲的Playbook来处理。<br>&emsp;&emsp; 这个章节是关于如何快速入门的。等你了解了Ansible的这些概念之后，就可以阅读<a href="http://docs.ansible.com/ansible/intro_adhoc.html" target="_blank" rel="external">特别命令简介</a>来学习更多细节，接着你就可以深入理解Playbook，并且浏览更多的有趣功能。</p>
+<h3 id="远程连接信息"><a href="#远程连接信息" class="headerlink" title="远程连接信息"></a>远程连接信息</h3><p>&emsp;&emsp; 在我们开始学习之前，理解Ansible是如何通过SSH连接到远程服务器是很重要的。<br>&emsp;&emsp; 默认情况下，如果可以，Ansible 1.3 及其后续版本会使用原生的OpenSSh来连接远程服务器。这样就可以在~/.ssh/config下开启ControPersist(一个高性能的功能),Kerbos和其他选项，例如跳板机设置。然后，如果使用了Enterprise Linux 6(Red Hat Enterprise Linux 和其衍生版本，例如CentOS) 系统作为控制机，OpenSSH的版本可能过低导致无法开启ControlPersist功能。在这些操作系统中，Ansible将会回退到使用“paramiko”，他是OpenSSH的一个高质量的Python实现。如果你想使用像Kerberized SSH 等这样的功能，那么可以使用Federa，OSX或者Ubuntu作为你的控制机，直到你使用的平台有了更新的OpenSSH，或者你可以开启加速功能。<a href="http://docs.ansible.com/ansible/playbooks_acceleration.html" target="_blank" rel="external">加速功能</a>。<br>&emsp;&emsp; 如果使用的版本小于等于1.2，那么默认使用的就是paramiko，如果想要使用原生的SSH，那么需要加上-c ssh 选项或者再配置文件中配置。<br>&emsp;&emsp; 可能偶尔在某些机器上不支持SFTP协议，虽然这种情况很少，但是也可能发生，这个时候可以在<a href="http://docs.ansible.com/ansible/intro_configuration.html" target="_blank" rel="external">配置文件</a>中切换到SCP模式。<br>&emsp;&emsp; 当需要和远程主机会话是，Ansible默认假设你使用SSH keys。Ansible鼓励使用SSH 免密码登陆，但是使用密码登陆也是可以的，在使用的时候加上参数<code>--ask-pass</code>。如果需要使用sudo权限，那么也要提供<code>--ask-sudo-pass</code>参数。<br>&emsp;&emsp; 任何管理系统运行时离被管理的系统越近越好。虽然这是个常识，但是还是值得分享的。如果你在云端使用Ansible，那么就把Ansible运行在云端。在大多数情况下，它都比直接在公共网络上运行更好。<br>&emsp;&emsp; 作为一个高级话题，Ansible并不仅仅通过SSH连接主机。连接系统是可插拔的，有很多配置选项可以用来本地管理，例如管理chroot，lxc，jail container。一个叫做“Ansible-pull”的模式可以反转系统。通过配置好的git checkout 从中央存储库pull配置文件获取系统的“phone home”。</p>
+<h3 id="第一个命令"><a href="#第一个命令" class="headerlink" title="第一个命令"></a>第一个命令</h3><p>&emsp;&emsp; 目前为止，已经安装好Ansible了，现在可以开始运行一些简单的命令了。<br>&emsp;&emsp; 编辑（或者创建）<code>/etc/ansible/hosts</code>文件，向其添加一个或者多个远程主机地址。本机的public ssh key 应该已经追加到远程主机的<code>authorized_keys</code>文件中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">192.168.1.50</div><div class="line">aserver.example.org</div><div class="line">bserver.example.org</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 这是一个清单文件，同样会再<a href="http://docs.ansible.com/ansible/intro_inventory.html" target="_blank" rel="external">主机清单</a>中介绍。<br>&emsp;&emsp; 假设你使用的是SSH授权方式，设置ssh angent 防止重复输入密码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ssh-agent bash</div><div class="line">ssh-add ~/.ssh/id_rsa</div></pre></td></tr></table></figure>
+<p>(根据你的设置，你可能需要使用<code>--private-key</code>选项来制定一个pem文件)<br>&emsp;&emsp; 现在可以ping一下所有的主机了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible all -m ping</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; Ansible会想SSH那样使用你本机的用户名去连接远程机器，如果不想使用本机用户名，可以加上<code>-u</code>的选项。<br>&emsp;&emsp; 如果你想使用sudo权限，同样也可以将上<code>--sudo</code>选项。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"># as bruce</div><div class="line">$ ansible all -m ping -u bruce</div><div class="line"># as bruce sudoing to root</div><div class="line">$ ansible all -m ping -u bruce --sudo</div><div class="line"># as bruce, sudoing to batman</div><div class="line">$ ansible all -m ping -u bruce --sudo --sudo-user batman</div><div class="line"></div><div class="line"># With latest version of ansible `sudo` is deprecated so use become</div><div class="line"># as bruce, sudoing to root</div><div class="line">$ ansible all -m ping -u bruce -b</div><div class="line"># as bruce, sudoing to batman</div><div class="line">$ ansible all -m ping -u bruce -b --become-user batman</div></pre></td></tr></table></figure>
+<p>(如果你突然想改变sudo 用户，可以再配置文件中修改。传递给sudo的标记例如-H也可以在那修改。)</p>
+<p>&emsp;&emsp; 现在在你所有的节点上运行一个实时的命令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ansible all -a &quot;/bin/echo hello&quot;</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 太棒了，刚刚通过Ansible与远程主机会话了。很快就可以阅读<a href="http://docs.ansible.com/ansible/intro_adhoc.html" target="_blank" rel="external">更多命令介绍</a>来学习更多的实际例子，浏览各个模块都可以做什么，以及学习Ansible <a href="http://docs.ansible.com/ansible/playbooks.html" target="_blank" rel="external">Playbooks</a>的语法。Ansible不仅仅只能用来运行命令，他还有强大的配置管理系统和部署功能。还有许多需要学习的知识，但是你现在已经有一个完全可以运行的环境了。</p>
+<h3 id="主机密钥检查"><a href="#主机密钥检查" class="headerlink" title="主机密钥检查"></a>主机密钥检查</h3><p>&emsp;&emsp; Ansible 1.2.1 及其之后的版本，默认是有主机密钥检查功能的。<br>&emsp;&emsp; 如果远程主机成新安装并且在<code>know_hosts</code>下有一个不同的key，直到修复之前，Ansible会一直返回错误。如果主机没有在<code>know_hosts</code>文件中，那么会出现提示来确认密钥。这样就会有一个你不希望的提示。<br>&emsp;&emps; 如果你知道这个功能的影响，并且希望关闭这个功能，可以修改<code>/etc/ansible/ansible.cfg</code>或者是<code>~/.ansible.cfg</code>来关闭这个功能。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[default]</div><div class="line">host_key_checking = False</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 同样也可以通过环境变量来修改。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ export ANSIBLE_HOST_KEY_CHECKING=False</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 同时要注意主机密钥检查再paramiko模式中是很慢的，所以如果要使用这个功能最好使用ssh模式。<br>&emsp;&emsp; 除非Ansible的任务被标记为”no_log:True”，否则Ansible会再远程注意的syslog中记录一些有用的信息。这个稍后再做解释。<br>&emsp;&emsp; 如果要再本机开启log可以查看<a href="http://docs.ansible.com/ansible/intro_configuration.html" target="_blank" rel="external">配置章节</a>来设置“log_path”开启。企业用户可能会对<a href="http://docs.ansible.com/ansible/tower.html" target="_blank" rel="external">Ansible Tower</a>。Tower提供了一个健壮的数据库记录日志的功能，这样就可以随时通过图形界面或者REST API 来查看主机，项目，特殊的列表的日志。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;http://docs.ansible.com/ansible/intro_getting_started.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;原文地址&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;快速入门&quot;&gt;&lt;a href=&quot;#
+    
+    </summary>
+    
+    
+      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
+    
+      <category term="Ansible" scheme="https://mashuai.github.io/tags/Ansible/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Vagrant &amp; Ansible 快速入门教程</title>
+    <link href="https://mashuai.github.io/2015/11/08/Vagrant-Ansible-%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/"/>
+    <id>https://mashuai.github.io/2015/11/08/Vagrant-Ansible-快速入门教程/</id>
+    <published>2015-11-07T16:39:10.000Z</published>
+    <updated>2017-03-21T02:20:32.561Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://adamcod.es/2014/09/23/vagrant-ansible-quickstart-tutorial.html" target="_blank" rel="external">原文地址</a>  </p>
+<p>&emsp;&emsp; 就个人而言，我用过Chef，Puppet，简单的Bash脚本等用来配置服务器，其他服务和Vagrant Boxes。虽然Chef社区仍然在快速成长，但是我发布的关于<a href="https://adamcod.es/2013/01/15/vagrant-is-easy-chef-is-hard-part2.html" target="_blank" rel="external">Chef</a>的文章仍然是最受欢迎的文章。然而，两个月之前，当我在一个项目中使用Ansible的时候所有的事情都变了。从此之后我再也没用过其他的配置工具，也找不到用其他工具的理由了。<br>&emsp;&emsp; 看过了不少关于Ansible的教程，尝试这从中找出相应的模式和最佳实战，然而似乎在知识上有巨大的横沟。你可以用Ansible做很多事情，你也可以同时学习如何使用，但是跟我最新学习的工具一样，却反一个很简单地方入手学习的地方。今天我希望通过使用Vagrant和Ansible配置一个LAMP的技术栈来纠正他。  </p>
+<h2 id="为什么使用Ansible"><a href="#为什么使用Ansible" class="headerlink" title="为什么使用Ansible"></a>为什么使用Ansible</h2><p>&emsp;&emsp; Ansible和其他的配置管理工具最主要的区别就是Ansible是基于SSH的。Chef和Puppet都是有依赖的，而且必须在服务器上安装之后才能使用，而Ansible则不需要。它可以在你本机运行，使用SSH连接相应主机，在其运行相应命令。<br>&emsp;&emsp; 为什么不直接使用Bash脚本呢？Ansible之所以比Bash脚本好是因为他简单。Ansible只是运行了一系列使用YAML格式编写的任务。同样Ansible还具有幂等性，这就意味着你可以多次运行同样的任务，并且这些任务的输入会保持一致（例如除非明确要求运行两次否则它不会对同一个任务运行两次）。同样这个可以通过Bash脚本编写，但是会很复杂。</p>
+<h2 id="Ansible-和-Vagrant"><a href="#Ansible-和-Vagrant" class="headerlink" title="Ansible 和 Vagrant"></a>Ansible 和 Vagrant</h2><p>&emsp;&emsp; 首先给你要确定已经安装了Ansible和Vagrant。它们的安装文档可以在它们的相关网站找到，它们都很容易安装的。</p>
+<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><p>&emsp;&emsp; 我们将会创建一个新的文件夹来开始我们的项目。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir -p ~/Projects/vagrant-ansible</div><div class="line">cd ~/Projects/vagrant-ansible</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 接着我们创建一个基于最新的Ubuntu的Vagrantfile。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vagrant init ubuntu/trusty64</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 运行完这个命令后在项目目录下会有一个叫<code>Vagrantfile</code>的文件。它包含了你想要配置的关于box的一些基本信息和一堆你现在不需要管的注释。删除所有的注释，你就会简单的得到以下的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">VAGRANTFILE_API_VERSION = &quot;2&quot;</div><div class="line">Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|</div><div class="line">  config.vm.box = &quot;ubuntu/trusty64&quot;</div><div class="line">end</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 我们需要在他配置好的适合访问服务器，所以我们将会吧Vagrant的80端口转发到本机的8080端口，将以下代码添加到<code>end</code>之前。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">config.vm.network &quot;forworded_port&quot;, guest: 80, host:8080</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 现在Vagrant只需要配置一件事情。我们需要配置Vagrant使用Ansible作为配置器，并且知道去哪里需找这些命令。为了实现这个目的，我们将一下代码加到<code>Vagrantfile</code>的<code>end</code>之前。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">config.vm.provision :ansible do |ansible|</div><div class="line">  ansible.playbook = &quot;playbook.yml&quot;</div><div class="line">end</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 以上所有的任务完成之后你的<code>Vagrantfile</code>将会是一下的配置。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">VAGRANTFILE_API_VERSION = &quot;2&quot;</div><div class="line"></div><div class="line">Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|</div><div class="line">  config.vm.box = &quot;ubuntu/trusty64&quot;</div><div class="line"></div><div class="line">  config.vm.network &quot;forwarded_port&quot;, guest: 80, host: 8080</div><div class="line"></div><div class="line">  config.vm.provision :ansible do |ansible|</div><div class="line">    ansible.playbook = &quot;playbook.yml&quot;</div><div class="line">  end</div><div class="line">end</div></pre></td></tr></table></figure>
+<h2 id="基本术语"><a href="#基本术语" class="headerlink" title="基本术语"></a>基本术语</h2><p>&emsp;&emsp; Ansible再你的服务器上运行一系列的<em>Tasks</em>。把Task想象成一个单一的Bash命令。接着是<em>playbook</em>，Ansible通过Playbook得知将再服务器上运行什么任务。每一个Task运行一个Ansible的<em>Module</em>，Module是Ansible内建的各种命令，例如yun，创建用户等。稍后就会明白这些术语的具体意思。  </p>
+<h2 id="第一个Playbook"><a href="#第一个Playbook" class="headerlink" title="第一个Playbook"></a>第一个Playbook</h2><p>&emsp;&emsp; 创建一个叫<code>playbook.yml</code>的文件，这个名字必须和<code>Vagrantfile</code>的<code>ansible.playbook</code>相同。<br>&emsp;&emsp; 所有Ansible的Playbook都必须是YAML格式的。传统上YAML文件是以三条横线开头的，但是Ansible并不是强制要求的，不过社区仍然会遵循这个规则。<br>&emsp;&emsp; 新建的playbook是一个YAML的列表。这个列表应该包括要管理的host和各种要运行的task，将以下代码添加到<code>playbook.yml</code>文件中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">- host: all</div><div class="line">  sudo: true</div><div class="line">  tasks:</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 我们使用Vagrant并且只有一台主机，所以我们可以使用一个魔法值<code>all</code>，意思是在所有的机器上运行任务。然后我们告诉Ansible运行是需要sudo权限，最后我们添加了 <code>tasks:</code> 用来添加Task。</p>
+<p>&emsp;&emsp; 要安装LAMP技术栈的基本步骤是：  </p>
+<ol>
+<li>更新 Apt Cache</li>
+<li>安装 Apache</li>
+<li>安装 MySQL</li>
+<li>安装 PHP</li>
+</ol>
+<p>&emsp;&emsp; 这就是所有我们必须的步骤。因为我们用的是Ubuntu的box，所有我们需要Ansible的apt模块。<br>&emsp;&emsp; 首先我们给每一个task一个<code>name:</code>，这个可以是任何描述，它用来描述这个任务，如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- name: this should be some descriptive text</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 接着我们指定一个Ansible的模块作为值，在本例中使用的是apt模块。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apt</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 紧随其后的是一些<code>key=value</code>的由空格分隔的键值对。选择你想要传递给Ansible的键值对，可以通过Ansible的文档来查询所需要的键值对。</p>
+<p>&emsp;&emsp; 安装Apache的任务如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- name: install apache</div><div class="line">  apt: name=apache2 state=present</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 这样就配置好了，很简单，对吧。我们将继续添加MySQL和PHP的Task到<code>playbook.yml</code>中，最后代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">- hosts: all</div><div class="line">  sudo: true</div><div class="line">  tasks:</div><div class="line">    - name: update apt cache</div><div class="line">      apt: update_cache=yes</div><div class="line">    - name: install apache</div><div class="line">      apt: name=apache2 state=present</div><div class="line">    - name: install mysql</div><div class="line">      apt: name=mysql-server state=present</div><div class="line">    - name: install php</div><div class="line">      apt: name=php5 state=present</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 现在我们已经配置完了，然后运行<code>vagrant up</code>，你将会看到如下图所示：<br><img src="https://adamcod.es/img/posts/vagrant-ansible-lamp.gif" alt="result">  </p>
+<p>&emsp;&emsp; 这样就搭建好了。如果你想让LAMP运行起来，你就可以ssh到Vagrant，然后将<code>info.php</code>文件添加到<code>/var/www/html</code>下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;?php phpinfo();?&gt;</div></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp; 然后在本机浏览器打开<a href="http://localhost:8080/info.php" target="_blank" rel="external">http://localhost:8080/info.php</a>，就会看到你想要看到的。</p>
+<p><strong>翻译到此，剩下的就是关于Ansible的使用了，这些可以通过Ansible的官方文档来学习</strong></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://adamcod.es/2014/09/23/vagrant-ansible-quickstart-tutorial.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;原文地址&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;&amp;emsp;&amp;
+    
+    </summary>
+    
+    
+      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
+    
+      <category term="Ansible" scheme="https://mashuai.github.io/tags/Ansible/"/>
+    
+      <category term="Vagrant" scheme="https://mashuai.github.io/tags/Vagrant/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Vagrant 入门指南</title>
+    <link href="https://mashuai.github.io/2015/11/06/Vagrant-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/"/>
+    <id>https://mashuai.github.io/2015/11/06/Vagrant-入门指南/</id>
+    <published>2015-11-06T08:49:47.000Z</published>
+    <updated>2017-03-21T02:20:32.563Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://docs.vagrantup.com/v2/getting-started/index.html" target="_blank" rel="external">原文地址</a></p>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>&emsp;&emsp;Vagrant 入门指南将会引导你完成你的第一个Vagrant项目，并且会向你展示Vagrant提供的基本的特色功能。<br>&emsp;&emsp;如果你好奇Vagrant提供了什么好的功能，你可以阅读一下<a href="https://docs.vagrantup.com/v2/why-vagrant/" target="_blank" rel="external">Why Vagrant</a>。<br>&emsp;&emsp;这篇入门指南将会基于<a href="https://www.virtualbox.org/" target="_blank" rel="external">VirtualBox</a>来使用Vagrant，因为它免费，支持主流平台，并且Vagrant内建支持。当你完成这篇指南的时候，可以参考更多的<a href="https://docs.vagrantup.com/v2/getting-started/providers.html" target="_blank" rel="external">提供商</a></p>
+<blockquote>
+<p>更喜欢读书？如果你更喜欢读实体书，那么你可能对由Vagrant作者编写，O’Reilly 出版的<a href="http://www.amazon.com/gp/product/1449335837/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1449335837&amp;linkCode=as2&amp;tag=vagrant-20" target="_blank" rel="external">Vagrant: Up and Running</a> 更感兴趣，</p>
+</blockquote>
+<h2 id="启动运行"><a href="#启动运行" class="headerlink" title="启动运行"></a>启动运行</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ vagrant init hashicorp/precise32</div><div class="line">$ vagrant up</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp;运行了上面两个命令之后，会得到一个运行在<a href="https://www.virtualbox.org/" target="_blank" rel="external">VirtualBox</a>虚拟机上的Ubuntu 12.04 LTS 32-bit。你可以通过<code>vagrant ssh</code> 以ssh的方式登陆，当你王城所有的操作的时候，也可以使用<code>vagrant destory</code>来删除所有的痕迹。<br>&emsp;&emsp;现在想象 一下，以前你所有工作过的项目，都可以通过这个简单的方式来设置了。<br>&emsp;&emsp;通过使用Vagrant,对于任何项目来说<code>vagrant up</code> 是你唯一需要你用到的命令，例如，安装项目依赖，设置网络和同步文件夹，仍然可以很舒服的使用本机系统。<br>&emsp;&emsp;指南剩下的内容将会引导你设置更复杂的项目，涵盖跟多的Vagrant的特色。  </p>
+<h2 id="项目配置"><a href="#项目配置" class="headerlink" title="项目配置"></a>项目配置</h2><p>&emsp;&emsp; 任何Vagrant项目配置的第一步都是创建一个<a href="https://docs.vagrantup.com/v2/vagrantfile/" target="_blank" rel="external">Vagrantfile</a>。该文件的作用有两个:  </p>
+<ol>
+<li>指定项目的根目录。很多Vagrant的配置跟这个目录有关。  </li>
+<li>描述项目所需要的机器类型和资源，以及如何安装软件，如何访问。  </li>
+</ol>
+<p>&emsp;&emsp; Vagrant 有一个内建的命令<code>vagrant init</code>用来初始化项目。出于本指南的目的，请在终端输入一下命令  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ mkdir vagrant_getting_started</div><div class="line">$ cd vagrant_getting_started</div><div class="line">$ vagrant init</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 以上命令将在你的当前目录下创建<code>Vagrantfile</code>。查看Vagrantfile会发现里面有各种注释和示例。不要因为他负责而感到恐惧，我们很快就能够修改它了。<br>&emsp;&emsp; 同样也可以在一个已存在的目录下运行<code>vagrant init</code>，来未一个已有项目设置Vagrant环境。<br>&emsp;&emsp; 如果你使用版本控制工具，那么Vagrantfile可以提交到版本库中。这样其他与这个项目相关的人就可以无需前期工作了。</p>
+<h2 id="Boxes"><a href="#Boxes" class="headerlink" title="Boxes"></a>Boxes</h2><p>&emsp;&emsp; 由于从头构建一个虚拟机是一个费时的过程，所以Vagrant使用一个基本镜像来快速克隆一个虚拟机。这些基本镜像再Vagrant中被称作boxes，而且在创建玩Vagrantfile后的第一步就是为你的Vagrant环境指定一个box。  </p>
+<h3 id="安装box"><a href="#安装box" class="headerlink" title="安装box"></a>安装box</h3><p>&emsp;&emsp; 如果你运行了<a href="https://docs.vagrantup.com/v2/getting-started/" target="_blank" rel="external">开始指南</a>的命令，那么你已经在本机安装了一个box，你就不需要再次运行一下命令了。但是这部分仍然是值得阅读的，这样你就可以了解更多关于如何管理box的知识。<br>&emsp;&emsp; Boxes 由Vagrant的<code>vagrant box add</code>命令添加。这个将box存储在一个指定命名的目录下，这个多个Vagrant的环境可以重复利用。如果你还未添加已给box，那么可以运行一下命令。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vagrant box add hashicorp/precise32</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 这个将从<a href="https://atlas.hashicorp.com/boxes/search" target="_blank" rel="external">HashiCorp’s Atlas box catalog</a>下载一个名字为<code>hashicorp/precise32</code>的box。你可以从HashiCorp’s Atlas box catalog中找到各种box。很容易从HashiCorp’s Atlas 下载镜像，同时你也可以通过本地文件，其他URL等添加。<br>&emsp;&emsp; 已添加的boxes可以被多个环境重复利用。每个环境都是将其作为基础镜像克隆，而不会修改他。这就意味着两个环境同时使用了刚刚添加的<code>hashicorp/precise32</code>的box，其中一个主机添加文件并不会影响另一个主机。  </p>
+<h3 id="使用box"><a href="#使用box" class="headerlink" title="使用box"></a>使用box</h3><p>&emsp;&emsp; 现在已经吧box添加到Vagrant了，我们就可以把他作为一个基础镜像使用了。打开Vagrantfile，修改一下代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Vagrant.configure(&quot;2&quot;) do |config|</div><div class="line">  config.vm.box = &quot;hashicorp/precise32&quot;</div><div class="line">end</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 在这个例子中，”hashicorp/precise32” 的名字必须跟你add box的名字相同。这是Vagrant知道box如何用的方式。如果这个box没有被安装过，那么Vagrant将会自动下载并且当它运行的时候自动添加。<br>&emsp;&emsp; 在下一节中我们将启动Vagrant并且与其进行交互。  </p>
+<h3 id="寻找更多box"><a href="#寻找更多box" class="headerlink" title="寻找更多box"></a>寻找更多box</h3><p>&emsp;&emsp; 在本入门指南的后半部分，我们只会使用之前添加的”hashicorp/precise32”的box。但是，结束本指南的时候你的第一个问题可能就是我从南找到更多的box。<br>&emsp;&emsp; 寻找更多box的最好的地方是<a href="https://atlas.hashicorp.com/boxes/search" target="_blank" rel="external">HashiCorp’s Atlas box catalog</a>。HashiCopr 的Altas有一个公共目录，在目录里可以找到各种免费的，可以运行各种平台和技术的box。<br>&emsp;&emsp; HashiCorp的Altas同样也有一个很棒的搜索功能，这样就可以更方便的找到需要的box。<br>&emsp;&emsp; 除了寻找免费的box外，HashiCorp的Altas还允许你构建自己的box，以及如果你想为自己的组织创建私有box。  </p>
+<h2 id="启动并且SSH登陆"><a href="#启动并且SSH登陆" class="headerlink" title="启动并且SSH登陆"></a>启动并且SSH登陆</h2><p>&emsp;&emsp; 是时候启动你第一个Vagrant环境了。运行一下命令:  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vagrant up</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 1分钟之内，这个命令运行完后，你就可以得到一个运行Ubuntu的虚拟机了。由于Vagrant运行虚拟机的时候没有UI，所以你不会看到任何输出。你可以SSH登陆到虚拟机来验证虚拟机是否运行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vagrant ssh</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 运行完这个命令后你就会进入ssh会话中。继续和机器交互，做任何你想做的事情。虽然是临时的虚拟机，但是还是要小心<code>rm -rf /</code> 这种命令，因为Vagrant的<code>/vagrant</code>目录与宿主机器共享了包含Vagrantfile的目录，如果运行了会删除所有的文件的。共享目录将会在下节描述。<br>&emsp;&emsp; 花一点时间思考一下刚刚发生的事情：通过仅仅1行配置和1行命令，我们就启动了一个功能完整的，可以ssh登陆的虚拟机，太酷了。<br>&emsp;&emsp; 当你用完虚拟机的时候，你可以在主机上使用<code>vagrant destory</code>来清除你再虚拟机的痕迹。</p>
+<h2 id="同步文件夹"><a href="#同步文件夹" class="headerlink" title="同步文件夹"></a>同步文件夹</h2><p>&emsp;&emsp;虽然这么容易就可以启动一个虚拟机是很爽，但是并不是所有的人都喜欢通过ssh登陆终端修改文件。幸运的是，通过Vagrant，你并不是必须这么做的。通过使用<em>同步文件夹</em>Vagrant将会自动的将文件从虚拟机同步或者同步到虚拟机中。<br>&emsp;&emsp; 默认情况下，Vagrant是共享你的项目目录（记住，这个是你Vagrantfile所在的目录）到虚拟机的<code>/vagrant</code>的。再次运行<code>vagrant up</code> 并且ssh到虚拟机。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ vagrant up</div><div class="line">...</div><div class="line">$ vagrant ssh</div><div class="line">...</div><div class="line">vagrant@precise32:~$ ls /vagrant</div><div class="line">Vagrantfile</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 不管相不相信，在虚拟机的这个Vagrantfile和再宿主机上的那个Vagrantfile是同一个。继续创建一个文件证明一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vagrant@precise32:~$ touch /vagrant/foo</div><div class="line">vagrant@precise32:~$ exit</div><div class="line">$ ls</div><div class="line">foo Vagrantfile</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 哇！<code>foo</code>已经在你的宿主机里创建了。正如你所见，Vagrant会保持那个文件夹的同步。<br>&emsp;&emsp; 通过使用<a href="https://docs.vagrantup.com/v2/synced-folders/" target="_blank" rel="external">同步文件夹</a>，你可以继续在你的主机上使用你喜欢的编辑器，文件会自动的同步到虚拟机上的。</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>&emsp;&emsp; 现在我们已经在虚拟机上运行了一份Ubuntu的拷贝，并且我们还可以从宿主机上编辑文件同时同步到虚拟机中。现在让我们通过webserver来提供这些文件。<br>&emsp;&emsp; 我们可以SSH到虚拟机然后安装webserver然后提供这些文件，但是这样做，每一个用Vagrant的用户都需要重复相同的事情。不过Vagrant内建提供了自动配置的功能。使用这个功能，Vagrant可以在你<code>vagrant up</code>的时候自动安装软件，这样虚拟机就可以被重复创建并且可以直接使用了。  </p>
+<h3 id="安装Apache"><a href="#安装Apache" class="headerlink" title="安装Apache"></a>安装Apache</h3><p>&emsp;&emsp; 对于我们的项目来说可以仅仅使用<a href="http://httpd.apache.org/" target="_blank" rel="external">Apache</a>，并且我们是通过一个shell脚本创建的。再Vagrantfile相同的目录下创建一个名字为<code>bootstrap.sh</code>的文件。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/env bash</div><div class="line"></div><div class="line">apt-get update</div><div class="line">apt-get install -y apache2</div><div class="line">if ! [ -L /var/www ]; then</div><div class="line">  rm -rf /var/www</div><div class="line">  ln -fs /vagrant /var/www</div><div class="line">fi</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 然后，我们需要配置Vagrant，让它在启动的时候运行这个脚本。我们通过修改Vagrantfile来实现这一功能，具体修改如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Vagrant.configure(&quot;2&quot;) do |config|</div><div class="line">  config.vm.box = &quot;hashicorp/precise32&quot;</div><div class="line">  config.vm.provision :shell, path: &quot;bootstrap.sh&quot;</div><div class="line">end</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; “provision”这一行是新添加的，告诉Vagrant使用<code>shell</code>配置器运行<code>bootstrap.sh</code>脚本启动机器。脚本的路径是项目更目录的相对路径。</p>
+<h3 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h3><p>&emsp;&emsp; 在所有的事情都配置好好，运行<code>vagrant up</code>来创建机器，Vagrant将会自动的配置它。运行的时候你会在终端看到shell脚本的输出。如果虚拟机已经开始运行了，运行<code>vagrant reload --provision</code>, 这个命令可以快速重启虚拟机并且跳过初始的导入步骤。<code>--provision</code>表示Vagrant需要运行配置，因为通常Vagrant只运行第一步。<br>&emsp;&emsp; 当Vagrant完全运行起来的时候，web server同时也启动了。现在还不都能通过宿主机的浏览器看到，但是可以通过ssh到虚拟机进行验证。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ vagrant ssh</div><div class="line">...</div><div class="line">vagrant@precise32:~$ wget -qO- 127.0.0.1</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 这个可以运行成功，因为我们我们已经安装了Apache服务器并且设置默认的<code>DocumentRoot</code>指向了<code>/vagrant</code>。<br>&emsp;&emsp; 你可以继续的创建文件，同时再终端里面验证，不过下一节我们将会讲述网络的相关知识，这样你就可以再本机的浏览器验证了。</p>
+<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><p>&emsp;&emsp; 目前为止我们运行了一个web server，并且可以再宿主机器上修改，同时自动同步到虚拟机中。然而，简单的从虚拟机的终端访问网页并不方便。在这一节中我们将使用Vagrant的网络特性，这样就可以方便的从宿主机器访问虚拟机了。</p>
+<h3 id="端口转发"><a href="#端口转发" class="headerlink" title="端口转发"></a>端口转发</h3><p>&emsp;&emsp; 一个方法是使用端口转发功能。端口转发允许你指定虚拟机的一个端口跟宿主机的一个端口共享。这样你就可以在宿主机访问宿主机的端口，但是都会转发到虚拟机中。<br>&emsp;&emsp; 现在我们配置端口来访问虚拟机的Apache服务。修改Vagrantfile如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Vagrant.configure(&quot;2&quot;) do |config|</div><div class="line">  config.vm.box = &quot;hashicorp/precise32&quot;</div><div class="line">  config.vm.provision :shell, path: &quot;bootstrap.sh&quot;</div><div class="line">  config.vm.network :forwarded_port, guest: 80, host: 4567</div><div class="line">end</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 运行<code>vagrant reload</code>，或者如果没有启动过虚拟机运行<code>vagrant up</code>。使配置生效。</p>
+<h3 id="其他的网络配置"><a href="#其他的网络配置" class="headerlink" title="其他的网络配置"></a>其他的网络配置</h3><p>&emsp;&emsp; Vagrant也有其他的网络配置，允许你给虚拟机配置固定ip，或者是桥接两台虚拟机。如果你对其感兴趣，可以阅读<a href="https://docs.vagrantup.com/v2/networking/" target="_blank" rel="external">networking</a>章节。</p>
+<h2 id="共享"><a href="#共享" class="headerlink" title="共享"></a>共享</h2><p>&emsp;&emsp; 现在我们已经有了一台可运行的服务器，并且可以从本机直接访问，我们构建了一个相当实用的开发环境。但是，除了提供一个开发环境，Vagrant还可以很容易的和其他环境分享和合作。这个主要的功能叫做<a href="https://docs.vagrantup.com/v2/share/" target="_blank" rel="external">Vagrant Share</a>。<br>&emsp;&emsp; Vagrant Share运行你把你的Vagrant环境分享你世界上的每一个人。它将分配给你一个URL，这样世界上任何一台机器都可以实用你的环境了。</p>
+<h3 id="登录Harshicorp’s-Altas"><a href="#登录Harshicorp’s-Altas" class="headerlink" title="登录Harshicorp’s Altas"></a>登录Harshicorp’s Altas</h3><p>&emsp;&emsp; 在分享你的Vagrant环境之前，你需要一个<a href="https://atlas.hashicorp.com/" target="_blank" rel="external">HashiCorp’s Altas</a>的账号。不必担心，它是免费的。<br>&emsp;&emsp; 当你有了账号后，你就可以使用<code>vagrant login</code>来登陆</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ vagrant login</div><div class="line">Username or Email: mitchellh</div><div class="line">Password (will be hidden):</div><div class="line">You&apos;re now logged in!</div></pre></td></tr></table></figure>
+<h3 id="共享-1"><a href="#共享-1" class="headerlink" title="共享"></a>共享</h3><p>&emsp;&emsp; 当你登录之后，你就可以使用<code>vagrant share</code>来共享环境了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ vagrant share</div><div class="line">...</div><div class="line">==&gt; default: Your Vagrant Share is running!</div><div class="line">==&gt; default: URL: http://frosty-weasel-0857.vagrantshare.com</div><div class="line">...</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 你的URL会是不同的，无需上面的URL。复制上面<code>vagrant share</code>生成的url到你的浏览器，你会看到我们已经做好的Apache的页面。<br>&emsp;&emsp; 如果你在共享目录中改动了某个文件，重新刷新URL，你会看到已经更新了。这个URL直接路由到你的Vagrant环境，并且可以直接再世界上任何一台联网的机器上访问。<br>&emsp;&emsp; 关闭共享只需要使用<code>Ctrl+C</code>即可，重新刷新URL，你会发现你的环境已经不再被共享了。<br>&emsp;&emsp; Vagrant Share比简单的HTTP share 更强大，想要了解更多可以阅读完整的<a href="https://docs.vagrantup.com/v2/share/" target="_blank" rel="external">Vagrant Share</a>文档。</p>
+<h2 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h2><p>&emsp;&emsp; 现在我们已经有一个开发web的基本环境。但是，现在是时候说一下开关了，可能是在运行其他的项目的时候使用，或者是吃午饭的时候使用，或者只是回家的时候。我们应该如何清理我们的开发环境。<br>&emsp;&emsp; 通过Vagrant，我们可以<em>suspend</em>,<em>halt</em>或者<em>destory</em>虚拟机。每一个都有他们的优缺点，选择最适合你的那个。  </p>
+<ul>
+<li><strong>suspend</strong> 使用<code>vagrant suspend</code>命令，保存当前运行环境并停止。当你想要继续运行的时候可以使用<code>vagrant up</code>命令，它会从你上次suspend中恢复。这个命令主要好处是速度非常快，通常关闭，启动都在5到10秒之间。缺点是虚拟机仍然会使用你的硬盘，并且在存储所有的状态的时候需要更大的硬盘。  </li>
+<li><strong>halting</strong> 使用<code>vagrant halt</code>命令实现优雅的关闭虚拟机的操作系统并关闭虚拟机。在你想要使用的时候再次运行<code>vagrant up</code>命令启动。这个的好处是可以完全的关闭虚拟机并保留使用的硬盘资源，再下次启动的时候会是一个干净的虚拟机。缺点是冷启动的时候会慢一点，并且仍然会使用硬盘空间。</li>
+<li><strong>destory</strong> 使用<code>vagrant destory</code>命令，将会清楚虚拟机所有的痕迹。它将会停止操作系统，关闭虚拟机，并且清除所使用的磁盘空间。下次使用<code>vagrant up</code>的时候会出现问题。好处是不会有任何的残留在你机器上，同事磁盘空间和RAM都会还给本机。坏处是<code>vagrant up</code>将会从头开始，这样会花费更长的时间。</li>
+</ul>
+<h2 id="重新构建"><a href="#重新构建" class="headerlink" title="重新构建"></a>重新构建</h2><p>&emsp;&emsp; 当你想重新使用虚拟机的时候，不管是是明天，一周之后，或者是一年之后，都可以通过<code>vagrant up</code>来轻松运行他。<br>&emsp;&emsp; 只需要这样。而且由于你的Vagrant都再Vagrantfile里面配置的，所有你或者你的同事只需要简单的运行<code>vagrant up</code>即可重新创建相同的环境。</p>
+<h3 id="Provider"><a href="#Provider" class="headerlink" title="Provider"></a>Provider</h3><p>&emsp;&emsp; 在本指南开始的时候，我们的项目一直支持<a href="https://www.virtualbox.org/" target="_blank" rel="external">VirtualBox</a>。但是Vagrant可以与多个后端Provider一起使用，例如<a href="https://docs.vagrantup.com/v2/vmware/" target="_blank" rel="external">VMware</a>,<a href="http://github.com/mitchellh/vagrant-aws" target="_blank" rel="external">AWS</a>等。继续阅读来了解如何它们的更多信息以及如何使用它们。<br>&emsp;&emsp; 当你安装了其他的Provider的时候,你不需要更改你的Vagrantfile，只需要在启动的时候加个参数即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vagrant up --provider=vmware_fusion</div></pre></td></tr></table></figure>
+<p>准备转移到云端了？使用AWS：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vagrant up --provider=aws</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp; 当你使用其他Provider运行<code>vagrant up</code>的时候，其他的Vagrant命令不行也要指定Provider。Vagrant将会自动的计算出来。所以当你ssh,destory的或者运行其他命令的时候，只需要输入平时的命令即可，例如：<code>vagrant destory</code>，无需额外的参数。<br>&emsp;&emsp; 更多信息请参考<a href="https://docs.vagrantup.com/v2/providers/" target="_blank" rel="external">provider</a>。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://docs.vagrantup.com/v2/getting-started/index.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;原文地址&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;开始&quot;&gt;&lt;a href=&quot;#开始&quot; 
+    
+    </summary>
+    
+    
+      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
+    
+      <category term="Vagrant" scheme="https://mashuai.github.io/tags/Vagrant/"/>
+    
+  </entry>
+  
+</feed>

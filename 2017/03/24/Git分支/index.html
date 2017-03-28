@@ -3,14 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: Go | Mashuai&#39;s Notes</title>
+  <title>Git - 分支管理 | Mashuai&#39;s Notes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Mashuai's Notes">
-<meta property="og:url" content="https://mashuai.github.io/tags/Go/index.html">
+  <meta name="description" content="分支概要(Nutshell)&amp;emsp;&amp;emsp; 几乎每个版本管理系统（VCS）都对分支有一些支持。分支就是从开发的主线分开，在其他地方继续开发，这样不至于和主线的开发产生混乱。在大多的VCS工具里，分支管理是一个复杂的流程，经常需要你为源代码目录创建一份拷贝，对于一些大型项目这会花费大量时间。
+&amp;emsp;&amp;emsp; 真正理解分支首先需要明白Git是如何存储数据的：Git不会储存不同的或变">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git - 分支管理">
+<meta property="og:url" content="https://mashuai.github.io/2017/03/24/Git分支/index.html">
 <meta property="og:site_name" content="Mashuai's Notes">
+<meta property="og:description" content="分支概要(Nutshell)&amp;emsp;&amp;emsp; 几乎每个版本管理系统（VCS）都对分支有一些支持。分支就是从开发的主线分开，在其他地方继续开发，这样不至于和主线的开发产生混乱。在大多的VCS工具里，分支管理是一个复杂的流程，经常需要你为源代码目录创建一份拷贝，对于一些大型项目这会花费大量时间。
+&amp;emsp;&amp;emsp; 真正理解分支首先需要明白Git是如何存储数据的：Git不会储存不同的或变">
+<meta property="og:image" content="https://git-scm.com/book/en/v2/images/commit-and-tree.png">
+<meta property="og:image" content="https://git-scm.com/book/en/v2/images/commits-and-parents.png">
+<meta property="og:updated_time" content="2017-03-27T11:34:00.898Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mashuai's Notes">
+<meta name="twitter:title" content="Git - 分支管理">
+<meta name="twitter:description" content="分支概要(Nutshell)&amp;emsp;&amp;emsp; 几乎每个版本管理系统（VCS）都对分支有一些支持。分支就是从开发的主线分开，在其他地方继续开发，这样不至于和主线的开发产生混乱。在大多的VCS工具里，分支管理是一个复杂的流程，经常需要你为源代码目录创建一份拷贝，对于一些大型项目这会花费大量时间。
+&amp;emsp;&amp;emsp; 真正理解分支首先需要明白Git是如何存储数据的：Git不会储存不同的或变">
+<meta name="twitter:image" content="https://git-scm.com/book/en/v2/images/commit-and-tree.png">
   
     <link rel="alternative" href="/atom.xml" title="Mashuai&#39;s Notes" type="application/atom+xml">
   
@@ -74,115 +84,92 @@ var _hmt = _hmt || [];
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/11/14/为Go-Web-App-创建一个主页面/" class="archive-article-date">
-  <time datetime="2015-11-14T09:59:00.000Z" itemprop="datePublished">Nov 14</time>
+        <section id="main"><article id="post-Git分支" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/24/Git分支/" class="article-date">
+  <time datetime="2017-03-24T03:32:02.000Z" itemprop="datePublished">2017-03-24</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/14/为Go-Web-App-创建一个主页面/">为Go Web App 创建一个主页面</a>
+    <h1 class="article-title" itemprop="name">
+      Git - 分支管理
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/11/12/http-Handler-与Go的错误处理/" class="archive-article-date">
-  <time datetime="2015-11-12T13:24:57.000Z" itemprop="datePublished">Nov 12</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/12/http-Handler-与Go的错误处理/">http.Handler 与Go的错误处理</a>
-    </h1>
-  
+        <h3 id="分支概要-Nutshell"><a href="#分支概要-Nutshell" class="headerlink" title="分支概要(Nutshell)"></a>分支概要(Nutshell)</h3><p>&emsp;&emsp; 几乎每个版本管理系统（<em>VCS</em>）都对分支有一些支持。分支就是从开发的主线分开，在其他地方继续开发，这样不至于和主线的开发产生混乱。在大多的VCS工具里，分支管理是一个复杂的流程，经常需要你为源代码目录创建一份拷贝，对于一些大型项目这会花费大量时间。</p>
+<p>&emsp;&emsp; 真正理解分支首先需要明白<strong>Git</strong>是如何存储数据的：<strong>Git</strong>不会储存不同的或变化的点，而是保存一个快照（snapshot）。</p>
+<p>&emsp;&emsp; 当你提交一个commit，<strong>Git</strong>会存储一个commit对象，这个对象包含：</p>
+<ul>
+<li>指向当前内容的快照的引用（pointer）</li>
+<li>作者的姓名、邮件地址和提交的信息</li>
+<li>指向上一次提交的commit的引用 （如果上一次操作是多个分支的merge操作，那么会储存多个指向不同的commit的引用；如果当前提交是首次commit，因为没有上一次commit，所以不会存储任何指向上一次commit的引用；正常的commit，会储存一个指向上次commit的引用）</li>
+</ul>
+<p>&emsp;&emsp; 视觉化地理解这个流程就是：假设你有一个包含三个文件的目录，添加（add操作）这三个文件后commit。添加文件时会为每个文件生成一个校验码(SHA-1 hash)，在<strong>Git</strong>的仓库(<em>repo</em>)存储文件的版本，同时添加校验码到添加的文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git add README test.rb LICENSE</div><div class="line">$ git commit -m &apos;The initial commit of my project&apos;</div></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp; 当你执行<code>git commit</code>后提交这个commit，<strong>Git</strong>会校验和每个子目录（在这个case里，只有项目的根目录），同时在<strong>Git repo</strong>里存储这些树对象。Git之后会创建一个commit对象，这个对象包含元数据和一个指向根项目树的引用 – 可以再次创建项目快照。</p>
+<p>&emsp;&emsp; 你的<strong>Git repo</strong>现在包含5个对象：</p>
+<ul>
+<li>对应3个文件内容的3个二进制对象</li>
+<li>一个树对象，呈现目录的内容和详细说明文件名和二进制对象的对应关系</li>
+<li>一个commit对象，包含指向根树的引用，和commit对象的所有元数据</li>
+</ul>
+<p>&emsp;&emsp; 如下图所示：</p>
+<p><img src="https://git-scm.com/book/en/v2/images/commit-and-tree.png" alt="Interceptors"></p>
+<p>&emsp;&emsp; 如果文件做了变动，再次提交，这次提交会存储一个指向上一次提交的引用</p>
+<p><img src="https://git-scm.com/book/en/v2/images/commits-and-parents.png" alt="Interceptors"></p>
+<p>&emsp;&emsp; <strong>Git</strong>的分支就是一个的简单的、轻量的、可移动的、指向这些个commit的引用。</p>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/11/12/使用Go开发HTTP中间件/" class="archive-article-date">
-  <time datetime="2015-11-12T04:07:49.000Z" itemprop="datePublished">Nov 12</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/12/使用Go开发HTTP中间件/">使用Go开发HTTP中间件</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/11/12/HTTP-2-和GO/" class="archive-article-date">
-  <time datetime="2015-11-12T03:39:21.000Z" itemprop="datePublished">Nov 12</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mashuai.github.io/2017/03/24/Git分支/" data-id="cj0t3jcwy0005e7r8ceugr7am" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/12/HTTP-2-和GO/">HTTP/2 和GO</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/11/10/Go-Web-架构/" class="archive-article-date">
-  <time datetime="2015-11-10T11:01:21.000Z" itemprop="datePublished">Nov 10</time>
-</a>
+        <a href="https://mashuai.github.io/2017/03/24/Git分支/#disqus_thread" class="article-comment-link">Comments</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/10/Go-Web-架构/">Go Web 架构</a>
-    </h1>
-  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git分支/">Git分支</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/03/25/cup-load-high/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Linux 如何查找Java 程序CPU负载过高
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/23/okhttp/https/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">OKHttp https</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 </section>
         
           <aside id="sidebar">
@@ -273,11 +260,13 @@ var _hmt = _hmt || [];
 <script>
   var disqus_shortname = 'jabfor';
   
+  var disqus_url = 'https://mashuai.github.io/2017/03/24/Git分支/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
