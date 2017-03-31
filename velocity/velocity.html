@@ -3,14 +3,25 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: Go | Mashuai&#39;s Notes</title>
+  <title>velocity 用户指南 -- 简介 | Mashuai&#39;s Notes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Mashuai's Notes">
-<meta property="og:url" content="https://mashuai.github.io/tags/Go/index.html">
+  <meta name="description" content="原文链接  
+关于此指南&amp;emsp;&amp;emsp; 这篇指南主要是帮助网页设计师和内容提供商熟悉Velocity和语法简单，但是很强大的Velocity模板语言（VTL）。在这篇指南的很多示例通过使用Velocity向网站中嵌入内容，但是VTL的例子同样适用于其他网页和模板。&amp;emsp;&amp;emsp; 谢谢选择Velocity。  
+Velocity 是什么&amp;emsp;&amp;emsp; Velocity是">
+<meta name="keywords">
+<meta property="og:type" content="website">
+<meta property="og:title" content="velocity 用户指南 -- 简介">
+<meta property="og:url" content="https://mashuai.github.io/velocity/velocity.html">
 <meta property="og:site_name" content="Mashuai's Notes">
+<meta property="og:description" content="原文链接  
+关于此指南&amp;emsp;&amp;emsp; 这篇指南主要是帮助网页设计师和内容提供商熟悉Velocity和语法简单，但是很强大的Velocity模板语言（VTL）。在这篇指南的很多示例通过使用Velocity向网站中嵌入内容，但是VTL的例子同样适用于其他网页和模板。&amp;emsp;&amp;emsp; 谢谢选择Velocity。  
+Velocity 是什么&amp;emsp;&amp;emsp; Velocity是">
+<meta property="og:updated_time" content="2017-03-31T03:17:46.168Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mashuai's Notes">
+<meta name="twitter:title" content="velocity 用户指南 -- 简介">
+<meta name="twitter:description" content="原文链接  
+关于此指南&amp;emsp;&amp;emsp; 这篇指南主要是帮助网页设计师和内容提供商熟悉Velocity和语法简单，但是很强大的Velocity模板语言（VTL）。在这篇指南的很多示例通过使用Velocity向网站中嵌入内容，但是VTL的例子同样适用于其他网页和模板。&amp;emsp;&amp;emsp; 谢谢选择Velocity。  
+Velocity 是什么&amp;emsp;&amp;emsp; Velocity是">
   
     <link rel="alternative" href="/atom.xml" title="Mashuai&#39;s Notes" type="application/atom+xml">
   
@@ -77,115 +88,57 @@ var _hmt = _hmt || [];
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/11/14/为Go-Web-App-创建一个主页面/" class="archive-article-date">
-  <time datetime="2015-11-14T09:59:00.000Z" itemprop="datePublished">Nov 14</time>
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/velocity/velocity.html" class="article-date">
+  <time datetime="2017-03-30T11:55:20.000Z" itemprop="datePublished">2017-03-30</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/14/为Go-Web-App-创建一个主页面/">为Go Web App 创建一个主页面</a>
+    <h1 class="article-title" itemprop="name">
+      velocity 用户指南 -- 简介
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/11/12/http-Handler-与Go的错误处理/" class="archive-article-date">
-  <time datetime="2015-11-12T13:24:57.000Z" itemprop="datePublished">Nov 12</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/12/http-Handler-与Go的错误处理/">http.Handler 与Go的错误处理</a>
-    </h1>
-  
+        <p><a href="http://velocity.apache.org/engine/devel/user-guide.html" target="_blank" rel="external">原文链接</a>  </p>
+<h4 id="关于此指南"><a href="#关于此指南" class="headerlink" title="关于此指南"></a>关于此指南</h4><p>&emsp;&emsp; 这篇指南主要是帮助网页设计师和内容提供商熟悉Velocity和语法简单，但是很强大的Velocity模板语言（VTL）。在这篇指南的很多示例通过使用Velocity向网站中嵌入内容，但是VTL的例子同样适用于其他网页和模板。<br>&emsp;&emsp; 谢谢选择Velocity。  </p>
+<h4 id="Velocity-是什么"><a href="#Velocity-是什么" class="headerlink" title="Velocity 是什么"></a>Velocity 是什么</h4><p>&emsp;&emsp; Velocity是一个基于Java的模板引擎。它允许网页设计师引用在Java中定义的方法。通过MVC的设计模式，网页设计师可以和Java程序员同时开发网站，这意味着设计师可以专注于创作精心设计的网页，程序员也可以专注写一流的代码。Velocity从web页面中分离了Java代码，使得Web站在运行很长时间后仍然很容易维护，同时也提供了 JSP或者PHP的另一种选择。<br>&emsp;&emsp;Velocity可以用来生成页面，SQL，PostScript和其他可以由模板输出的的东西。它既可以作为生成源码和报表单独使用，也可以和其他系统集成。当完成的时候Velocity将会为turbine web框架提供模板服务。通过使用Velocity+Turbine可以让开发者使用真正的MVC开发模式。  </p>
+<h4 id="Velocity-可以为我做什么"><a href="#Velocity-可以为我做什么" class="headerlink" title="Velocity 可以为我做什么"></a>Velocity 可以为我做什么</h4><p>#####　一个泥土店的例子<br>&emsp;&emsp;假设你是一个为专门卖泥土的店设计网上商店的设计师。暂且叫作“泥土网店”。店铺生意兴旺。客户订购了各种各样的大量泥浆。他们通过使用用户名和密码来登录网站，浏览订单，购买更多的泥浆。现在非常流行的赤陶土泥正在开卖，少数顾客购买了同样买卖的明亮的红色的泥，这个没有那么流行，所以就放到了网页边缘。顾客的信息记录在数据库中，那么问题来了，为什么不使用Velocity直接给那些喜欢不同泥土的客户推送他们感兴趣的泥土呢？<br>&emsp;&emsp;Velocity可以很容易的为你的用户定制页面。作为泥土屋的网页设计师，你希望用户登录之后就可以看到他们想要的页面。<br>&emsp;&emsp;你在公司见到了开发人员，并且每个人都同意使用<code>$customer</code>来保持用户登录之后用户的相关信息，使用<code>$mudsOnSpecial</code>来表示当前正在买的泥土的所有类型。<code>$flogger</code>对象包含了用来推广的方法。对现在手头上的任务，我们只需要关心这三个引用。记住，你不需要考虑程序员如何从数据库取得这些信息，你只需要知道，他可以工作就可以了。这样你就可以专注于自己的工作，程序员也可以专注于自己的工作。<br>&emsp;&emsp;下面这个例子可能就是你要嵌入网页的的VTL的语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">  &lt;body&gt;</div><div class="line">    Hello $customer.Name!</div><div class="line">    &lt;table&gt;</div><div class="line">    #foreach( $mud in $mudsOnSpecial )</div><div class="line">      #if ( $customer.hasPurchased($mud) )</div><div class="line">        &lt;tr&gt;</div><div class="line">          &lt;td&gt;</div><div class="line">            $flogger.getPromo( $mud )</div><div class="line">          &lt;/td&gt;</div><div class="line">        &lt;/tr&gt;</div><div class="line">      #end</div><div class="line">    #end</div><div class="line">    &lt;/table&gt;</div><div class="line">  &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;<code>foreach</code>的细节稍后会进行深入的描述；现在重要的是这段脚本对你网页的影响。当一个喜欢明亮红土的人登录网站，将会看到明亮的红土突出显示在网页中售卖。当一个一直购买赤陶土泥的用户登录的时候他将会看见赤陶土泥正在网页的中央。Velocity的潜力和限制只和你的创造力相关。<br>&emsp;&emsp;VTL文档中还有很多其他的Velocity的元素，这些元素可以让你更加轻松的设计网页。当你熟悉了这些元素之后就会释放Velocity所有的强大的能力。</p>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/11/12/使用Go开发HTTP中间件/" class="archive-article-date">
-  <time datetime="2015-11-12T04:07:49.000Z" itemprop="datePublished">Nov 12</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/12/使用Go开发HTTP中间件/">使用Go开发HTTP中间件</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/11/12/HTTP-2-和GO/" class="archive-article-date">
-  <time datetime="2015-11-12T03:39:21.000Z" itemprop="datePublished">Nov 12</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mashuai.github.io/velocity/velocity.html" data-id="cj0x9fg5w001d4mr8mw5jimqb" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/12/HTTP-2-和GO/">HTTP/2 和GO</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/11/10/Go-Web-架构/" class="archive-article-date">
-  <time datetime="2015-11-10T11:01:21.000Z" itemprop="datePublished">Nov 10</time>
-</a>
+        <a href="https://mashuai.github.io/velocity/velocity.html#disqus_thread" class="article-comment-link">Comments</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/10/Go-Web-架构/">Go Web 架构</a>
-    </h1>
-  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/">undefined</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/">undefined</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
+    
+  
 </article>
-  
-  
-    </div></section>
-  
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 </section>
         
           <aside id="sidebar">
@@ -280,11 +233,13 @@ var _hmt = _hmt || [];
 <script>
   var disqus_shortname = 'jabfor';
   
+  var disqus_url = 'https://mashuai.github.io/velocity/velocity.html';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>

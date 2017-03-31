@@ -549,11 +549,11 @@
     </summary>
     
     
+      <category term="HTTP/2" scheme="https://mashuai.github.io/tags/HTTP-2/"/>
+    
       <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
     
       <category term="Go" scheme="https://mashuai.github.io/tags/Go/"/>
-    
-      <category term="HTTP/2" scheme="https://mashuai.github.io/tags/HTTP-2/"/>
     
   </entry>
   
@@ -646,9 +646,9 @@
     </summary>
     
     
-      <category term="Ansible" scheme="https://mashuai.github.io/tags/Ansible/"/>
-    
       <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
+    
+      <category term="Ansible" scheme="https://mashuai.github.io/tags/Ansible/"/>
     
   </entry>
   
@@ -709,9 +709,9 @@
     </summary>
     
     
-      <category term="Ansible" scheme="https://mashuai.github.io/tags/Ansible/"/>
-    
       <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
+    
+      <category term="Ansible" scheme="https://mashuai.github.io/tags/Ansible/"/>
     
       <category term="Vagrant" scheme="https://mashuai.github.io/tags/Vagrant/"/>
     
