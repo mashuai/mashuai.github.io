@@ -3,27 +3,25 @@
 <head>
   <meta charset="utf-8">
   
-  <title>OKHttp connections | Mashuai&#39;s Notes</title>
+  <title>velocity 用户指南 -- 简介 | Mashuai&#39;s Notes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原文地址&amp;emsp;&amp;emsp;虽然只提供了URL，但是OKHttp会使用URL，Address，Route三种方式来连接服务器。
-URLS&amp;emsp;&amp;emsp;URLs例如（https://github.com/square/okhttp) 是HTTP和Internet的基础。除了是一个表示互联网一切的命名方案，也指定了如何访问Web资源。URLs是抽象的：
-
-它指出，调用可以是纯文本（htt">
-<meta property="og:type" content="article">
-<meta property="og:title" content="OKHttp connections">
-<meta property="og:url" content="https://mashuai.github.io/2017/03/18/okhttp/connections/index.html">
+  <meta name="description" content="原文链接  
+关于此指南&amp;emsp;&amp;emsp; 这篇指南主要是帮助网页设计师和内容提供商熟悉Velocity和语法简单，但是很强大的Velocity模板语言（VTL）。在这篇指南的很多示例通过使用Velocity向网站中嵌入内容，但是VTL的例子同样适用于其他网页和模板。&amp;emsp;&amp;emsp; 谢谢选择Velocity。  
+Velocity 是什么&amp;emsp;&amp;emsp; Velocity是">
+<meta name="keywords">
+<meta property="og:type" content="website">
+<meta property="og:title" content="velocity 用户指南 -- 简介">
+<meta property="og:url" content="https://mashuai.github.io/velocity/index.html">
 <meta property="og:site_name" content="Mashuai's Notes">
-<meta property="og:description" content="原文地址&amp;emsp;&amp;emsp;虽然只提供了URL，但是OKHttp会使用URL，Address，Route三种方式来连接服务器。
-URLS&amp;emsp;&amp;emsp;URLs例如（https://github.com/square/okhttp) 是HTTP和Internet的基础。除了是一个表示互联网一切的命名方案，也指定了如何访问Web资源。URLs是抽象的：
-
-它指出，调用可以是纯文本（htt">
-<meta property="og:updated_time" content="2017-03-21T02:20:32.570Z">
+<meta property="og:description" content="原文链接  
+关于此指南&amp;emsp;&amp;emsp; 这篇指南主要是帮助网页设计师和内容提供商熟悉Velocity和语法简单，但是很强大的Velocity模板语言（VTL）。在这篇指南的很多示例通过使用Velocity向网站中嵌入内容，但是VTL的例子同样适用于其他网页和模板。&amp;emsp;&amp;emsp; 谢谢选择Velocity。  
+Velocity 是什么&amp;emsp;&amp;emsp; Velocity是">
+<meta property="og:updated_time" content="2017-03-31T03:17:46.168Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OKHttp connections">
-<meta name="twitter:description" content="原文地址&amp;emsp;&amp;emsp;虽然只提供了URL，但是OKHttp会使用URL，Address，Route三种方式来连接服务器。
-URLS&amp;emsp;&amp;emsp;URLs例如（https://github.com/square/okhttp) 是HTTP和Internet的基础。除了是一个表示互联网一切的命名方案，也指定了如何访问Web资源。URLs是抽象的：
-
-它指出，调用可以是纯文本（htt">
+<meta name="twitter:title" content="velocity 用户指南 -- 简介">
+<meta name="twitter:description" content="原文链接  
+关于此指南&amp;emsp;&amp;emsp; 这篇指南主要是帮助网页设计师和内容提供商熟悉Velocity和语法简单，但是很强大的Velocity模板语言（VTL）。在这篇指南的很多示例通过使用Velocity向网站中嵌入内容，但是VTL的例子同样适用于其他网页和模板。&amp;emsp;&amp;emsp; 谢谢选择Velocity。  
+Velocity 是什么&amp;emsp;&amp;emsp; Velocity是">
   
     <link rel="alternative" href="/atom.xml" title="Mashuai&#39;s Notes" type="application/atom+xml">
   
@@ -90,10 +88,10 @@ var _hmt = _hmt || [];
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-okhttp/connections" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/03/18/okhttp/connections/" class="article-date">
-  <time datetime="2017-03-18T11:05:48.000Z" itemprop="datePublished">2017-03-18</time>
+    <a href="/velocity/index.html" class="article-date">
+  <time datetime="2017-03-30T11:55:20.000Z" itemprop="datePublished">2017-03-30</time>
 </a>
     
   </div>
@@ -104,7 +102,7 @@ var _hmt = _hmt || [];
         
   
     <h1 class="article-title" itemprop="name">
-      OKHttp connections
+      velocity 用户指南 -- 简介
     </h1>
   
 
@@ -112,57 +110,26 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a href="https://github.com/square/okhttp/wiki/Connections" target="_blank" rel="external">原文地址</a><br>&emsp;&emsp;虽然只提供了URL，但是OKHttp会使用URL，Address，Route三种方式来连接服务器。</p>
-<h4 id="URLS"><a href="#URLS" class="headerlink" title="URLS"></a>URLS</h4><p>&emsp;&emsp;URLs例如（<a href="https://github.com/square/okhttp" target="_blank" rel="external">https://github.com/square/okhttp</a>) 是HTTP和Internet的基础。除了是一个表示互联网一切的命名方案，也指定了如何访问Web资源。<br>URLs是抽象的：</p>
-<ul>
-<li>它指出，调用可以是纯文本（http）或者加密（https），但是并没有指定一种加密算法。也没有指定如何验证各个端点的证书(<a href="http://developer.android.com/reference/javax/net/ssl/HostnameVerifier.html" target="_blank" rel="external">HostnameVerifier</a>)，或者是哪个证书可信(<a href="http://developer.android.com/reference/org/apache/http/conn/ssl/SSLSocketFactory.html" target="_blank" rel="external">SSLSocketFactory</a>)</li>
-<li><p>它为指定是否需要使用代理服务器以及代理服务器如何授权。<br>&emsp;&emsp;它也是具体的，每个URL标识一个具体的路径（/square/okhttp)和查询（?q=sharks&amp;lang=en)。每个服务器有很多URL。</p>
-<h4 id="Addresses"><a href="#Addresses" class="headerlink" title="Addresses"></a>Addresses</h4><p>&emsp;&emsp;Address指定了一个服务器（例如：github.com），以及连接服务器必要的所有的静态配置，包括：端口号，HTTPS设置，优先协议（例如，HTTP／2，SPDY）。<br>&emsp;&emsp;URL使用了相同的Address，底层也可能实用了相同的TCP链接。复用连接可以提高性能：低延迟，高吞吐（<a href="http://www.igvita.com/2011/10/20/faster-web-vs-tcp-slow-start/" target="_blank" rel="external">TCP 慢启动</a>)，低电量。OKHttp使用<a href="http://square.github.io/okhttp/3.x/okhttp/okhttp3/ConnectionPool.html" target="_blank" rel="external">ConnectionPool</a>自动复用HTTP／1.x连接，多路复用HTT／2和SPDY的连接。<br>&emsp;&emsp;在OKHttp，address的一些字段来源于URL（协议，主机名，端口），剩下的来自<a href="http://square.github.io/okhttp/3.x/okhttp/okhttp3/OkHttpClient.html" target="_blank" rel="external">OKHttpClient</a>。</p>
-<h4 id="Routes"><a href="#Routes" class="headerlink" title="Routes"></a>Routes</h4><p>&emsp;&emsp;Route提供了连接服务器必要的动态信息。包括，具体的IP地址（通过DNS查询），具体使用那个代理（<a href="http://developer.android.com/reference/java/net/ProxySelector.html" target="_blank" rel="external">ProxySelector</a>），协n哪个TLS版本（HTTPS).<br>&emsp;&emsp;一个服务器可能有多条路有信息。例如：多台服务器部署在多个数据中心，DNS查询返回多个IP地址。</p>
-<h4 id="Connections"><a href="#Connections" class="headerlink" title="Connections"></a>Connections</h4><p>&emsp;&emsp;当发起一个URL的请求的时候：</p>
-<ol>
-<li>使用URL和OKHttpCLient确定具体的<strong>Address</strong>。这个地址明确如何连接服务器。</li>
-<li>尝试从<strong>连接池</strong>中查找具体Address的连接。</li>
-<li>如果未找到有效的连接，使用Route来尝试获取。一般这样意味着通过DNS或去IP地址。然后，如果需要，选择一个TLS的版本和代理服务器。</li>
-<li>如果是一个新的Route，要么使用Socket直连，TLS隧道（HTTS方式），或者直接使用TLS。也会进行必要的TLS握手。</li>
-<li>发送请求，接受响应。<br>&emsp;&emsp;如果连接发生错误，OKHttp会选择另一个路由重试。这样OKHttp就可以在服务器端一些地址无法访问的时候恢复访问。同时如果连接池的连接失效或者常识的TLS 版本不支持也很有用。<br>&emsp;&emsp;当响应接收到了之后，连接会放回到连接池以便之后使用。连接在一段时间过期后回被移除连接池。</li>
-</ol>
-</li>
-</ul>
+        <p><a href="http://velocity.apache.org/engine/devel/user-guide.html" target="_blank" rel="external">原文链接</a>  </p>
+<h4 id="关于此指南"><a href="#关于此指南" class="headerlink" title="关于此指南"></a>关于此指南</h4><p>&emsp;&emsp; 这篇指南主要是帮助网页设计师和内容提供商熟悉Velocity和语法简单，但是很强大的Velocity模板语言（VTL）。在这篇指南的很多示例通过使用Velocity向网站中嵌入内容，但是VTL的例子同样适用于其他网页和模板。<br>&emsp;&emsp; 谢谢选择Velocity。  </p>
+<h4 id="Velocity-是什么"><a href="#Velocity-是什么" class="headerlink" title="Velocity 是什么"></a>Velocity 是什么</h4><p>&emsp;&emsp; Velocity是一个基于Java的模板引擎。它允许网页设计师引用在Java中定义的方法。通过MVC的设计模式，网页设计师可以和Java程序员同时开发网站，这意味着设计师可以专注于创作精心设计的网页，程序员也可以专注写一流的代码。Velocity从web页面中分离了Java代码，使得Web站在运行很长时间后仍然很容易维护，同时也提供了 JSP或者PHP的另一种选择。<br>&emsp;&emsp;Velocity可以用来生成页面，SQL，PostScript和其他可以由模板输出的的东西。它既可以作为生成源码和报表单独使用，也可以和其他系统集成。当完成的时候Velocity将会为turbine web框架提供模板服务。通过使用Velocity+Turbine可以让开发者使用真正的MVC开发模式。  </p>
+<h4 id="Velocity-可以为我做什么"><a href="#Velocity-可以为我做什么" class="headerlink" title="Velocity 可以为我做什么"></a>Velocity 可以为我做什么</h4><p>#####　一个泥土店的例子<br>&emsp;&emsp;假设你是一个为专门卖泥土的店设计网上商店的设计师。暂且叫作“泥土网店”。店铺生意兴旺。客户订购了各种各样的大量泥浆。他们通过使用用户名和密码来登录网站，浏览订单，购买更多的泥浆。现在非常流行的赤陶土泥正在开卖，少数顾客购买了同样买卖的明亮的红色的泥，这个没有那么流行，所以就放到了网页边缘。顾客的信息记录在数据库中，那么问题来了，为什么不使用Velocity直接给那些喜欢不同泥土的客户推送他们感兴趣的泥土呢？<br>&emsp;&emsp;Velocity可以很容易的为你的用户定制页面。作为泥土屋的网页设计师，你希望用户登录之后就可以看到他们想要的页面。<br>&emsp;&emsp;你在公司见到了开发人员，并且每个人都同意使用<code>$customer</code>来保持用户登录之后用户的相关信息，使用<code>$mudsOnSpecial</code>来表示当前正在买的泥土的所有类型。<code>$flogger</code>对象包含了用来推广的方法。对现在手头上的任务，我们只需要关心这三个引用。记住，你不需要考虑程序员如何从数据库取得这些信息，你只需要知道，他可以工作就可以了。这样你就可以专注于自己的工作，程序员也可以专注于自己的工作。<br>&emsp;&emsp;下面这个例子可能就是你要嵌入网页的的VTL的语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">  &lt;body&gt;</div><div class="line">    Hello $customer.Name!</div><div class="line">    &lt;table&gt;</div><div class="line">    #foreach( $mud in $mudsOnSpecial )</div><div class="line">      #if ( $customer.hasPurchased($mud) )</div><div class="line">        &lt;tr&gt;</div><div class="line">          &lt;td&gt;</div><div class="line">            $flogger.getPromo( $mud )</div><div class="line">          &lt;/td&gt;</div><div class="line">        &lt;/tr&gt;</div><div class="line">      #end</div><div class="line">    #end</div><div class="line">    &lt;/table&gt;</div><div class="line">  &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;<code>foreach</code>的细节稍后会进行深入的描述；现在重要的是这段脚本对你网页的影响。当一个喜欢明亮红土的人登录网站，将会看到明亮的红土突出显示在网页中售卖。当一个一直购买赤陶土泥的用户登录的时候他将会看见赤陶土泥正在网页的中央。Velocity的潜力和限制只和你的创造力相关。<br>&emsp;&emsp;VTL文档中还有很多其他的Velocity的元素，这些元素可以让你更加轻松的设计网页。当你熟悉了这些元素之后就会释放Velocity所有的强大的能力。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/03/18/okhttp/connections/" data-id="cj0x9iizw001o7tr8nwp2xyps" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/velocity/index.html" data-id="cj0x9iiz7001m7tr88xafmfml" class="article-share-link">Share</a>
       
-        <a href="https://mashuai.github.io/2017/03/18/okhttp/connections/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="https://mashuai.github.io/velocity/index.html#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OKHttp/">OKHttp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/">undefined</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/">undefined</a></li></ul>
 
     </footer>
   </div>
   
     
-<nav id="article-nav">
-  
-    <a href="/2017/03/18/okhttp/Recipes/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          OKHttp Recipes
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2017/03/18/okhttp/calls/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">OKHttp的调用</div>
-    </a>
-  
-</nav>
-
   
 </article>
 
@@ -266,7 +233,7 @@ var _hmt = _hmt || [];
 <script>
   var disqus_shortname = 'jabfor';
   
-  var disqus_url = 'https://mashuai.github.io/2017/03/18/okhttp/connections/';
+  var disqus_url = 'https://mashuai.github.io/velocity/index.html';
   
   (function(){
     var dsq = document.createElement('script');
