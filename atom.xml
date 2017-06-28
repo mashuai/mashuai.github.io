@@ -403,9 +403,9 @@
     </summary>
     
     
-      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
-    
       <category term="Go" scheme="https://mashuai.github.io/tags/Go/"/>
+    
+      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
     
   </entry>
   
@@ -450,9 +450,9 @@
     </summary>
     
     
-      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
-    
       <category term="Go" scheme="https://mashuai.github.io/tags/Go/"/>
+    
+      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
     
   </entry>
   
@@ -549,11 +549,11 @@
     </summary>
     
     
+      <category term="Go" scheme="https://mashuai.github.io/tags/Go/"/>
+    
       <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
     
       <category term="HTTP/2" scheme="https://mashuai.github.io/tags/HTTP-2/"/>
-    
-      <category term="Go" scheme="https://mashuai.github.io/tags/Go/"/>
     
   </entry>
   
@@ -601,11 +601,11 @@
     </summary>
     
     
-      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
-    
       <category term="Go" scheme="https://mashuai.github.io/tags/Go/"/>
     
       <category term="Architecture" scheme="https://mashuai.github.io/tags/Architecture/"/>
+    
+      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
     
   </entry>
   
@@ -646,9 +646,9 @@
     </summary>
     
     
-      <category term="Ansible" scheme="https://mashuai.github.io/tags/Ansible/"/>
-    
       <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
+    
+      <category term="Ansible" scheme="https://mashuai.github.io/tags/Ansible/"/>
     
   </entry>
   
@@ -709,9 +709,9 @@
     </summary>
     
     
-      <category term="Ansible" scheme="https://mashuai.github.io/tags/Ansible/"/>
-    
       <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
+    
+      <category term="Ansible" scheme="https://mashuai.github.io/tags/Ansible/"/>
     
       <category term="Vagrant" scheme="https://mashuai.github.io/tags/Vagrant/"/>
     
