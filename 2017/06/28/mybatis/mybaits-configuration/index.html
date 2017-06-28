@@ -3,25 +3,57 @@
 <head>
   <meta charset="utf-8">
   
-  <title>velocity 用户指南 -- 简介 | Mashuai&#39;s Notes</title>
+  <title>MyBatis 配置 | Mashuai&#39;s Notes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原文链接  
-关于此指南&amp;emsp;&amp;emsp; 这篇指南主要是帮助网页设计师和内容提供商熟悉Velocity和语法简单，但是很强大的Velocity模板语言（VTL）。在这篇指南的很多示例通过使用Velocity向网站中嵌入内容，但是VTL的例子同样适用于其他网页和模板。&amp;emsp;&amp;emsp; 谢谢选择Velocity。  
-Velocity 是什么&amp;emsp;&amp;emsp; Velocity是">
-<meta name="keywords">
-<meta property="og:type" content="website">
-<meta property="og:title" content="velocity 用户指南 -- 简介">
-<meta property="og:url" content="https://mashuai.github.io/velocity/index.html">
+  <meta name="description" content="原文链接
+MyBatis的配置包含了设置和属性，他们对MyBatis的行为有很大的影响。MyBatis的配置文件层次结构如下：
+
+configuration
+properties
+settings
+typeAliases
+typeHandlers
+objectFactory
+plugins
+environments
+environment
+transactionManager
+dataSource">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MyBatis 配置">
+<meta property="og:url" content="https://mashuai.github.io/2017/06/28/mybatis/mybaits-configuration/index.html">
 <meta property="og:site_name" content="Mashuai's Notes">
-<meta property="og:description" content="原文链接  
-关于此指南&amp;emsp;&amp;emsp; 这篇指南主要是帮助网页设计师和内容提供商熟悉Velocity和语法简单，但是很强大的Velocity模板语言（VTL）。在这篇指南的很多示例通过使用Velocity向网站中嵌入内容，但是VTL的例子同样适用于其他网页和模板。&amp;emsp;&amp;emsp; 谢谢选择Velocity。  
-Velocity 是什么&amp;emsp;&amp;emsp; Velocity是">
-<meta property="og:updated_time" content="2017-03-31T03:17:46.168Z">
+<meta property="og:description" content="原文链接
+MyBatis的配置包含了设置和属性，他们对MyBatis的行为有很大的影响。MyBatis的配置文件层次结构如下：
+
+configuration
+properties
+settings
+typeAliases
+typeHandlers
+objectFactory
+plugins
+environments
+environment
+transactionManager
+dataSource">
+<meta property="og:updated_time" content="2017-06-28T06:42:27.787Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="velocity 用户指南 -- 简介">
-<meta name="twitter:description" content="原文链接  
-关于此指南&amp;emsp;&amp;emsp; 这篇指南主要是帮助网页设计师和内容提供商熟悉Velocity和语法简单，但是很强大的Velocity模板语言（VTL）。在这篇指南的很多示例通过使用Velocity向网站中嵌入内容，但是VTL的例子同样适用于其他网页和模板。&amp;emsp;&amp;emsp; 谢谢选择Velocity。  
-Velocity 是什么&amp;emsp;&amp;emsp; Velocity是">
+<meta name="twitter:title" content="MyBatis 配置">
+<meta name="twitter:description" content="原文链接
+MyBatis的配置包含了设置和属性，他们对MyBatis的行为有很大的影响。MyBatis的配置文件层次结构如下：
+
+configuration
+properties
+settings
+typeAliases
+typeHandlers
+objectFactory
+plugins
+environments
+environment
+transactionManager
+dataSource">
   
     <link rel="alternative" href="/atom.xml" title="Mashuai&#39;s Notes" type="application/atom+xml">
   
@@ -88,10 +120,10 @@ var _hmt = _hmt || [];
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-mybatis/mybaits-configuration" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/velocity/index.html" class="article-date">
-  <time datetime="2017-03-30T11:55:20.000Z" itemprop="datePublished">2017-03-30</time>
+    <a href="/2017/06/28/mybatis/mybaits-configuration/" class="article-date">
+  <time datetime="2017-06-28T06:13:32.000Z" itemprop="datePublished">2017-06-28</time>
 </a>
     
   </div>
@@ -102,7 +134,7 @@ var _hmt = _hmt || [];
         
   
     <h1 class="article-title" itemprop="name">
-      velocity 用户指南 -- 简介
+      MyBatis 配置
     </h1>
   
 
@@ -110,26 +142,66 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a href="http://velocity.apache.org/engine/devel/user-guide.html" target="_blank" rel="external">原文链接</a>  </p>
-<h4 id="关于此指南"><a href="#关于此指南" class="headerlink" title="关于此指南"></a>关于此指南</h4><p>&emsp;&emsp; 这篇指南主要是帮助网页设计师和内容提供商熟悉Velocity和语法简单，但是很强大的Velocity模板语言（VTL）。在这篇指南的很多示例通过使用Velocity向网站中嵌入内容，但是VTL的例子同样适用于其他网页和模板。<br>&emsp;&emsp; 谢谢选择Velocity。  </p>
-<h4 id="Velocity-是什么"><a href="#Velocity-是什么" class="headerlink" title="Velocity 是什么"></a>Velocity 是什么</h4><p>&emsp;&emsp; Velocity是一个基于Java的模板引擎。它允许网页设计师引用在Java中定义的方法。通过MVC的设计模式，网页设计师可以和Java程序员同时开发网站，这意味着设计师可以专注于创作精心设计的网页，程序员也可以专注写一流的代码。Velocity从web页面中分离了Java代码，使得Web站在运行很长时间后仍然很容易维护，同时也提供了 JSP或者PHP的另一种选择。<br>&emsp;&emsp;Velocity可以用来生成页面，SQL，PostScript和其他可以由模板输出的的东西。它既可以作为生成源码和报表单独使用，也可以和其他系统集成。当完成的时候Velocity将会为turbine web框架提供模板服务。通过使用Velocity+Turbine可以让开发者使用真正的MVC开发模式。  </p>
-<h4 id="Velocity-可以为我做什么"><a href="#Velocity-可以为我做什么" class="headerlink" title="Velocity 可以为我做什么"></a>Velocity 可以为我做什么</h4><p>#####　一个泥土店的例子<br>&emsp;&emsp;假设你是一个为专门卖泥土的店设计网上商店的设计师。暂且叫作“泥土网店”。店铺生意兴旺。客户订购了各种各样的大量泥浆。他们通过使用用户名和密码来登录网站，浏览订单，购买更多的泥浆。现在非常流行的赤陶土泥正在开卖，少数顾客购买了同样买卖的明亮的红色的泥，这个没有那么流行，所以就放到了网页边缘。顾客的信息记录在数据库中，那么问题来了，为什么不使用Velocity直接给那些喜欢不同泥土的客户推送他们感兴趣的泥土呢？<br>&emsp;&emsp;Velocity可以很容易的为你的用户定制页面。作为泥土屋的网页设计师，你希望用户登录之后就可以看到他们想要的页面。<br>&emsp;&emsp;你在公司见到了开发人员，并且每个人都同意使用<code>$customer</code>来保持用户登录之后用户的相关信息，使用<code>$mudsOnSpecial</code>来表示当前正在买的泥土的所有类型。<code>$flogger</code>对象包含了用来推广的方法。对现在手头上的任务，我们只需要关心这三个引用。记住，你不需要考虑程序员如何从数据库取得这些信息，你只需要知道，他可以工作就可以了。这样你就可以专注于自己的工作，程序员也可以专注于自己的工作。<br>&emsp;&emsp;下面这个例子可能就是你要嵌入网页的的VTL的语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">  &lt;body&gt;</div><div class="line">    Hello $customer.Name!</div><div class="line">    &lt;table&gt;</div><div class="line">    #foreach( $mud in $mudsOnSpecial )</div><div class="line">      #if ( $customer.hasPurchased($mud) )</div><div class="line">        &lt;tr&gt;</div><div class="line">          &lt;td&gt;</div><div class="line">            $flogger.getPromo( $mud )</div><div class="line">          &lt;/td&gt;</div><div class="line">        &lt;/tr&gt;</div><div class="line">      #end</div><div class="line">    #end</div><div class="line">    &lt;/table&gt;</div><div class="line">  &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;<code>foreach</code>的细节稍后会进行深入的描述；现在重要的是这段脚本对你网页的影响。当一个喜欢明亮红土的人登录网站，将会看到明亮的红土突出显示在网页中售卖。当一个一直购买赤陶土泥的用户登录的时候他将会看见赤陶土泥正在网页的中央。Velocity的潜力和限制只和你的创造力相关。<br>&emsp;&emsp;VTL文档中还有很多其他的Velocity的元素，这些元素可以让你更加轻松的设计网页。当你熟悉了这些元素之后就会释放Velocity所有的强大的能力。</p>
-
+        <p><a href="http://www.mybatis.org/mybatis-3/configuration.html" target="_blank" rel="external">原文链接</a></p>
+<p>MyBatis的配置包含了设置和属性，他们对MyBatis的行为有很大的影响。MyBatis的配置文件层次结构如下：</p>
+<ul>
+<li>configuration<ul>
+<li>properties</li>
+<li>settings</li>
+<li>typeAliases</li>
+<li>typeHandlers</li>
+<li>objectFactory</li>
+<li>plugins</li>
+<li>environments<ul>
+<li>environment<ul>
+<li>transactionManager</li>
+<li>dataSource</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>databaseIdProvider</li>
+<li>mappers</li>
+</ul>
+</li>
+</ul>
+<h3 id="properties"><a href="#properties" class="headerlink" title="properties"></a>properties</h3><p>可以通过一个典型的Java Properties 类实例配置可替换的外部属性，也可以通过子元素传递这些配置属性，例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;properties resource=&quot;org/mybatis/example/config.properties&quot;&gt;</div><div class="line">  &lt;property name=&quot;username&quot; value=&quot;dev_user&quot;/&gt;</div><div class="line">  &lt;property name=&quot;password&quot; value=&quot;F2Fa3!33TYyg&quot;/&gt;</div><div class="line">&lt;/properties&gt;</div></pre></td></tr></table></figure></p>
+<p>然后这些配置属性就可以应用于配置文件中需要动态配置的其他属性。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;dataSource type=&quot;POOLED&quot;&gt;</div><div class="line">  &lt;property name=&quot;driver&quot; value=&quot;$&#123;driver&#125;&quot;/&gt;</div><div class="line">  &lt;property name=&quot;url&quot; value=&quot;$&#123;url&#125;&quot;/&gt;</div><div class="line">  &lt;property name=&quot;username&quot; value=&quot;$&#123;username&#125;&quot;/&gt;</div><div class="line">  &lt;property name=&quot;password&quot; value=&quot;$&#123;password&#125;&quot;/&gt;</div><div class="line">&lt;/dataSource&gt;</div></pre></td></tr></table></figure></p>
+<p>在这个例子中的username和password将会被properties的配置属性替换。driver和url属性会被config.properties的配置替换。这个为配置提供了很多的选项。<br>Properties同样可以直传入SqlSessionFactoryBuild.build() 方法中，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(reader, props);</div><div class="line"></div><div class="line">// ... or ...</div><div class="line"></div><div class="line">SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(reader, environment, props);</div></pre></td></tr></table></figure></p>
+<p>如果同一个属性同时配置到不同的位置，MyBatis按照如下的顺序加载它们：    </p>
+<ol>
+<li>在Properties内的子元素首先被加载。     </li>
+<li>其次从resource classpath和url中加载属性并覆盖已存在的属性。    </li>
+<li>作为方法参数的属性最后被加载，并且覆盖前面两次相同的属性。</li>
+</ol>
+<p>因此，优先级最高的是直接作为参数传入方法，其次是从resource classpath或者url加载的配置文件，最后是Properties中的子元素定义的属性。<br>MyBatis 3.4.2 之后可以如下使用默认占位符。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;dataSource type=&quot;POOLED&quot;&gt;</div><div class="line">  &lt;!-- ... --&gt;</div><div class="line">  &lt;property name=&quot;username&quot; value=&quot;$&#123;username:ut_user&#125;&quot;/&gt; &lt;!-- If &apos;username&apos; property not present, username become &apos;ut_user&apos; --&gt;</div><div class="line">&lt;/dataSource&gt;</div></pre></td></tr></table></figure></p>
+<p>这个功能默认是无效的，如果要开启这个功能，需要在配置属性中如下开启：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;properties resource=&quot;org/mybatis/example/config.properties&quot;&gt;</div><div class="line">  &lt;!-- ... --&gt;</div><div class="line">  &lt;property name=&quot;org.apache.ibatis.parsing.PropertyParser.enable-default-value&quot; value=&quot;true&quot;/&gt; &lt;!-- Enable this feature --&gt;</div><div class="line">&lt;/properties&gt;</div></pre></td></tr></table></figure></p>
+<p>注意：如果已经使用了“：”作为属性的键例如：<code>db:username</code>，或者是在sql的定义中使用了OGNL的三元符，例如：<code>${tableName != null ? tableName : &#39;global_constants&#39;}</code>那么就需要修改默认的分隔符，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;properties resource=&quot;org/mybatis/example/config.properties&quot;&gt;</div><div class="line">  &lt;!-- ... --&gt;</div><div class="line">  &lt;property name=&quot;org.apache.ibatis.parsing.PropertyParser.default-value-separator&quot; value=&quot;?:&quot;/&gt; &lt;!-- Change default value of separator --&gt;</div><div class="line">&lt;/properties&gt;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;dataSource type=&quot;POOLED&quot;&gt;</div><div class="line">  &lt;!-- ... --&gt;</div><div class="line">  &lt;property name=&quot;username&quot; value=&quot;$&#123;db:username?:ut_user&#125;&quot;/&gt;</div><div class="line">&lt;/dataSource&gt;</div></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/velocity/index.html" data-id="cj4gmwx8i000y45r8t1jtogyw" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2017/06/28/mybatis/mybaits-configuration/" data-id="cj4gmwx9j001i45r8vd45a0oo" class="article-share-link">Share</a>
       
-        <a href="https://mashuai.github.io/velocity/index.html#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="https://mashuai.github.io/2017/06/28/mybatis/mybaits-configuration/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/">undefined</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/">undefined</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mybatis/">Mybatis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li></ul>
 
     </footer>
   </div>
   
     
+<nav id="article-nav">
+  
+  
+    <a href="/2017/03/25/cup-load-high/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Linux 如何查找Java 程序CPU负载过高</div>
+    </a>
+  
+</nav>
+
   
 </article>
 
@@ -233,7 +305,7 @@ var _hmt = _hmt || [];
 <script>
   var disqus_shortname = 'jabfor';
   
-  var disqus_url = 'https://mashuai.github.io/velocity/index.html';
+  var disqus_url = 'https://mashuai.github.io/2017/06/28/mybatis/mybaits-configuration/';
   
   (function(){
     var dsq = document.createElement('script');

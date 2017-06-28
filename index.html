@@ -79,6 +79,81 @@ var _hmt = _hmt || [];
       <div class="outer">
         <section id="main">
   
+    <article id="post-mybatis/mybaits-configuration" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/28/mybatis/mybaits-configuration/" class="article-date">
+  <time datetime="2017-06-28T06:13:32.000Z" itemprop="datePublished">2017-06-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/28/mybatis/mybaits-configuration/">MyBatis 配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://www.mybatis.org/mybatis-3/configuration.html" target="_blank" rel="external">原文链接</a></p>
+<p>MyBatis的配置包含了设置和属性，他们对MyBatis的行为有很大的影响。MyBatis的配置文件层次结构如下：</p>
+<ul>
+<li>configuration<ul>
+<li>properties</li>
+<li>settings</li>
+<li>typeAliases</li>
+<li>typeHandlers</li>
+<li>objectFactory</li>
+<li>plugins</li>
+<li>environments<ul>
+<li>environment<ul>
+<li>transactionManager</li>
+<li>dataSource</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>databaseIdProvider</li>
+<li>mappers</li>
+</ul>
+</li>
+</ul>
+<h3 id="properties"><a href="#properties" class="headerlink" title="properties"></a>properties</h3><p>可以通过一个典型的Java Properties 类实例配置可替换的外部属性，也可以通过子元素传递这些配置属性，例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;properties resource=&quot;org/mybatis/example/config.properties&quot;&gt;</div><div class="line">  &lt;property name=&quot;username&quot; value=&quot;dev_user&quot;/&gt;</div><div class="line">  &lt;property name=&quot;password&quot; value=&quot;F2Fa3!33TYyg&quot;/&gt;</div><div class="line">&lt;/properties&gt;</div></pre></td></tr></table></figure></p>
+<p>然后这些配置属性就可以应用于配置文件中需要动态配置的其他属性。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;dataSource type=&quot;POOLED&quot;&gt;</div><div class="line">  &lt;property name=&quot;driver&quot; value=&quot;$&#123;driver&#125;&quot;/&gt;</div><div class="line">  &lt;property name=&quot;url&quot; value=&quot;$&#123;url&#125;&quot;/&gt;</div><div class="line">  &lt;property name=&quot;username&quot; value=&quot;$&#123;username&#125;&quot;/&gt;</div><div class="line">  &lt;property name=&quot;password&quot; value=&quot;$&#123;password&#125;&quot;/&gt;</div><div class="line">&lt;/dataSource&gt;</div></pre></td></tr></table></figure></p>
+<p>在这个例子中的username和password将会被properties的配置属性替换。driver和url属性会被config.properties的配置替换。这个为配置提供了很多的选项。<br>Properties同样可以直传入SqlSessionFactoryBuild.build() 方法中，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(reader, props);</div><div class="line"></div><div class="line">// ... or ...</div><div class="line"></div><div class="line">SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(reader, environment, props);</div></pre></td></tr></table></figure></p>
+<p>如果同一个属性同时配置到不同的位置，MyBatis按照如下的顺序加载它们：    </p>
+<ol>
+<li>在Properties内的子元素首先被加载。     </li>
+<li>其次从resource classpath和url中加载属性并覆盖已存在的属性。    </li>
+<li>作为方法参数的属性最后被加载，并且覆盖前面两次相同的属性。</li>
+</ol>
+<p>因此，优先级最高的是直接作为参数传入方法，其次是从resource classpath或者url加载的配置文件，最后是Properties中的子元素定义的属性。<br>MyBatis 3.4.2 之后可以如下使用默认占位符。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;dataSource type=&quot;POOLED&quot;&gt;</div><div class="line">  &lt;!-- ... --&gt;</div><div class="line">  &lt;property name=&quot;username&quot; value=&quot;$&#123;username:ut_user&#125;&quot;/&gt; &lt;!-- If &apos;username&apos; property not present, username become &apos;ut_user&apos; --&gt;</div><div class="line">&lt;/dataSource&gt;</div></pre></td></tr></table></figure></p>
+<p>这个功能默认是无效的，如果要开启这个功能，需要在配置属性中如下开启：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;properties resource=&quot;org/mybatis/example/config.properties&quot;&gt;</div><div class="line">  &lt;!-- ... --&gt;</div><div class="line">  &lt;property name=&quot;org.apache.ibatis.parsing.PropertyParser.enable-default-value&quot; value=&quot;true&quot;/&gt; &lt;!-- Enable this feature --&gt;</div><div class="line">&lt;/properties&gt;</div></pre></td></tr></table></figure></p>
+<p>注意：如果已经使用了“：”作为属性的键例如：<code>db:username</code>，或者是在sql的定义中使用了OGNL的三元符，例如：<code>${tableName != null ? tableName : &#39;global_constants&#39;}</code>那么就需要修改默认的分隔符，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;properties resource=&quot;org/mybatis/example/config.properties&quot;&gt;</div><div class="line">  &lt;!-- ... --&gt;</div><div class="line">  &lt;property name=&quot;org.apache.ibatis.parsing.PropertyParser.default-value-separator&quot; value=&quot;?:&quot;/&gt; &lt;!-- Change default value of separator --&gt;</div><div class="line">&lt;/properties&gt;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;dataSource type=&quot;POOLED&quot;&gt;</div><div class="line">  &lt;!-- ... --&gt;</div><div class="line">  &lt;property name=&quot;username&quot; value=&quot;$&#123;db:username?:ut_user&#125;&quot;/&gt;</div><div class="line">&lt;/dataSource&gt;</div></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mashuai.github.io/2017/06/28/mybatis/mybaits-configuration/" data-id="cj4gmwx9j001i45r8vd45a0oo" class="article-share-link">Share</a>
+      
+        <a href="https://mashuai.github.io/2017/06/28/mybatis/mybaits-configuration/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mybatis/">Mybatis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-cup-load-high" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/03/25/cup-load-high/" class="article-date">
@@ -107,7 +182,7 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/03/25/cup-load-high/" data-id="cj4glqh280002kbr801xx2ajj" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2017/03/25/cup-load-high/" data-id="cj4gmwx7k000345r8ju8mgmw1" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2017/03/25/cup-load-high/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -168,7 +243,7 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/03/24/Git分支/" data-id="cj4glqh2d0004kbr8pbmddgt9" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2017/03/24/Git分支/" data-id="cj4gmwx7f000145r8c1pbr741" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2017/03/24/Git分支/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -223,7 +298,7 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/03/23/okhttp/https/" data-id="cj4glqh4h001lkbr8fnaah8om" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2017/03/23/okhttp/https/" data-id="cj4gmwxac002045r869d7dx4d" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2017/03/23/okhttp/https/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -295,7 +370,7 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/03/21/mybatis/mybatis-started/" data-id="cj4glqh4f001kkbr8lz489wou" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2017/03/21/mybatis/mybatis-started/" data-id="cj4gmwxah002245r8x94hkcvv" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2017/03/21/mybatis/mybatis-started/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -359,7 +434,7 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/03/19/okhttp/interceptors/" data-id="cj4glqh4t001skbr8b3ac43n1" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2017/03/19/okhttp/interceptors/" data-id="cj4gmwxai002445r8et9t1vma" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2017/03/19/okhttp/interceptors/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -431,7 +506,7 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/03/18/okhttp/Recipes/" data-id="cj4glqh4m001nkbr8ehvnjils" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2017/03/18/okhttp/Recipes/" data-id="cj4gmwx9l001j45r82vfuxla7" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2017/03/18/okhttp/Recipes/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -488,7 +563,7 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/03/18/okhttp/connections/" data-id="cj4glqh4o001okbr8pexnnx5h" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2017/03/18/okhttp/connections/" data-id="cj4gmwxaa001z45r8i295llra" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2017/03/18/okhttp/connections/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -541,7 +616,7 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/03/18/okhttp/calls/" data-id="cj4glqh4s001pkbr8e6s0vlw3" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2017/03/18/okhttp/calls/" data-id="cj4gmwx9q001l45r8rdxke56h" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2017/03/18/okhttp/calls/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -594,73 +669,9 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2015/11/14/为Go-Web-App-创建一个主页面/" data-id="cj4glqh2h0005kbr8nt8jtvhd" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2015/11/14/为Go-Web-App-创建一个主页面/" data-id="cj4gmwx8n001245r8syilbab8" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2015/11/14/为Go-Web-App-创建一个主页面/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go/">Go</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-http-Handler-与Go的错误处理" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/11/12/http-Handler-与Go的错误处理/" class="article-date">
-  <time datetime="2015-11-12T13:24:57.000Z" itemprop="datePublished">2015-11-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/12/http-Handler-与Go的错误处理/">http.Handler 与Go的错误处理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://elithrar.github.io/article/http-handler-error-handling-revisited/" target="_blank" rel="external">原文地址</a></p>
-<p>&emsp;&emsp; 在之前我写过一篇关于通过使用<code>http.HandlerFunc</code>来实现一个定制handler类型用来避免一些平常的错误的<a href="http://elithrar.github.io/article/custom-handlers-avoiding-globals/" target="_blank" rel="external">文章</a>。<code>func MyHandler(w http.ResponseWriter, r *http.Request)</code>的签名经常可以看到。这是一个有用的通用的包含一些基本功能的handler类型，但是和其他事情一样，也有一些不足：</p>
-<ul>
-<li>当你想要在一个handler中停止处理的时候，必须记得显示的调用一个return。这个在当你想要跑出一个从定向（301、302），未找到（404）或者服务器端错误（500）的状态的时候是很平常的。如果不这么做可能会引起一些微妙的错误（函数会继续执行），因为函数不需要一个返回值，编译器也不会警告你。</li>
-<li>不容易传递额外的参数（例如，数据库连接池，配置）。你最后不得不实用一系列的全局变量（不算太坏，但是跟踪他们会导致难以扩展）或者将他们存到请求上下文中，然后每次都从其取出。这样做很笨重。</li>
-<li>一直在不断的重复同样的语句。想要记录数据库包返回的错误？既可以再每个查询方法中调用<code>log.Printf</code>，也可以再每个handler中返回错误。如果你的handler可以返回给一个集中记录错误的函数，并且跑出一个500的错误就更好了。</li>
-</ul>
-<p>&emsp;&emsp; 我以前的方法中使用了<code>func(http.ResponseWriter, *http.Request)</code>签名。这已经被证明是一个简介的方式，但是有个奇怪的地方是，返回一个无错误的状态，例如，200,302,303往往是多余的，因为要么你已经在其他地方设置了，要么就是没用的。例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">func SomeHandler(w http.ResponseWriter, r *http.Request) (int, error) &#123;</div><div class="line">    db, err := someDBcall()</div><div class="line">    if err != nil &#123;</div><div class="line">        // This makes sense.</div><div class="line">        return 500, err</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    if user.LoggedIn &#123;</div><div class="line">        http.Redirect(w, r, &quot;/dashboard&quot;, 302)</div><div class="line">        // Superfluous! Our http.Redirect function handles the 302, not </div><div class="line">        // our return value (which is effectively ignored).</div><div class="line">        return 302, nil</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>&emsp;&emsp;看起来还行，但是我们可以做的更好</p>
-<h3 id="一些区别"><a href="#一些区别" class="headerlink" title="一些区别"></a>一些区别</h3><p>&emsp;&emsp; 那么我们应该如何改进它？我们先列出代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line">package handler</div><div class="line"></div><div class="line">// Error represents a handler error. It provides methods for a HTTP status </div><div class="line">// code and embeds the built-in error interface.</div><div class="line">type Error interface &#123;</div><div class="line">    error</div><div class="line">    Status() int</div><div class="line">&#125;</div><div class="line"></div><div class="line">// StatusError represents an error with an associated HTTP status code.</div><div class="line">type StatusError struct &#123;</div><div class="line">    Code int</div><div class="line">    Err  error</div><div class="line">&#125;</div><div class="line"></div><div class="line">// Allows StatusError to satisfy the error interface.</div><div class="line">func (se StatusError) Error() string &#123;</div><div class="line">    return se.Err.Error()</div><div class="line">&#125;</div><div class="line"></div><div class="line">// Returns our HTTP status code.</div><div class="line">func (se StatusError) Status() int &#123;</div><div class="line">    return se.Code</div><div class="line">&#125;</div><div class="line"></div><div class="line">// A (simple) example of our application-wide configuration.</div><div class="line">type Env struct &#123;</div><div class="line">    DB   *sql.DB</div><div class="line">    Port string</div><div class="line">    Host string</div><div class="line">&#125;</div><div class="line"></div><div class="line">// The Handler struct that takes a configured Env and a function matching</div><div class="line">// our useful signature.</div><div class="line">type Handler struct &#123;</div><div class="line">    *Env</div><div class="line">    H func(e *Env, w http.ResponseWriter, r *http.Request) error</div><div class="line">&#125;</div><div class="line"></div><div class="line">// ServeHTTP allows our Handler type to satisfy http.Handler.</div><div class="line">func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) &#123;</div><div class="line">    err := h.H(h.Env, w, r)</div><div class="line">    if err != nil &#123;</div><div class="line">        switch e := err.(type) &#123;</div><div class="line">        case Error:</div><div class="line">            // We can retrieve the status here and write out a specific</div><div class="line">            // HTTP status code.</div><div class="line">            log.Printf(&quot;HTTP %d - %s&quot;, e.Status(), e)</div><div class="line">            http.Error(w, e.Error(), e.Status())</div><div class="line">        default:</div><div class="line">            // Any error types we don&apos;t specifically look out for default</div><div class="line">            // to serving a HTTP 500</div><div class="line">            http.Error(w, http.StatusText(http.StatusInternalServerError),</div><div class="line">                http.StatusInternalServerError)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>&emsp;&emsp; 上面的代码不言自明，但是要说明一下一些突出的观点：</p>
-<ul>
-<li>我们自定义了一个<code>Error</code>类型（接口），他内嵌了Go的内建的error接口，同时提供了一个<code>Status() int</code>方法。</li>
-<li>我们提供了一个简单的<code>StatusError</code>类型（结构体），它满足<code>handler.Error</code>的接口。StatusError接受一个HTTP的状态码（int类型），一个可以让我们包装错误用来记录或者查询的error类型。</li>
-<li>我们的<code>ServeHTTP</code>方法包好了一个”e := err.(type)”的类型断言，它可以测试我们需要处理的错误，允许我们处理那些特别的错误。在这个例子中，他是只是一个<code>handler.Error</code>类型。其他的错误，例如其他包中的错误想net.Error，或者其他我们定义的额外的错误，如果想要检查，同样也可以检查。</li>
-</ul>
-<p>&emsp;&emsp; 如果我们不想捕捉那些错误，那么<code>default</code>将会默认捕捉到。记住一点，<code>ServeHTTP</code>可以使我们的Handler类型满足http.Handler接口，这样他就可以在任何使用http.Handler的地方使用了，例如Go的net/http包或者所有的其他的第三方框架。这样使得定制的handler更有用，他们用起来很灵活。<br>&emsp;&emsp; 注意 net 包处理事情很简单。它又一个net.Error的接口，内嵌了内建的error接口。一些具体的类型实现了它。函数返回的具体类型跟错误的类型相同（DNS错误，解析错误等）。再datastore 包中定义的DBError有一个Query() string 方法，可以很好的解释。</p>
-<h3 id="所有示例"><a href="#所有示例" class="headerlink" title="所有示例"></a>所有示例</h3><p>&emsp;&emsp; 它最后是什么样子的？我们是否可以将其分到不同的包中？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line">package handler</div><div class="line"></div><div class="line">import (</div><div class="line">    &quot;net/http&quot;</div><div class="line">)</div><div class="line"></div><div class="line">// Error represents a handler error. It provides methods for a HTTP status </div><div class="line">// code and embeds the built-in error interface.</div><div class="line">type Error interface &#123;</div><div class="line">    error</div><div class="line">    Status() int</div><div class="line">&#125;</div><div class="line"></div><div class="line">// StatusError represents an error with an associated HTTP status code.</div><div class="line">type StatusError struct &#123;</div><div class="line">    Code int</div><div class="line">    Err  error</div><div class="line">&#125;</div><div class="line"></div><div class="line">// Allows StatusError to satisfy the error interface.</div><div class="line">func (se StatusError) Error() string &#123;</div><div class="line">    return se.Err.Error()</div><div class="line">&#125;</div><div class="line"></div><div class="line">// Returns our HTTP status code.</div><div class="line">func (se StatusError) Status() int &#123;</div><div class="line">    return se.Code</div><div class="line">&#125;</div><div class="line"></div><div class="line">// A (simple) example of our application-wide configuration.</div><div class="line">type Env struct &#123;</div><div class="line">    DB   *sql.DB</div><div class="line">    Port string</div><div class="line">    Host string</div><div class="line">&#125;</div><div class="line"></div><div class="line">// The Handler struct that takes a configured Env and a function matching</div><div class="line">// our useful signature.</div><div class="line">type Handler struct &#123;</div><div class="line">    *Env</div><div class="line">    H func(e *Env, w http.ResponseWriter, r *http.Request) error</div><div class="line">&#125;</div><div class="line"></div><div class="line">// ServeHTTP allows our Handler type to satisfy http.Handler.</div><div class="line">func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) &#123;</div><div class="line">    err := h.H(h.Env, w, r)</div><div class="line">    if err != nil &#123;</div><div class="line">        switch e := err.(type) &#123;</div><div class="line">        case Error:</div><div class="line">            // We can retrieve the status here and write out a specific</div><div class="line">            // HTTP status code.</div><div class="line">            log.Printf(&quot;HTTP %d - %s&quot;, e.Status(), e)</div><div class="line">            http.Error(w, e.Error(), e.Status())</div><div class="line">        default:</div><div class="line">            // Any error types we don&apos;t specifically look out for default</div><div class="line">            // to serving a HTTP 500</div><div class="line">            http.Error(w, http.StatusText(http.StatusInternalServerError),</div><div class="line">                http.StatusInternalServerError)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">func GetIndex(env *Env, w http.ResponseWriter, r *http.Request) error &#123;</div><div class="line">    users, err := env.DB.GetAllUsers()</div><div class="line">    if err != nil &#123;</div><div class="line">        // We return a status error here, which conveniently wraps the error</div><div class="line">        // returned from our DB queries. We can clearly define which errors </div><div class="line">        // are worth raising a HTTP 500 over vs. which might just be a HTTP </div><div class="line">        // 404, 403 or 401 (as appropriate). It&apos;s also clear where our </div><div class="line">        // handler should stop processing by returning early.</div><div class="line">        return StatusError&#123;500, err&#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    fmt.Fprintf(w, &quot;%+v&quot;, users)</div><div class="line">    return nil</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>&emsp;&emsp; main包：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">package main</div><div class="line"></div><div class="line">import (</div><div class="line">    &quot;net/http&quot;</div><div class="line">    &quot;github.com/you/somepkg/handler&quot;</div><div class="line">)</div><div class="line"></div><div class="line">func main() &#123;</div><div class="line">    db, err := sql.Open(&quot;connectionstringhere&quot;)</div><div class="line">    if err != nil &#123;</div><div class="line">          log.Fatal(err)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // Initialise our app-wide environment with the services/info we need.</div><div class="line">    env := &amp;handler.Env&#123;</div><div class="line">        DB: db,</div><div class="line">        Port: os.Getenv(&quot;PORT&quot;),</div><div class="line">        Host: os.Getenv(&quot;HOST&quot;),</div><div class="line">        // We might also have a custom log.Logger, our </div><div class="line">        // template instance, and a config struct as fields </div><div class="line">        // in our Env struct.</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // Note that we&apos;re using http.Handle, not http.HandleFunc. The </div><div class="line">    // latter only accepts the http.HandlerFunc type, which is not </div><div class="line">    // what we have here.</div><div class="line">    http.Handle(&quot;/&quot;, handler.Handler&#123;env, handler.GetIndex&#125;)</div><div class="line"></div><div class="line">    // Logs the error if ListenAndServe fails.</div><div class="line">    log.Fatal(http.ListenAndServe(&quot;:8000&quot;, nil))</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>&emsp;&emsp; 在实际使用时，会将handler和Env放入不同的包中，这里只是为了简单放在了同一个包中。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2015/11/12/http-Handler-与Go的错误处理/" data-id="cj4glqh2v000bkbr88tkczkcb" class="article-share-link">Share</a>
-      
-        <a href="https://mashuai.github.io/2015/11/12/http-Handler-与Go的错误处理/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go/">Go</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li></ul>
@@ -687,7 +698,7 @@ var _hmt = _hmt || [];
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architecture/">Architecture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CPU/">CPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git分支/">Git分支</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/">Go</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP-2/">HTTP/2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Middleware/">Middleware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OKHttp/">OKHttp</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Translate/">Translate</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">2</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architecture/">Architecture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CPU/">CPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git分支/">Git分支</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/">Go</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP-2/">HTTP/2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Middleware/">Middleware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OKHttp/">OKHttp</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Translate/">Translate</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -696,7 +707,7 @@ var _hmt = _hmt || [];
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Ansible/" style="font-size: 12px;">Ansible</a> <a href="/tags/Architecture/" style="font-size: 10px;">Architecture</a> <a href="/tags/CPU/" style="font-size: 10px;">CPU</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Git分支/" style="font-size: 10px;">Git分支</a> <a href="/tags/Go/" style="font-size: 14px;">Go</a> <a href="/tags/HTTP/" style="font-size: 16px;">HTTP</a> <a href="/tags/HTTP-2/" style="font-size: 10px;">HTTP/2</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Middleware/" style="font-size: 10px;">Middleware</a> <a href="/tags/Mybatis/" style="font-size: 10px;">Mybatis</a> <a href="/tags/OKHttp/" style="font-size: 14px;">OKHttp</a> <a href="/tags/Translate/" style="font-size: 20px;">Translate</a> <a href="/tags/Vagrant/" style="font-size: 12px;">Vagrant</a>
+      <a href="/tags/Ansible/" style="font-size: 12px;">Ansible</a> <a href="/tags/Architecture/" style="font-size: 10px;">Architecture</a> <a href="/tags/CPU/" style="font-size: 10px;">CPU</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Git分支/" style="font-size: 10px;">Git分支</a> <a href="/tags/Go/" style="font-size: 14px;">Go</a> <a href="/tags/HTTP/" style="font-size: 16px;">HTTP</a> <a href="/tags/HTTP-2/" style="font-size: 10px;">HTTP/2</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Middleware/" style="font-size: 10px;">Middleware</a> <a href="/tags/Mybatis/" style="font-size: 12px;">Mybatis</a> <a href="/tags/OKHttp/" style="font-size: 14px;">OKHttp</a> <a href="/tags/Translate/" style="font-size: 20px;">Translate</a> <a href="/tags/Vagrant/" style="font-size: 12px;">Vagrant</a>
     </div>
   </div>
 
@@ -705,7 +716,7 @@ var _hmt = _hmt || [];
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">8</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">8</span></li></ul>
     </div>
   </div>
 
@@ -715,6 +726,10 @@ var _hmt = _hmt || [];
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/06/28/mybatis/mybaits-configuration/">MyBatis 配置</a>
+          </li>
         
           <li>
             <a href="/2017/03/25/cup-load-high/">Linux 如何查找Java 程序CPU负载过高</a>
@@ -730,10 +745,6 @@ var _hmt = _hmt || [];
         
           <li>
             <a href="/2017/03/21/mybatis/mybatis-started/">mybatis 入门</a>
-          </li>
-        
-          <li>
-            <a href="/2017/03/19/okhttp/interceptors/">OKHttp 拦截器</a>
           </li>
         
       </ul>

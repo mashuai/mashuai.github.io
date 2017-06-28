@@ -3,6 +3,27 @@
 
 
     
+  <url>
+    <loc>https://mashuai.github.io/2017/06/28/mybatis/mybaits-configuration/</loc>
+    <lastmod>2017-06-28T06:42:27.787Z</lastmod>
+    <data>
+        <display>
+        <title>MyBatis 配置</title>
+        <pubTime>2017-06-28T06:13:32.000Z</pubTime>
+        
+        <tag>Translate</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>Mybatis</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
     
     
   <url>
@@ -164,9 +185,9 @@
         <title>为Go Web App 创建一个主页面</title>
         <pubTime>2015-11-14T09:59:00.000Z</pubTime>
         
-        <tag>Go</tag>
-         
         <tag>Translate</tag>
+         
+        <tag>Go</tag>
          
          
            
@@ -229,9 +250,9 @@
         <title>http.Handler 与Go的错误处理</title>
         <pubTime>2015-11-12T13:24:57.000Z</pubTime>
         
-        <tag>Go</tag>
-         
         <tag>Translate</tag>
+         
+        <tag>Go</tag>
          
          
            
@@ -267,9 +288,9 @@
         <title>Vagrant & Ansible 快速入门教程</title>
         <pubTime>2015-11-07T16:39:10.000Z</pubTime>
         
-        <tag>Translate</tag>
-         
         <tag>Ansible</tag>
+         
+        <tag>Translate</tag>
          
         <tag>Vagrant</tag>
          
@@ -288,9 +309,9 @@
         <title>HTTP/2 和GO</title>
         <pubTime>2015-11-12T03:39:21.000Z</pubTime>
         
-        <tag>Go</tag>
-         
         <tag>Translate</tag>
+         
+        <tag>Go</tag>
          
         <tag>HTTP/2</tag>
          
@@ -309,11 +330,11 @@
         <title>Go Web 架构</title>
         <pubTime>2015-11-10T11:01:21.000Z</pubTime>
         
+        <tag>Translate</tag>
+         
         <tag>Go</tag>
          
         <tag>Architecture</tag>
-         
-        <tag>Translate</tag>
          
          
            
@@ -330,9 +351,9 @@
         <title>Ansible 入门指南</title>
         <pubTime>2015-11-09T10:26:35.000Z</pubTime>
         
-        <tag>Translate</tag>
-         
         <tag>Ansible</tag>
+         
+        <tag>Translate</tag>
          
          
            
