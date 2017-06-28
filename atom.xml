@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Mashuai&#39;s Notes</title>
+  <title>开发笔记</title>
   
   <link href="/atom.xml" rel="self"/>
   
@@ -93,9 +93,9 @@
     </summary>
     
     
-      <category term="CPU" scheme="https://mashuai.github.io/tags/CPU/"/>
-    
       <category term="Java" scheme="https://mashuai.github.io/tags/Java/"/>
+    
+      <category term="CPU" scheme="https://mashuai.github.io/tags/CPU/"/>
     
       <category term="Linux" scheme="https://mashuai.github.io/tags/Linux/"/>
     
