@@ -3,27 +3,57 @@
 <head>
   <meta charset="utf-8">
   
-  <title>OKHttp的调用 | Mashuai&#39;s Notes</title>
+  <title>MyBatis 配置 | Mashuai&#39;s Notes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原文地址
-&amp;emsp;&amp;emsp;HTTP客户端的任务是接受请求和产生响应。理论很简单，但是实战的时候就有点棘手了。
-Requests&amp;emsp;&amp;emsp;每一个HTTP请求都包含一个URL，一个方法（例如，GET，POST）和一些headers。请求同时可以包含一个特定类型的数据流作为body。
-Responses&amp;emsp;&amp;emsp;Response 通过一个一个状态码（例如，200 成功">
+  <meta name="description" content="原文链接
+MyBatis的配置包含了设置和属性，他们对MyBatis的行为有很大的影响。MyBatis的配置文件层次结构如下：
+
+configuration
+properties
+settings
+typeAliases
+typeHandlers
+objectFactory
+plugins
+environments
+environment
+transactionManager
+dataSource">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OKHttp的调用">
-<meta property="og:url" content="https://mashuai.github.io/2017/03/18/okhttp/calls/index.html">
+<meta property="og:title" content="MyBatis 配置">
+<meta property="og:url" content="https://mashuai.github.io/2017/06/28/mybaits-configuration/index.html">
 <meta property="og:site_name" content="Mashuai's Notes">
-<meta property="og:description" content="原文地址
-&amp;emsp;&amp;emsp;HTTP客户端的任务是接受请求和产生响应。理论很简单，但是实战的时候就有点棘手了。
-Requests&amp;emsp;&amp;emsp;每一个HTTP请求都包含一个URL，一个方法（例如，GET，POST）和一些headers。请求同时可以包含一个特定类型的数据流作为body。
-Responses&amp;emsp;&amp;emsp;Response 通过一个一个状态码（例如，200 成功">
-<meta property="og:updated_time" content="2017-03-21T11:39:23.317Z">
+<meta property="og:description" content="原文链接
+MyBatis的配置包含了设置和属性，他们对MyBatis的行为有很大的影响。MyBatis的配置文件层次结构如下：
+
+configuration
+properties
+settings
+typeAliases
+typeHandlers
+objectFactory
+plugins
+environments
+environment
+transactionManager
+dataSource">
+<meta property="og:updated_time" content="2017-06-28T06:43:55.679Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OKHttp的调用">
-<meta name="twitter:description" content="原文地址
-&amp;emsp;&amp;emsp;HTTP客户端的任务是接受请求和产生响应。理论很简单，但是实战的时候就有点棘手了。
-Requests&amp;emsp;&amp;emsp;每一个HTTP请求都包含一个URL，一个方法（例如，GET，POST）和一些headers。请求同时可以包含一个特定类型的数据流作为body。
-Responses&amp;emsp;&amp;emsp;Response 通过一个一个状态码（例如，200 成功">
+<meta name="twitter:title" content="MyBatis 配置">
+<meta name="twitter:description" content="原文链接
+MyBatis的配置包含了设置和属性，他们对MyBatis的行为有很大的影响。MyBatis的配置文件层次结构如下：
+
+configuration
+properties
+settings
+typeAliases
+typeHandlers
+objectFactory
+plugins
+environments
+environment
+transactionManager
+dataSource">
   
     <link rel="alternative" href="/atom.xml" title="Mashuai&#39;s Notes" type="application/atom+xml">
   
@@ -90,10 +120,10 @@ var _hmt = _hmt || [];
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-okhttp/calls" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-mybaits-configuration" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/03/18/okhttp/calls/" class="article-date">
-  <time datetime="2017-03-18T07:10:03.000Z" itemprop="datePublished">2017-03-18</time>
+    <a href="/2017/06/28/mybaits-configuration/" class="article-date">
+  <time datetime="2017-06-28T06:13:32.000Z" itemprop="datePublished">2017-06-28</time>
 </a>
     
   </div>
@@ -104,7 +134,7 @@ var _hmt = _hmt || [];
         
   
     <h1 class="article-title" itemprop="name">
-      OKHttp的调用
+      MyBatis 配置
     </h1>
   
 
@@ -112,29 +142,51 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a href="https://github.com/square/okhttp/wiki/Calls" target="_blank" rel="external">原文地址</a></p>
-<p>&emsp;&emsp;HTTP客户端的任务是接受请求和产生响应。理论很简单，但是实战的时候就有点棘手了。</p>
-<h4 id="Requests"><a href="#Requests" class="headerlink" title="Requests"></a>Requests</h4><p>&emsp;&emsp;每一个HTTP请求都包含一个URL，一个方法（例如，GET，POST）和一些headers。请求同时可以包含一个特定类型的数据流作为body。</p>
-<h4 id="Responses"><a href="#Responses" class="headerlink" title="Responses"></a>Responses</h4><p>&emsp;&emsp;Response 通过一个一个状态码（例如，200 成功，404未找到），headers，和一个可选的Body来响应请求。</p>
-<h5 id="重写请求"><a href="#重写请求" class="headerlink" title="重写请求"></a>重写请求</h5><p>&emsp;&emsp;当使用OkHttp发送HTTP请求的时候，可以在高层次描述这个请求：通过这个URL和这些headers来获取响应。为了准确和更高的效率，OKHttp会在发送之前重现请求。<br>&emsp;&emsp;OkHttp将会添加原请求没有的header，包括<code>Content-length</code>,<code>Transfer-Encoding</code>,<code>User-Agent</code>,<code>Host</code>,<code>Connection</code>，<code>Content-Type</code>。除非已经提供了，否则OKHttp回会添加 <code>Acceept-Encoding</code>来压缩响应。如果有Cookie，也会添加<code>Cookie</code>。<br>&emsp;&emsp;有些请求会缓存响应。当被缓存的响应过期后，OKHttp会发送一个有条件的GET请求来获取新的响应，如果新现在的比缓存的响应更新，将会更新缓存过的响应。这要求<code>If-Modified-Since</code>和<code>If-None-Match</code>添加到headers中。</p>
-<h5 id="重写响应"><a href="#重写响应" class="headerlink" title="重写响应"></a>重写响应</h5><p>&emsp;&emsp;如果透明压缩启用了，OKHttp将会把<code>Content-Encoding</code>和<code>Content-Length</code>从headers中移除，因为他们不是用来解压缩的。<br>&emsp;&emsp;如果条件GET请求成功，从网上下载的响应和缓存的响应根据Spec合并。</p>
-<h5 id="后续请求"><a href="#后续请求" class="headerlink" title="后续请求"></a>后续请求</h5><p>&emsp;&emsp;当请求的URL被转移了，web server 将会返回一个302的状态码来表示这个文档的新URL，OKHttp将会重定向到新的URL获取最终的响应。<br>&emsp;&emsp;如果响应需要认证，OKHttp将会使用<code>Authenticator</code>（如果提供了一个）来认证。如果认证器提供了凭证，请求回使用凭证重试。</p>
-<h5 id="重试请求"><a href="#重试请求" class="headerlink" title="重试请求"></a>重试请求</h5><p>&emsp;&emsp;有时连接失败，例如：连接池过期断开链接，或者无法连接服务器。OKHttp会通过不同的可用路由来重试请求。</p>
-<h4 id="calls"><a href="#calls" class="headerlink" title="calls"></a>calls</h4><p>&emsp;&emsp;通过重写，重定向，继续请求和重试，一个简单的请求可能会产生很多请求和响应。OKHttp使用<code>call</code>建立一个不管多少中间请求和响应的任务模型。总的来说这不多。但是了解代码将会继续工作，不管是URL重定向或者是转移故障其他IP。<br>&emsp;&emsp;call有两种工作方</p>
+        <p><a href="http://www.mybatis.org/mybatis-3/configuration.html" target="_blank" rel="external">原文链接</a></p>
+<p>MyBatis的配置包含了设置和属性，他们对MyBatis的行为有很大的影响。MyBatis的配置文件层次结构如下：</p>
 <ul>
-<li>同步：线程将会阻塞道到响应可读。</li>
-<li>异步：将请求加入到其他线程的队列，当响应可读诗时，会在其他的线程获取回调。<br>&emsp;&emsp;请求调用可以在任何线程取消。如果调用未完成，这个请求将会失败。当调用取消时，在先请求踢体或者读响应体的代码将会跑出IOException的异常。<h5 id="调度"><a href="#调度" class="headerlink" title="调度"></a>调度</h5>&emsp;&emsp;对于同步调用，将会由自身线程控制多少并发请求。太多并发连接浪费资源，太少又回有高延迟。<br>&emsp;&emsp;对于异步来说，Dispatcher实现了最大并发的策略。可以设置没个服务器的最大并发（默认是5）和总体的并发（默认64）。</li>
+<li>configuration<ul>
+<li>properties</li>
+<li>settings</li>
+<li>typeAliases</li>
+<li>typeHandlers</li>
+<li>objectFactory</li>
+<li>plugins</li>
+<li>environments<ul>
+<li>environment<ul>
+<li>transactionManager</li>
+<li>dataSource</li>
 </ul>
-
+</li>
+</ul>
+</li>
+<li>databaseIdProvider</li>
+<li>mappers</li>
+</ul>
+</li>
+</ul>
+<h3 id="properties"><a href="#properties" class="headerlink" title="properties"></a>properties</h3><p>可以通过一个典型的Java Properties 类实例配置可替换的外部属性，也可以通过子元素传递这些配置属性，例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;properties resource=&quot;org/mybatis/example/config.properties&quot;&gt;</div><div class="line">  &lt;property name=&quot;username&quot; value=&quot;dev_user&quot;/&gt;</div><div class="line">  &lt;property name=&quot;password&quot; value=&quot;F2Fa3!33TYyg&quot;/&gt;</div><div class="line">&lt;/properties&gt;</div></pre></td></tr></table></figure></p>
+<p>然后这些配置属性就可以应用于配置文件中需要动态配置的其他属性。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;dataSource type=&quot;POOLED&quot;&gt;</div><div class="line">  &lt;property name=&quot;driver&quot; value=&quot;$&#123;driver&#125;&quot;/&gt;</div><div class="line">  &lt;property name=&quot;url&quot; value=&quot;$&#123;url&#125;&quot;/&gt;</div><div class="line">  &lt;property name=&quot;username&quot; value=&quot;$&#123;username&#125;&quot;/&gt;</div><div class="line">  &lt;property name=&quot;password&quot; value=&quot;$&#123;password&#125;&quot;/&gt;</div><div class="line">&lt;/dataSource&gt;</div></pre></td></tr></table></figure></p>
+<p>在这个例子中的username和password将会被properties的配置属性替换。driver和url属性会被config.properties的配置替换。这个为配置提供了很多的选项。<br>Properties同样可以直传入SqlSessionFactoryBuild.build() 方法中，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(reader, props);</div><div class="line"></div><div class="line">// ... or ...</div><div class="line"></div><div class="line">SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(reader, environment, props);</div></pre></td></tr></table></figure></p>
+<p>如果同一个属性同时配置到不同的位置，MyBatis按照如下的顺序加载它们：    </p>
+<ol>
+<li>在Properties内的子元素首先被加载。     </li>
+<li>其次从resource classpath和url中加载属性并覆盖已存在的属性。    </li>
+<li>作为方法参数的属性最后被加载，并且覆盖前面两次相同的属性。</li>
+</ol>
+<p>因此，优先级最高的是直接作为参数传入方法，其次是从resource classpath或者url加载的配置文件，最后是Properties中的子元素定义的属性。<br>MyBatis 3.4.2 之后可以如下使用默认占位符。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;dataSource type=&quot;POOLED&quot;&gt;</div><div class="line">  &lt;!-- ... --&gt;</div><div class="line">  &lt;property name=&quot;username&quot; value=&quot;$&#123;username:ut_user&#125;&quot;/&gt; &lt;!-- If &apos;username&apos; property not present, username become &apos;ut_user&apos; --&gt;</div><div class="line">&lt;/dataSource&gt;</div></pre></td></tr></table></figure></p>
+<p>这个功能默认是无效的，如果要开启这个功能，需要在配置属性中如下开启：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;properties resource=&quot;org/mybatis/example/config.properties&quot;&gt;</div><div class="line">  &lt;!-- ... --&gt;</div><div class="line">  &lt;property name=&quot;org.apache.ibatis.parsing.PropertyParser.enable-default-value&quot; value=&quot;true&quot;/&gt; &lt;!-- Enable this feature --&gt;</div><div class="line">&lt;/properties&gt;</div></pre></td></tr></table></figure></p>
+<p>注意：如果已经使用了“：”作为属性的键例如：<code>db:username</code>，或者是在sql的定义中使用了OGNL的三元符，例如：<code>${tableName != null ? tableName : &#39;global_constants&#39;}</code>那么就需要修改默认的分隔符，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;properties resource=&quot;org/mybatis/example/config.properties&quot;&gt;</div><div class="line">  &lt;!-- ... --&gt;</div><div class="line">  &lt;property name=&quot;org.apache.ibatis.parsing.PropertyParser.default-value-separator&quot; value=&quot;?:&quot;/&gt; &lt;!-- Change default value of separator --&gt;</div><div class="line">&lt;/properties&gt;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;dataSource type=&quot;POOLED&quot;&gt;</div><div class="line">  &lt;!-- ... --&gt;</div><div class="line">  &lt;property name=&quot;username&quot; value=&quot;$&#123;db:username?:ut_user&#125;&quot;/&gt;</div><div class="line">&lt;/dataSource&gt;</div></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/03/18/okhttp/calls/" data-id="cj4gmyp4o001v5yr88h8rlupm" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2017/06/28/mybaits-configuration/" data-id="cj4gmyp2u00075yr82zppecyd" class="article-share-link">Share</a>
       
-        <a href="https://mashuai.github.io/2017/03/18/okhttp/calls/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="https://mashuai.github.io/2017/06/28/mybaits-configuration/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OKHttp/">OKHttp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mybatis/">Mybatis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li></ul>
 
     </footer>
   </div>
@@ -142,19 +194,10 @@ var _hmt = _hmt || [];
     
 <nav id="article-nav">
   
-    <a href="/2017/03/18/okhttp/connections/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          OKHttp connections
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/11/14/为Go-Web-App-创建一个主页面/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/03/25/cup-load-high/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">为Go Web App 创建一个主页面</div>
+      <div class="article-nav-title">Linux 如何查找Java 程序CPU负载过高</div>
     </a>
   
 </nav>
@@ -262,7 +305,7 @@ var _hmt = _hmt || [];
 <script>
   var disqus_shortname = 'jabfor';
   
-  var disqus_url = 'https://mashuai.github.io/2017/03/18/okhttp/calls/';
+  var disqus_url = 'https://mashuai.github.io/2017/06/28/mybaits-configuration/';
   
   (function(){
     var dsq = document.createElement('script');

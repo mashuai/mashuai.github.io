@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://mashuai.github.io/"/>
-  <updated>2017-06-28T06:42:27.787Z</updated>
+  <updated>2017-06-28T06:43:55.679Z</updated>
   <id>https://mashuai.github.io/</id>
   
   <author>
@@ -17,10 +17,10 @@
   
   <entry>
     <title>MyBatis 配置</title>
-    <link href="https://mashuai.github.io/2017/06/28/mybatis/mybaits-configuration/"/>
-    <id>https://mashuai.github.io/2017/06/28/mybatis/mybaits-configuration/</id>
+    <link href="https://mashuai.github.io/2017/06/28/mybaits-configuration/"/>
+    <id>https://mashuai.github.io/2017/06/28/mybaits-configuration/</id>
     <published>2017-06-28T06:13:32.000Z</published>
-    <updated>2017-06-28T06:42:27.787Z</updated>
+    <updated>2017-06-28T06:43:55.679Z</updated>
     
     <content type="html"><![CDATA[<p><a href="http://www.mybatis.org/mybatis-3/configuration.html" target="_blank" rel="external">原文链接</a></p>
 <p>MyBatis的配置包含了设置和属性，他们对MyBatis的行为有很大的影响。MyBatis的配置文件层次结构如下：</p>
@@ -463,9 +463,9 @@
     </summary>
     
     
-      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
-    
       <category term="Go" scheme="https://mashuai.github.io/tags/Go/"/>
+    
+      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
     
   </entry>
   
@@ -510,9 +510,9 @@
     </summary>
     
     
-      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
-    
       <category term="Go" scheme="https://mashuai.github.io/tags/Go/"/>
+    
+      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
     
   </entry>
   
@@ -609,9 +609,9 @@
     </summary>
     
     
-      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
-    
       <category term="Go" scheme="https://mashuai.github.io/tags/Go/"/>
+    
+      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
     
       <category term="HTTP/2" scheme="https://mashuai.github.io/tags/HTTP-2/"/>
     
@@ -661,11 +661,11 @@
     </summary>
     
     
-      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
-    
       <category term="Go" scheme="https://mashuai.github.io/tags/Go/"/>
     
       <category term="Architecture" scheme="https://mashuai.github.io/tags/Architecture/"/>
+    
+      <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
     
   </entry>
   
@@ -706,9 +706,9 @@
     </summary>
     
     
-      <category term="Ansible" scheme="https://mashuai.github.io/tags/Ansible/"/>
-    
       <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
+    
+      <category term="Ansible" scheme="https://mashuai.github.io/tags/Ansible/"/>
     
   </entry>
   
@@ -769,9 +769,9 @@
     </summary>
     
     
-      <category term="Ansible" scheme="https://mashuai.github.io/tags/Ansible/"/>
-    
       <category term="Translate" scheme="https://mashuai.github.io/tags/Translate/"/>
+    
+      <category term="Ansible" scheme="https://mashuai.github.io/tags/Ansible/"/>
     
       <category term="Vagrant" scheme="https://mashuai.github.io/tags/Vagrant/"/>
     
