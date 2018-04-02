@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Jackson 简明教程 | 开发笔记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="原文地址  
+一分钟教程：POJOs和JSON的互相转换&amp;emsp;&amp;emsp;最常用的功能就是将一段JSON片段组装成POJOs。所以我们首先从这个入手。下面是一个简单的，有两个属性的POJO：123456// Note: can use getters/setters as well; here we just use public fields directly:public class M">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jackson 简明教程">
+<meta property="og:url" content="https://mashuai.github.io/2015/11/08/jackson-tutorial/index.html">
+<meta property="og:site_name" content="开发笔记">
+<meta property="og:description" content="原文地址  
+一分钟教程：POJOs和JSON的互相转换&amp;emsp;&amp;emsp;最常用的功能就是将一段JSON片段组装成POJOs。所以我们首先从这个入手。下面是一个简单的，有两个属性的POJO：123456// Note: can use getters/setters as well; here we just use public fields directly:public class M">
+<meta property="og:updated_time" content="2018-04-02T10:09:19.820Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jackson 简明教程">
+<meta name="twitter:description" content="原文地址  
+一分钟教程：POJOs和JSON的互相转换&amp;emsp;&amp;emsp;最常用的功能就是将一段JSON片段组装成POJOs。所以我们首先从这个入手。下面是一个简单的，有两个属性的POJO：123456// Note: can use getters/setters as well; here we just use public fields directly:public class M">
+  
+    <link rel="alternative" href="/atom.xml" title="开发笔记" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-2889123346235419",
+      enable_page_level_ads: true
+    });
+  </script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?1cf66cb20b7f58505ec9ca2e88537f6e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">开发笔记</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/projects">Projects</a>
+        
+          <a class="main-nav-link" href="/velocity">Velocity</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://mashuai.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-jackson-tutorial" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/08/jackson-tutorial/" class="article-date">
+  <time datetime="2015-11-07T16:39:10.000Z" itemprop="datePublished">2015-11-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Jackson 简明教程
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://github.com/FasterXML/jackson-databind/" target="_blank" rel="external">原文地址</a>  </p>
+<h4 id="一分钟教程：POJOs和JSON的互相转换"><a href="#一分钟教程：POJOs和JSON的互相转换" class="headerlink" title="一分钟教程：POJOs和JSON的互相转换"></a>一分钟教程：POJOs和JSON的互相转换</h4><p>&emsp;&emsp;最常用的功能就是将一段JSON片段组装成POJOs。所以我们首先从这个入手。下面是一个简单的，有两个属性的POJO：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// Note: can use getters/setters as well; here we just use public fields directly:</div><div class="line">public class MyValue &#123;</div><div class="line">  public String name;</div><div class="line">  public int age;</div><div class="line">  // NOTE: if using getters/setters, can keep fields `protected` or `private`</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们需要一个<code>com.fasterxml.jackson.databind.ObjectMapper</code>的实例来做所有的数据绑定，<code>ObjectMapper</code>仅需要创建一次即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ObjectMapper mapper = new ObjectMapper(); // create once, reuse</div></pre></td></tr></table></figure></p>
+<p>采用默认构造函数目前基本够用，当需要处理特殊情况的时候再学习如何根据情况配置ObjectMapper。以下是使用<code>ObjectMapper</code>的示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">MyValue value = mapper.readValue(new File(&quot;data.json&quot;), MyValue.class);</div><div class="line">// or:</div><div class="line">value = mapper.readValue(new URL(&quot;http://some.com/api/entry.json&quot;), MyValue.class);</div><div class="line">// or:</div><div class="line">value = mapper.readValue(&quot;&#123;\&quot;name\&quot;:\&quot;Bob\&quot;, \&quot;age\&quot;:13&#125;&quot;, MyValue.class);</div></pre></td></tr></table></figure></p>
+<p>如果想要生成JSON，只需要反过来就行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mapper.writeValue(new File(&quot;result.json&quot;), myResultObject);</div><div class="line">// or:</div><div class="line">byte[] jsonBytes = mapper.writeValueAsBytes(myResultObject);</div><div class="line">// or:</div><div class="line">String jsonString = mapper.writeValueAsString(myResultObject);</div></pre></td></tr></table></figure></p>
+<h4 id="三分钟教程：泛型集合和树模型"><a href="#三分钟教程：泛型集合和树模型" class="headerlink" title="三分钟教程：泛型集合和树模型"></a>三分钟教程：泛型集合和树模型</h4><p>除了处理Bean风格的POJO，Jackson同时可以处理JDK的<code>List</code>和<code>Map</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Map&lt;String, Integer&gt; scoreByName = mapper.readValue(jsonSource, Map.class);</div><div class="line">List&lt;String&gt; names = mapper.readValue(jsonSource, List.class);</div><div class="line"></div><div class="line">// and can obviously write out as well</div><div class="line">mapper.writeValue(new File(&quot;names.json&quot;), names);</div></pre></td></tr></table></figure></p>
+<p>匹配这种，只要JSON的结构匹配，并且类型简单就可以。如果有POJO值，则需要声明他的实际类型(PS:POJO的属性如果是<code>List</code>等类型，则不需要指定类型)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Map&lt;String, ResultValue&gt; results = mapper.readValue(jsonSource,</div><div class="line">   new TypeReference&lt;Map&lt;String, ResultValue&gt;&gt;() &#123; &#125; );</div><div class="line">// why extra work? Java Type Erasure will prevent type detection otherwise &#125;)</div></pre></td></tr></table></figure></p>
+<p>然而，处理<code>Map</code>,<code>List</code>和其他’简单’类型(String,Number,Boolean)可以更见简单，对象遍历非常麻烦，所以Jackson的<code>Tree Model</code>迟早有用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">// can be read as generic JsonNode, if it can be Object or Array; or,</div><div class="line">// if known to be Object, as ObjectNode, if array, ArrayNode etc:</div><div class="line">ObjectNode root = mapper.readTree(&quot;stuff.json&quot;);</div><div class="line">String name = root.get(&quot;name&quot;).asText();</div><div class="line">int age = root.get(&quot;age&quot;).asInt();</div><div class="line"></div><div class="line">// can modify as well: this adds child Object as property &apos;other&apos;, set property &apos;type&apos;</div><div class="line">root.with(&quot;other&quot;).put(&quot;type&quot;, &quot;student&quot;);</div><div class="line">String json = mapper.writeValueAsString(root);</div><div class="line"></div><div class="line">// with above, we end up with something like as &apos;json&apos; String:</div><div class="line">// &#123;</div><div class="line">//   &quot;name&quot; : &quot;Bob&quot;, &quot;age&quot; : 13,</div><div class="line">//   &quot;other&quot; : &#123;</div><div class="line">//      &quot;type&quot; : &quot;student&quot;</div><div class="line">//   &#125;</div><div class="line">// &#125;</div></pre></td></tr></table></figure></p>
+<p>树模型比data-bind更加的方便，尤其是高度动态的数据结构，或者JSON无法完美映射Java类的时候。</p>
+<h4 id="五分钟教程：Streaming-parser-generator"><a href="#五分钟教程：Streaming-parser-generator" class="headerlink" title="五分钟教程：Streaming parser, generator"></a>五分钟教程：Streaming parser, generator</h4><p>有一种更见标准的处理模型，叫做incremental model，也叫Stream model ，这种处理方法和data-bind方式同样方便，和Tree Model同样灵活。data-bind和Tree Model 底层都是基于它。但是同样也暴露给那些想要极致性能和完全掌控解析JSON的用户。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">JsonFactory f = mapper.getFactory(); // may alternatively construct directly too</div><div class="line"></div><div class="line">// First: write simple JSON output</div><div class="line">File jsonFile = new File(&quot;test.json&quot;);</div><div class="line">JsonGenerator g = f.createGenerator(jsonFile);</div><div class="line">// write JSON: &#123; &quot;message&quot; : &quot;Hello world!&quot; &#125;</div><div class="line">g.writeStartObject();</div><div class="line">g.writeStringField(&quot;message&quot;, &quot;Hello world!&quot;);</div><div class="line">g.writeEndObject();</div><div class="line">g.close();</div><div class="line"></div><div class="line">// Second: read file back</div><div class="line">JsonParser p = f.createParser(jsonFile);</div><div class="line"></div><div class="line">JsonToken t = p.nextToken(); // Should be JsonToken.START_OBJECT</div><div class="line">t = p.nextToken(); // JsonToken.FIELD_NAME</div><div class="line">if ((t != JsonToken.FIELD_NAME) || !&quot;message&quot;.equals(p.getCurrentName())) &#123;</div><div class="line">   // handle error</div><div class="line">&#125;</div><div class="line">t = p.nextToken();</div><div class="line">if (t != JsonToken.VALUE_STRING) &#123;</div><div class="line">   // similarly</div><div class="line">&#125;</div><div class="line">String msg = p.getText();</div><div class="line">System.out.printf(&quot;My message to you is: %s!\n&quot;, msg);</div><div class="line">p.close(); &#125;</div></pre></td></tr></table></figure></p>
+<h4 id="10分钟教程：配置"><a href="#10分钟教程：配置" class="headerlink" title="10分钟教程：配置"></a>10分钟教程：配置</h4><p>有两种入门的配置方法：feature 和 Annotation</p>
+<h5 id="feature-配置"><a href="#feature-配置" class="headerlink" title="feature 配置"></a>feature 配置</h5><p>下面是一些最常用的配置<br>首先从高层的data-bind配置开始：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">// SerializationFeature for changing how JSON is written</div><div class="line"></div><div class="line">// to enable standard indentation (&quot;pretty-printing&quot;):</div><div class="line">mapper.enable(SerializationFeature.INDENT_OUTPUT);</div><div class="line">// to allow serialization of &quot;empty&quot; POJOs (no properties to serialize)</div><div class="line">// (without this setting, an exception is thrown in those cases)</div><div class="line">mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);</div><div class="line">// to write java.util.Date, Calendar as number (timestamp):</div><div class="line">mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);</div><div class="line"></div><div class="line">// DeserializationFeature for changing how JSON is read as POJOs:</div><div class="line"></div><div class="line">// to prevent exception when encountering unknown property:</div><div class="line">mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);</div><div class="line">// to allow coercion of JSON empty String (&quot;&quot;) to null Object value:</div><div class="line">mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);</div></pre></td></tr></table></figure></p>
+<p>下面是一些可以控制JSON底层解析，生成的配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">// JsonParser.Feature for configuring parsing settings:</div><div class="line"></div><div class="line">// to allow C/C++ style comments in JSON (non-standard, disabled by default)</div><div class="line">// (note: with Jackson 2.5, there is also `mapper.enable(feature)` / `mapper.disable(feature)`)</div><div class="line">mapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);</div><div class="line">// to allow (non-standard) unquoted field names in JSON:</div><div class="line">mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);</div><div class="line">// to allow use of apostrophes (single quotes), non standard</div><div class="line">mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);</div><div class="line"></div><div class="line">// JsonGenerator.Feature for configuring low-level JSON generation:</div><div class="line"></div><div class="line">// to force escaping of non-ASCII characters:</div><div class="line">mapper.configure(JsonGenerator.Feature.ESCAPE_NON_ASCII, true);</div></pre></td></tr></table></figure></p>
+<h5 id="注解配置：修改属性名"><a href="#注解配置：修改属性名" class="headerlink" title="注解配置：修改属性名"></a>注解配置：修改属性名</h5><p>最简单的使用注解配置的方式是使用<code>@JsonProperty</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public class MyBean &#123;</div><div class="line">   private String _name;</div><div class="line"></div><div class="line">   // without annotation, we&apos;d get &quot;theName&quot;, but we want &quot;name&quot;:</div><div class="line">   @JsonProperty(&quot;name&quot;)</div><div class="line">   public String getTheName() &#123; return _name; &#125;</div><div class="line"></div><div class="line">   // note: it is enough to add annotation on just getter OR setter;</div><div class="line">   // so we can omit it here</div><div class="line">   public void setTheName(String n) &#123; _name = n; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="注解配置：忽略属性"><a href="#注解配置：忽略属性" class="headerlink" title="注解配置：忽略属性"></a>注解配置：忽略属性</h5><p>有两个可以设置忽略属性的注解，一个是<code>@JsonIgnore</code> 修饰的是单个属性，一个是<code>@JsonIgnoreProperties</code> 修饰的类。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">// means that if we see &quot;foo&quot; or &quot;bar&quot; in JSON, they will be quietly skipped</div><div class="line">// regardless of whether POJO has such properties</div><div class="line">@JsonIgnoreProperties(&#123; &quot;foo&quot;, &quot;bar&quot; &#125;)</div><div class="line">public class MyBean</div><div class="line">&#123;</div><div class="line">   // will not be written as JSON; nor assigned from JSON:</div><div class="line">   @JsonIgnore</div><div class="line">   public String internal;</div><div class="line"></div><div class="line">   // no annotation, public field is read/written normally</div><div class="line">   public String external;</div><div class="line"></div><div class="line">   @JsonIgnore</div><div class="line">   public void setCode(int c) &#123; _code = c; &#125;</div><div class="line"></div><div class="line">   // note: will also be ignored because setter has annotation!</div><div class="line">   public int getCode() &#123; return _code; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>由于重命名，所以注解是在匹配的的字段，get，set中共享的：如果其中一个设置了<code>@JsonIgnore</code>，其他的也受影响。当然也可以使用分离的注解来解决问题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">public class ReadButDontWriteProps &#123;</div><div class="line">   private String _name;</div><div class="line">   @JsonProperty public void setName(String n) &#123; _name = n; &#125;</div><div class="line">   @JsonIgnore public String getName() &#123; return _name; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在这个例子中，<code>name</code>不会被写入到JSON中，但是如果JSON中有，则会映射到Java对象中。</p>
+<h5 id="注解配置：定制注解构造器"><a href="#注解配置：定制注解构造器" class="headerlink" title="注解配置：定制注解构造器"></a>注解配置：定制注解构造器</h5><p>和其他的data-bind包不同，jackson 不需要定义默认的构造函数（即不包含参数的构造函数）。如果需要，可以定义一个简单的包含参数的构造函数:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">public class CtorBean</div><div class="line">&#123;</div><div class="line">  public final String name;</div><div class="line">  public final int age;</div><div class="line"></div><div class="line">  @JsonCreator // constructor can be public, private, whatever</div><div class="line">  private CtorBean(@JsonProperty(&quot;name&quot;) String name,</div><div class="line">    @JsonProperty(&quot;age&quot;) int age)</div><div class="line">  &#123;</div><div class="line">      this.name = name;</div><div class="line">      this.age = age;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>构造函数在不可变对象中非常实用。<br>也可以直接定义一个工厂方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public class FactoryBean</div><div class="line">&#123;</div><div class="line">    // fields etc omitted for brewity</div><div class="line"></div><div class="line">    @JsonCreator</div><div class="line">    public static FactoryBean create(@JsonProperty(&quot;name&quot;) String name) &#123;</div><div class="line">      // construct and return an instance</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="其他特性："><a href="#其他特性：" class="headerlink" title="其他特性："></a>其他特性：</h4><p>一个有用，但是不被广泛知晓的功能就是Jackson可以任意转换两个POJO。可以将其想象成两步，第一步，将POJO写成JSON，第二步讲JSON写成另一个POJO。实现的时候用了更加高效的一种方法，并没有生成中间的JSON。<br>转换在兼容的类型中运行的很好：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ResultType result = mapper.convertValue(sourceObject, ResultType.class);</div></pre></td></tr></table></figure></p>
+<p>只要这两个POJO的类型兼容，即to json 和 from json的成功，那么就可以成功：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">// Convert from List&lt;Integer&gt; to int[]</div><div class="line">List&lt;Integer&gt; sourceList = ...;</div><div class="line">int[] ints = mapper.convertValue(sourceList, int[].class);</div><div class="line">// Convert a POJO into Map!</div><div class="line">Map&lt;String,Object&gt; propertyMap = mapper.convertValue(pojoValue, Map.class);</div><div class="line">// ... and back</div><div class="line">PojoType pojo = mapper.convertValue(propertyMap, PojoType.class);</div><div class="line">// decode Base64! (default byte[] representation is base64-encoded String)</div><div class="line">String base64 = &quot;TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz&quot;;</div><div class="line">byte[] binary = mapper.convertValue(base64, byte[].class);</div></pre></td></tr></table></figure></p>
+<p>基本上Jackson可以替换很多Apache Commons的组件，例如Base64的编码解码，处理动态POJO等。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mashuai.github.io/2015/11/08/jackson-tutorial/" data-id="cjfi2p6dr0000b1r8ekxcqwp5" class="article-share-link">Share</a>
+      
+        <a href="https://mashuai.github.io/2015/11/08/jackson-tutorial/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSON/">JSON</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jackson/">Jackson</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/11/08/Vagrant-Ansible-快速入门教程/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Vagrant &amp; Ansible 快速入门教程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/11/06/Vagrant-入门指南/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Vagrant 入门指南</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architecture/">Architecture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CPU/">CPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git分支/">Git分支</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/">Go</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP-2/">HTTP/2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSON/">JSON</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jackson/">Jackson</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Middleware/">Middleware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OKHttp/">OKHttp</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Translate/">Translate</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Ansible/" style="font-size: 12px;">Ansible</a> <a href="/tags/Architecture/" style="font-size: 10px;">Architecture</a> <a href="/tags/CPU/" style="font-size: 10px;">CPU</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Git分支/" style="font-size: 10px;">Git分支</a> <a href="/tags/Go/" style="font-size: 14px;">Go</a> <a href="/tags/HTTP/" style="font-size: 16px;">HTTP</a> <a href="/tags/HTTP-2/" style="font-size: 10px;">HTTP/2</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Jackson/" style="font-size: 10px;">Jackson</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Middleware/" style="font-size: 10px;">Middleware</a> <a href="/tags/Mybatis/" style="font-size: 12px;">Mybatis</a> <a href="/tags/OKHttp/" style="font-size: 14px;">OKHttp</a> <a href="/tags/Translate/" style="font-size: 20px;">Translate</a> <a href="/tags/Vagrant/" style="font-size: 12px;">Vagrant</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">9</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/06/28/mybaits-configuration/">MyBatis 配置</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/25/cup-load-high/">Linux 如何查找Java 程序CPU负载过高</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/24/Git分支/">Git - 分支管理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/okhttp/https/">OKHttp https</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/21/mybatis/mybatis-started/">mybatis 入门</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 mashuai<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+<script src="https://s4.cnzz.com/z_stat.php?id=1261529414&web_id=1261529414" language="JavaScript"></script>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/projects" class="mobile-nav-link">Projects</a>
+  
+    <a href="/velocity" class="mobile-nav-link">Velocity</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'jabfor';
+  
+  var disqus_url = 'https://mashuai.github.io/2015/11/08/jackson-tutorial/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+    <!-- ad start -->
+<!--    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 测试广告 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2889123346235419"
+     data-ad-slot="8165482683"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+ -->
+    <!-- ad end -->
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48348924-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </div>
+
+</body>
+</html>
