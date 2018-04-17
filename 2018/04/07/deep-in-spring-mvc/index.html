@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>深入理解Spring MVC | 代码拾遗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="原文地址  
+初始工程这篇文章中将使用最新的Spring Framework 5框架。主要关注的是Spring的经典Web技术栈，这套技术从最开始的Spring版本就开始支持，并且知道现在仍然是构建Spring Web应用的主要方式。使用Spring Boot和其他starter来设置初始工程。xml配置如下：1234567891011121314151617&amp;lt;parent&amp;gt;    &amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解Spring MVC">
+<meta property="og:url" content="https://mashuai.github.io/2018/04/07/deep-in-spring-mvc/index.html">
+<meta property="og:site_name" content="代码拾遗">
+<meta property="og:description" content="原文地址  
+初始工程这篇文章中将使用最新的Spring Framework 5框架。主要关注的是Spring的经典Web技术栈，这套技术从最开始的Spring版本就开始支持，并且知道现在仍然是构建Spring Web应用的主要方式。使用Spring Boot和其他starter来设置初始工程。xml配置如下：1234567891011121314151617&amp;lt;parent&amp;gt;    &amp;">
+<meta property="og:image" content="https://raw.githubusercontent.com/mashuai/hexo-blog/master/images/springmvc.png">
+<meta property="og:updated_time" content="2018-04-17T01:47:30.617Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入理解Spring MVC">
+<meta name="twitter:description" content="原文地址  
+初始工程这篇文章中将使用最新的Spring Framework 5框架。主要关注的是Spring的经典Web技术栈，这套技术从最开始的Spring版本就开始支持，并且知道现在仍然是构建Spring Web应用的主要方式。使用Spring Boot和其他starter来设置初始工程。xml配置如下：1234567891011121314151617&amp;lt;parent&amp;gt;    &amp;">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/mashuai/hexo-blog/master/images/springmvc.png">
+  
+    <link rel="alternative" href="/atom.xml" title="代码拾遗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-2889123346235419",
+      enable_page_level_ads: true
+    });
+  </script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?1cf66cb20b7f58505ec9ca2e88537f6e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">代码拾遗</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/projects">Projects</a>
+        
+          <a class="main-nav-link" href="/velocity">Velocity</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://mashuai.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-deep-in-spring-mvc" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/07/deep-in-spring-mvc/" class="article-date">
+  <time datetime="2018-04-06T16:39:10.000Z" itemprop="datePublished">2018-04-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      深入理解Spring MVC
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://stackify.com/spring-mvc/" target="_blank" rel="external">原文地址</a>  </p>
+<h5 id="初始工程"><a href="#初始工程" class="headerlink" title="初始工程"></a>初始工程</h5><p>这篇文章中将使用最新的Spring Framework 5框架。主要关注的是Spring的经典Web技术栈，这套技术从最开始的Spring版本就开始支持，并且知道现在仍然是构建Spring Web应用的主要方式。<br>使用Spring Boot和其他starter来设置初始工程。xml配置如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-thymeleaf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h5 id="测试项目"><a href="#测试项目" class="headerlink" title="测试项目"></a>测试项目</h5><p>为了理解Spring Web MVC是如何工作的，可以先实现一个简单的Login功能的。创建一个由<code>@Controller</code>来修饰的类<code>InternalController</code>，这个类包含一个Get的映射。<br><code>hello()</code>函数没有参数。返回一个由Spring解释的视图名字的字符串。（在本例中是<code>login.html</code>）  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</div><div class="line"></div><div class="line"><span class="meta">@GetMapping</span>(<span class="string">"/"</span>)</div><div class="line"><span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">"login"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>为了处理用户登陆逻辑，创建另一个接受POST请求的带有Login数据的方法。然后根据处理结果返回成功或者失败页面。<br>注意，<code>login()</code>函数接受一个领域对象作为参数，返回的是<code>ModelAndView</code>对象。  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@PostMapping</span>(<span class="string">"/login"</span>)</div><div class="line"><span class="function"><span class="keyword">public</span> ModelAndView <span class="title">login</span><span class="params">(LoginData loginData)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (LOGIN.equals(loginData.getLogin()) </div><div class="line">      &amp;&amp; PASSWORD.equals(loginData.getPassword())) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ModelAndView(<span class="string">"success"</span>, </div><div class="line">          Collections.singletonMap(<span class="string">"login"</span>, loginData.getLogin()));</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ModelAndView(<span class="string">"failure"</span>, </div><div class="line">          Collections.singletonMap(<span class="string">"login"</span>, loginData.getLogin()));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>ModelAndView</code>保存了两个不同的对象：</p>
+<ul>
+<li>Model： 用来渲染页面用的键值对的map</li>
+<li>View： 填充Model数据的模版页面。  </li>
+</ul>
+<p>将它们合并起来是为了方便，这样controller的方法就可以同时返回这两个了。<br>使用<code>Thymeleaf</code>作为模版引擎来渲染页面。  </p>
+<h5 id="Java-Web应用的基础-Servlet"><a href="#Java-Web应用的基础-Servlet" class="headerlink" title="Java Web应用的基础-Servlet"></a>Java Web应用的基础-Servlet</h5><p>当你在浏览器里键入<code>http://localhost:8080/</code>，然后按回车键，请求到达服务器的时候到底发生了什么？是如何在浏览器中看到这个web请求的数据的？<br>因为这个项目是一个简单的Spring Boot应用，所以可以通过<code>Spring5Application</code>来运行。<br>Spring Boot默认使用<a href="http://stackify.com/tomcat-performance-monitoring/" target="_blank" rel="external">Apache Tomcat</a>运行程序，运行成功后可能会看到如下的日志：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">2017-10-16 20:36:11.626  INFO 57414 --- [main] </div><div class="line">  o.s.b.w.embedded.tomcat.TomcatWebServer  : </div><div class="line">  Tomcat initialized with port(s): 8080 (http)</div><div class="line">  </div><div class="line">2017-10-16 20:36:11.634  INFO 57414 --- [main] </div><div class="line">  o.apache.catalina.core.StandardService   : </div><div class="line">  Starting service [Tomcat]</div><div class="line"></div><div class="line">2017-10-16 20:36:11.635  INFO 57414 --- [main] </div><div class="line">  org.apache.catalina.core.StandardEngine  : </div><div class="line">  Starting Servlet Engine: Apache Tomcat/8.5.23</div></pre></td></tr></table></figure>
+<p>因为Tomcat是一个Servlet容器，所以几乎所有的HTTP请求都是由Java Servlet处理的。自然的Spring Web的入口就是一个Servlet。<br>Servlet是所有Java Web应用的核心组件；它非常的低成，并且没有暴露任何具体的编程模式，例如MVC。<br>一个HTTP的Servelt只能接受HTTP请求，处理请求后返回响应。<br>现在使用Servlet 3.0的API，可以不再使用XML配置，直接可以使用Java配置。</p>
+<h5 id="Spring-MVC的核心-DispatcherServlet"><a href="#Spring-MVC的核心-DispatcherServlet" class="headerlink" title="Spring MVC的核心-DispatcherServlet"></a>Spring MVC的核心-DispatcherServlet</h5><p>作为Web开发者，我们希望抽象出以下枯燥和样板的任务，而关注于有用的业务逻辑  </p>
+<ul>
+<li>将HTTP请求映射到响应处理函数</li>
+<li>将HTTP请求数据和header解析成数据传输对象（DTOs）或者领域对象</li>
+<li>model-view-controller 互相交互</li>
+<li>从DTO，领域对象等生成响应  </li>
+</ul>
+<p>Spring的<code>DispatcherServlet</code>提供了以上的功能，是Spring WEB MVC框架的核心，是应用接受所有请求的核心组件。<br>稍后就会了解到<code>DispatcherServlet</code>可扩展性非常强。例如：它允许你加入现有或者新的适配器来适应不同的任务：</p>
+<ul>
+<li>将请求映射到处理它的类或者函数(由<code>HandlerMapping</code>实现）</li>
+<li>使用特定模式来处理请求，例如一个普通的Servlet，一个复杂的MVC 工作流，或者只是一个方法。(由<code>HandlerAdapter</code>实现）</li>
+<li>通过名字解析试图对象，允许你使用不同的模版引擎，例如：XML，XSLT或者其他视图技术(由<code>ViewResolver</code>实现）</li>
+<li>默认使用Apache Comons 的文件上传组件解析文件上传，或者也可以自己实现。</li>
+<li>由<code>LocalResolver</code>实现本地化，包括cookie，session，HTTP的Accept Header，或者其他由用户定义的本地化。    </li>
+</ul>
+<h5 id="处理HTTP请求"><a href="#处理HTTP请求" class="headerlink" title="处理HTTP请求"></a>处理HTTP请求</h5><p>首先让我们重新审视一下在刚刚建立的应用中是如何处理HTTP请求的。<br><code>DispatcherServlet</code>有一个很长的继承层级。自顶向下理解每个单独的概念是非常有必要的。处理请求的函数将会更加有趣。<br><img src="https://raw.githubusercontent.com/mashuai/hexo-blog/master/images/springmvc.png" alt="SpringMVC"><br>理解HTTP请求在本地开发模式处理和远程处理是理解MVC架构非常重要的一步。</p>
+<h6 id="GenericServlet"><a href="#GenericServlet" class="headerlink" title="GenericServlet"></a>GenericServlet</h6><p><code>GenericServlet</code>时Servlet规范中的一部分，不直接处理HTTP。它定义了<code>service()</code>方法，来接受请求和返回响应。<br>注意，<code>ServletRequest</code>和<code>ServletResponse</code>并不是绑定到HTTP协议的。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(ServletRequest req, ServletResponse res)</span> </span></div><div class="line">  <span class="keyword">throws</span> ServletException, IOException;</div></pre></td></tr></table></figure></p>
+<p>服务器所有的请求，包括简单的GET请求都会调用这个方法。</p>
+<h5 id="HttpServlet"><a href="#HttpServlet" class="headerlink" title="HttpServlet"></a>HttpServlet</h5><p>正如其名，<code>HttpServelt</code>是Servlet 规范中关于HTTP请求的实现。<br>更确切的说，<code>HttpServlet</code>是一个实现了<code>service()</code>的抽象类。通过将不同的HTTP请求类型分开，由不同的函数处理，实现大约如下所示：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span></span></div><div class="line">    <span class="keyword">throws</span> ServletException, IOException &#123;</div><div class="line"></div><div class="line">    String method = req.getMethod();</div><div class="line">    <span class="keyword">if</span> (method.equals(METHOD_GET)) &#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">        doGet(req, resp);</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method.equals(METHOD_HEAD)) &#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">        doHead(req, resp);</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method.equals(METHOD_POST)) &#123;</div><div class="line">        doPost(req, resp);</div><div class="line">        <span class="comment">// ...</span></div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<h5 id="HttpServletBean"><a href="#HttpServletBean" class="headerlink" title="HttpServletBean"></a>HttpServletBean</h5><p>在这个继承关系中<code>HttpServletBean</code>是第一个Spring的类。从web.xml或者WebApplicationInitialzer获取的初始参数来注入bean。<br>在应用中的请求分别调用doGet,doPost等方法来处理不同的HTTP请求。</p>
+<h5 id="FrameworkServlet"><a href="#FrameworkServlet" class="headerlink" title="FrameworkServlet"></a>FrameworkServlet</h5><p><code>FrameworkServlet</code>实现了<code>ApplicationContextAware</code>,集成Web的Application Context。不过它也可以创建自己的Application Context。<br>正如上述所言，父类<code>HttpServletBean</code>通过将初始参数作为bean的属性注入。因此如果contex的类名在<code>contextClass</code>这个初始参数中，那么就有这个参数创建application context的实例，否则默认使用<code>XmlWebApplicationContext</code>。<br>由于XML配置现在已经过时了。Spring Boot默认使用<code>AnnotationConfigWebApplicationContext</code>来配置<code>DispatcherServlet</code>。不过这个是很容易修改的。<br>例如，想要在Spring MVC中使用Groovy的application context，可以将下列配置在web.xml中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">dispatcherServlet</div><div class="line">      org.springframework.web.servlet.DispatcherServlet</div><div class="line">      contextClass</div><div class="line">      org.springframework.web.context.support.GroovyWebApplicationContext</div></pre></td></tr></table></figure></p>
+<p>相同的配置也可以在<code>WebApplicationInitializer</code>中配置。</p>
+<h5 id="DispatcherServlet-统一处理请求"><a href="#DispatcherServlet-统一处理请求" class="headerlink" title="DispatcherServlet: 统一处理请求"></a>DispatcherServlet: 统一处理请求</h5><p><code>HttpServlet.service()</code>通过HTTP的动词类型来处理路由不同的请求到不同的方法，这个在底层的servlet实现的很好。但是，在SpringMVC的抽象层次中，不能仅靠方法类型来路由请求。<br>同样的，<code>FrameworkServlet</code>的另一个主要功能就是将不同的处理使用<code>processRequest()</code>组合在一起。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, </span></span></div><div class="line">  HttpServletResponse response) <span class="keyword">throws</span> ServletException, IOException &#123;</div><div class="line">    processRequest(request, response);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, </span></span></div><div class="line">  HttpServletResponse response) <span class="keyword">throws</span> ServletException, IOException &#123;</div><div class="line">    processRequest(request, response);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="DispatcherServlet-丰富请求"><a href="#DispatcherServlet-丰富请求" class="headerlink" title="DispatcherServlet: 丰富请求"></a>DispatcherServlet: 丰富请求</h5><p>最后,<code>DispatcherServlet</code>实现<code>doService()</code>方法。它向请求中加入了一些有用的对象，继续在web 的管道中传递下去，例如：web application context, locale resolver, theme resolver, theme source等<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">request.setAttribute(WEB_APPLICATION_CONTEXT_ATTRIBUTE, </div><div class="line">  getWebApplicationContext());</div><div class="line">request.setAttribute(LOCALE_RESOLVER_ATTRIBUTE, <span class="keyword">this</span>.localeResolver);</div><div class="line">request.setAttribute(THEME_RESOLVER_ATTRIBUTE, <span class="keyword">this</span>.themeResolver);</div><div class="line">request.setAttribute(THEME_SOURCE_ATTRIBUTE, getThemeSource());</div></pre></td></tr></table></figure></p>
+<p>同时，<code>doService()</code>加入了输入输出的Flash Map，Flash Map是将参数从一个请求传递到另一个请求的基本模式。在重定向中很有用。(例如在重定向之后向用户展示一段简单的信息）<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">FlashMap inputFlashMap = <span class="keyword">this</span>.flashMapManager</div><div class="line">  .retrieveAndUpdate(request, response);</div><div class="line"><span class="keyword">if</span> (inputFlashMap != <span class="keyword">null</span>) &#123;</div><div class="line">    request.setAttribute(INPUT_FLASH_MAP_ATTRIBUTE, </div><div class="line">      Collections.unmodifiableMap(inputFlashMap));</div><div class="line">&#125;</div><div class="line">request.setAttribute(OUTPUT_FLASH_MAP_ATTRIBUTE, <span class="keyword">new</span> FlashMap());</div></pre></td></tr></table></figure></p>
+<p>接着<code>doService()</code>将会调用<code>doDispatch()</code>方法来分发请求。</p>
+<h5 id="DispatcherServlet-分发请求"><a href="#DispatcherServlet-分发请求" class="headerlink" title="DispatcherServlet: 分发请求"></a>DispatcherServlet: 分发请求</h5><p><code>dispatch()</code>的主要目的就是知道一个合适的处理请求的处理器并且传递request/response参数。处理器可以是任何对象，并不局限于一个特定的接口。同样也意味着Spring需要找到如何使用这个处理器的适配器。<br>为了给请求找到合适的处理器，Spring会遍历实现<code>HandlerMapping</code>接口的注册的实现。有很多不同的实现可以满足我们各种需求。<br><code>SimpleUrlHandlerMapping</code>使用URL将请求映射到处理bean中。例如：它可以通过<code>Java.util.Properties</code>注入它的映射信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/welcome.html=ticketController</div><div class="line">/show.html=ticketController</div></pre></td></tr></table></figure></p>
+<p><code>RequestMappingHandlerMapping</code>可能是最广泛使用的映射处理器。它将请求映射到<code>@Controller</code>类下的<code>@RequestMapping</code>修饰的方法上。这个就是上面那个例子中的<code>hello()</code>和<code>login()</code>。<br>注意，上面两个方法分别是<code>@GetMapping</code>和<code>@PostMapping</code>修饰的。这两个注解来源于<code>@RequestMapping</code>。<br><code>dispatch()</code>同时也可以处理一些其他的HTTP的任务：</p>
+<ul>
+<li>如果资源不存在，对GET请求进行短路处理。</li>
+<li>对相应的请求使用multipart 解析。</li>
+<li>如果处理器选择异步处理请求，对请求进行短路处理。  </li>
+</ul>
+<h5 id="处理请求"><a href="#处理请求" class="headerlink" title="处理请求"></a>处理请求</h5><p>现在Spring确定了处理请求的处理器和处理器的适配器，是时候处理请求了。下面是<code>HandlerAdapter.handle()</code>的签名。比较重要的一点是处理器可以选择如何处理请求：</p>
+<ul>
+<li>直接将相应写入到response body 和 返回null</li>
+<li>返回一个<code>ModelAndView</code>对象由<code>DispatcherServlet</code>渲染。  </li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Nullable</span></div><div class="line"><span class="function">ModelAndView <span class="title">handle</span><span class="params">(HttpServletRequest request, </span></span></div><div class="line">                    HttpServletResponse response, </div><div class="line">                    Object handler) <span class="keyword">throws</span> Exception;</div></pre></td></tr></table></figure>
+<p>Spring提供了很多类型的处理器，下面是<code>SimpleControllerHandlerAdapter</code>如何处理Spring MVC的controller实例的(不要和@Controller搞混)。<br>注意，controller处理器返回ModelAndView对象并不是由起渲染的。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> ModelAndView <span class="title">handle</span><span class="params">(HttpServletRequest request, </span></span></div><div class="line">  HttpServletResponse response, Object handler) <span class="keyword">throws</span> Exception &#123;</div><div class="line">    <span class="keyword">return</span> ((Controller) handler).handleRequest(request, response);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>第二个是<code>SimpleServletHandlerAdapter</code>它对一个普通的servlet适配。<br>servlet并不知道<code>ModelAndView</code>，完全自己处理请求，将返回写入到相应的body中。因此它的适配器就直接返回null。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> ModelAndView <span class="title">handle</span><span class="params">(HttpServletRequest request, </span></span></div><div class="line">  HttpServletResponse response, Object handler) <span class="keyword">throws</span> Exception &#123;</div><div class="line">    ((Servlet) handler).service(request, response);</div><div class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在本例中，controller是由<code>@RequestMapping</code>修饰的POJO，因此处理器会使用<code>HandlerMethod</code>来封装它的方法。Spring使用<code>RequestMappingHandlerAdapter</code>来适配这种处理器类型。</p>
+<h5 id="处理参数，返回处理器函数的值"><a href="#处理参数，返回处理器函数的值" class="headerlink" title="处理参数，返回处理器函数的值"></a>处理参数，返回处理器函数的值</h5><p>注意，一般来说controller并不会接收<code>HttpServletRequest</code>和<code>HttpServletResponse</code>作为参数，但是它可以接收和返回很多中其他类型，例如：领域对象，路径参数等。<br>同样，也不强求一个controller返回一个<code>ModelAndView</code>实例。可以选择返回一个视图名称，<code>ResponseEntity</code>，或者是一个可以被转换成JSON的POJO。<br><code>RequestMappingHandlerAdapter</code>可以保证从<code>HttpServletRequest</code>中解析方法需要的参数，同时创建<code>ModelAndView</code>对象返回。<br>下面这段代码就是<code>RequestMappingHandlerAdapter</code>中保证这件事情的：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">ServletInvocableHandlerMethod invocableMethod </div><div class="line">  = createInvocableHandlerMethod(handlerMethod);</div><div class="line"><span class="keyword">if</span> (<span class="keyword">this</span>.argumentResolvers != <span class="keyword">null</span>) &#123;</div><div class="line">    invocableMethod.setHandlerMethodArgumentResolvers(</div><div class="line">      <span class="keyword">this</span>.argumentResolvers);</div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span> (<span class="keyword">this</span>.returnValueHandlers != <span class="keyword">null</span>) &#123;</div><div class="line">    invocableMethod.setHandlerMethodReturnValueHandlers(</div><div class="line">      <span class="keyword">this</span>.returnValueHandlers);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>argumentResolvers</code>在<code>HandlerMethodArgumentResolver</code>实例中有不同实现。一共有30多种不同的参数解析器的实现。他们可以从请求参数将函数需要的参数解析出来。包括：url路径变量，请求体参数，请求头，cookies，session等。<br><code>returnValueHandlers</code>在<code>HandlerMethodArgumentResolver</code>实例中有不同实现。同样也有很多不同的返回值处理器来处理方法返回的结果，创建<code>ModelAndView</code>对象。<br>例如：当函数<code>hello()</code>返回一个string的时候，<code>ViewNameMethodReturnValueHandler</code>处理这个值。<code>login()</code>返回一个<code>ModelAndView</code>对象的时候，Sring使用<code>ModelAndViewMethodReturnValueHandler</code>处理这个值。</p>
+<h5 id="渲染视图"><a href="#渲染视图" class="headerlink" title="渲染视图"></a>渲染视图</h5><p>现在Spring已经处理了HTTP请求，获取了<code>ModelAndView</code>实例，现在它需要在用户浏览器渲染HTML页面了。它依赖于由Model和选择的模版组成的<code>ModelAndView</code>对象。<br>同样的，Spring也可以渲染JSON ,XML或者其他HTTP协议接受的类型。这些将在接下来的REST相关了解更多。<br>现在回去看一下<code>DispatcherServlet</code>。<code>render()</code>首先使用<code>LocaleResolver</code>实例设置返回的Local。首先假设浏览器已经正确设置Accetp头。默认使用<code>AcceptHeaderLocaleResolver</code>来处理。<br>在渲染过程中，<code>ModelAndView</code>可以包含一个视图的名字或者是已经选择的视图，或者如果controller依赖于默认视图也可以没有。<br>既然<code>hello()</code>和<code>login()</code>方法制定了字符串名字作为视图名称，所以需要使用viewResolvers来查找视图。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (ViewResolver viewResolver : <span class="keyword">this</span>.viewResolvers) &#123;</div><div class="line">    View view = viewResolver.resolveViewName(viewName, locale);</div><div class="line">    <span class="keyword">if</span> (view != <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span> view;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>ViewResolver的实现由很多，这里使用了由<code>thymeleaf-spring5</code>提供的<code>ThymeleafViewResolver</code>实现。解析器知道去哪里查找视图，并且提供相应的视图实例。<br>调用完<code>render()</code>之后，Spring就完成了将HTML页面渲染到用户浏览器的任务。</p>
+<h5 id="REST-支持"><a href="#REST-支持" class="headerlink" title="REST 支持"></a>REST 支持</h5><p>除了MVC的场景，我们可以使用狂减创建rest web service。<br>一个简单的场景，可以使用由<code>@RequestBody</code>修饰的POJO作为参数。由<code>@ResponseBody</code>修饰方法，指定方法的返回结果直接写入到响应体中。  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestBody;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</div><div class="line"></div><div class="line"><span class="meta">@ResponseBody</span></div><div class="line"><span class="meta">@PostMapping</span>(<span class="string">"/message"</span>)</div><div class="line"><span class="function"><span class="keyword">public</span> MyOutputResource <span class="title">sendMessage</span><span class="params">(</span></span></div><div class="line">  @RequestBody MyInputResource inputResource) &#123;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> MyOutputResource(<span class="string">"Received: "</span></div><div class="line">      + inputResource.getRequestMessage());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>感谢SpringMVC的扩展性，这样做也是可以的。<br>框架使用<code>HttpMessageConverter</code>将内部DTO转换成REST的表示。例如：<code>MappingJackson2HttpMessageConverter</code>的可以使用Jackson库将转换model和JSON。<br>为了简化创建REST API，Srping 引入了<code>@RestController</code>注解。默认使用<code>@ResonseBody</code>这样就不需要在每个方法中使用了。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</div><div class="line"></div><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RestfulWebServiceController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/message"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> MyOutputResource <span class="title">getMessage</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MyOutputResource(<span class="string">"Hello!"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h5><p>在这篇文章中，详细描述了Spring MVC处理HTTP请求的各个步骤。了解到Spring 框架是如何将各个组件组合在一起提供处理HTTP协议的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mashuai.github.io/2018/04/07/deep-in-spring-mvc/" data-id="cjg35vrad000kzor8aq6bo0t5" class="article-share-link">Share</a>
+      
+        <a href="https://mashuai.github.io/2018/04/07/deep-in-spring-mvc/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC/">SpringMVC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/04/09/spring-mvc-dispatcher-servlet/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          SpringMVC 教程 - DispatcherServlet
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/04/07/8-key-application-metrics/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">8个关键的应用性能指标</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/APM/">APM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architecture/">Architecture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CPU/">CPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git分支/">Git分支</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/">Go</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP-2/">HTTP/2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSON/">JSON</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jackson/">Jackson</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java8/">Java8</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Middleware/">Middleware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OKHttp/">OKHttp</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Performance/">Performance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Translate/">Translate</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/APM/" style="font-size: 10px;">APM</a> <a href="/tags/Ansible/" style="font-size: 11.67px;">Ansible</a> <a href="/tags/Architecture/" style="font-size: 10px;">Architecture</a> <a href="/tags/CPU/" style="font-size: 10px;">CPU</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Git分支/" style="font-size: 10px;">Git分支</a> <a href="/tags/Go/" style="font-size: 15px;">Go</a> <a href="/tags/HTTP/" style="font-size: 16.67px;">HTTP</a> <a href="/tags/HTTP-2/" style="font-size: 10px;">HTTP/2</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Jackson/" style="font-size: 10px;">Jackson</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/Java8/" style="font-size: 10px;">Java8</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Middleware/" style="font-size: 10px;">Middleware</a> <a href="/tags/Mybatis/" style="font-size: 11.67px;">Mybatis</a> <a href="/tags/OKHttp/" style="font-size: 15px;">OKHttp</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Spring/" style="font-size: 13.33px;">Spring</a> <a href="/tags/SpringMVC/" style="font-size: 13.33px;">SpringMVC</a> <a href="/tags/Translate/" style="font-size: 20px;">Translate</a> <a href="/tags/Vagrant/" style="font-size: 11.67px;">Vagrant</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/04/09/spring-mvc-filter/">SpringMVC 教程 - Filter</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/09/spring-mvc-dispatcher-servlet/">SpringMVC 教程 - DispatcherServlet</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/07/deep-in-spring-mvc/">深入理解Spring MVC</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/07/8-key-application-metrics/">8个关键的应用性能指标</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/06/java8-date-time-api/">Java8 Date Time API</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 mashuai<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+<script src="https://s4.cnzz.com/z_stat.php?id=1261529414&web_id=1261529414" language="JavaScript"></script>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/projects" class="mobile-nav-link">Projects</a>
+  
+    <a href="/velocity" class="mobile-nav-link">Velocity</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'jabfor';
+  
+  var disqus_url = 'https://mashuai.github.io/2018/04/07/deep-in-spring-mvc/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+    <!-- ad start -->
+<!--    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 测试广告 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2889123346235419"
+     data-ad-slot="8165482683"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+ -->
+    <!-- ad end -->
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48348924-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </div>
+
+</body>
+</html>

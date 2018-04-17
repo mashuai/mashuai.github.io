@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>SpringMVC 教程 - DispatcherServlet | 代码拾遗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="简介同许多其他的web框架一样，SpringMVC使用了前端控制器的设计模式，即一个以DispatcherServlet为核心的Servlet为处理请求提供了一个共享的算法，而实际的工作是由可配置的委托组件执行的。这个模式即灵活又支持多样的工作流。同其他的Servlet,依照Servlet 规范DispatcherServlet需要在web.xml或者Java配置中声明并映射URL。接着Dispa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringMVC 教程 - DispatcherServlet">
+<meta property="og:url" content="https://mashuai.github.io/2018/04/09/spring-mvc-dispatcher-servlet/index.html">
+<meta property="og:site_name" content="代码拾遗">
+<meta property="og:description" content="简介同许多其他的web框架一样，SpringMVC使用了前端控制器的设计模式，即一个以DispatcherServlet为核心的Servlet为处理请求提供了一个共享的算法，而实际的工作是由可配置的委托组件执行的。这个模式即灵活又支持多样的工作流。同其他的Servlet,依照Servlet 规范DispatcherServlet需要在web.xml或者Java配置中声明并映射URL。接着Dispa">
+<meta property="og:image" content="https://raw.githubusercontent.com/mashuai/hexo-blog/master/images/mvc-context-hierarchy.png">
+<meta property="og:updated_time" content="2018-04-17T01:47:30.628Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringMVC 教程 - DispatcherServlet">
+<meta name="twitter:description" content="简介同许多其他的web框架一样，SpringMVC使用了前端控制器的设计模式，即一个以DispatcherServlet为核心的Servlet为处理请求提供了一个共享的算法，而实际的工作是由可配置的委托组件执行的。这个模式即灵活又支持多样的工作流。同其他的Servlet,依照Servlet 规范DispatcherServlet需要在web.xml或者Java配置中声明并映射URL。接着Dispa">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/mashuai/hexo-blog/master/images/mvc-context-hierarchy.png">
+  
+    <link rel="alternative" href="/atom.xml" title="代码拾遗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-2889123346235419",
+      enable_page_level_ads: true
+    });
+  </script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?1cf66cb20b7f58505ec9ca2e88537f6e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">代码拾遗</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/projects">Projects</a>
+        
+          <a class="main-nav-link" href="/velocity">Velocity</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://mashuai.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-spring-mvc-dispatcher-servlet" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/09/spring-mvc-dispatcher-servlet/" class="article-date">
+  <time datetime="2018-04-08T16:39:10.000Z" itemprop="datePublished">2018-04-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SpringMVC 教程 - DispatcherServlet
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p>同许多其他的web框架一样，SpringMVC使用了前端控制器的设计模式，即一个以<code>DispatcherServlet</code>为核心的<code>Servlet</code>为处理请求提供了一个共享的算法，而实际的工作是由可配置的委托组件执行的。这个模式即灵活又支持多样的工作流。<br>同其他的<code>Servlet</code>,依照Servlet 规范<code>DispatcherServlet</code>需要在web.xml或者Java配置中声明并映射URL。接着<code>DispatcherServlet</code>使用Spring的配置来查找委托组件，用来映射URL，解析视图，异常处理等。<br>下面这个示例是使用Java配置来注册并初始化<code>DispatcherServlet</code>，这个类由Servlet容器自动发现。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyWebApplicationInitializer</span> <span class="keyword">implements</span> <span class="title">WebApplicationInitializer</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onStartup</span><span class="params">(ServletContext servletCxt)</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">// Load Spring web application configuration</span></div><div class="line">        AnnotationConfigWebApplicationContext ac = <span class="keyword">new</span> AnnotationConfigWebApplicationContext();</div><div class="line">        ac.register(AppConfig.class);</div><div class="line">        ac.refresh();</div><div class="line"></div><div class="line">        <span class="comment">// Create and register the DispatcherServlet</span></div><div class="line">        DispatcherServlet servlet = <span class="keyword">new</span> DispatcherServlet(ac);</div><div class="line">        ServletRegistration.Dynamic registration = servletCxt.addServlet(<span class="string">"app"</span>, servlet);</div><div class="line">        registration.setLoadOnStartup(<span class="number">1</span>);</div><div class="line">        registration.addMapping(<span class="string">"/app/*"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>下面这个示例是使用<code>web.xml</code>来注册并初始化的<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">web-app</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">listener</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">listener-class</span>&gt;</span>org.springframework.web.context.ContextLoaderListener<span class="tag">&lt;/<span class="name">listener-class</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">listener</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">context-param</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>/WEB-INF/app-context.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>app<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">param-value</span>&gt;</span><span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>app<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/app/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h5 id="层次结构"><a href="#层次结构" class="headerlink" title="层次结构"></a>层次结构</h5><p><code>DispatcherServlet</code>需要一个扩展了的<code>ApplicationContext</code>的<code>WebApplicationContext</code>来配置自己的信息。<code>WebApplicationContext</code>包含了<code>Servlet</code>的<code>ServletContext</code>的引用，可以使用<code>RequestContextUtils</code>中的静态方法从<code>WebApplicationContext</code>中查找<code>ServletContext</code>。<br>对于大多数应用来说一个<code>WebApplicationContext</code>就足够了。当然<code>WebApplicatioContext</code>也可以是有层次结构的，例如由多个Servlet共享的一个根<code>WebApplicationContext</code>，每个Servlet又有自己的子<code>WebApplicationContext</code>。<br>根<code>WebApplicationContext</code>一般包括需要在多个Servlet中共享的基础bean，例如数据仓库，业务逻辑等。在Servlet规范中，这些bean可以被有效的继承和改写，子<code>WebApplicationContext</code>仅包含在其属于的Servlet中。<br><img src="https://raw.githubusercontent.com/mashuai/hexo-blog/master/images/mvc-context-hierarchy.png" alt="spring mvc context"><br>下面这个例子就是<code>WebApplicationContext</code>的层级配置<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyWebAppInitializer</span> <span class="keyword">extends</span> <span class="title">AbstractAnnotationConfigDispatcherServletInitializer</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">protected</span> Class&lt;?&gt;[] getRootConfigClasses() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Class&lt;?&gt;[] &#123; RootConfig.class &#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">protected</span> Class&lt;?&gt;[] getServletConfigClasses() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Class&lt;?&gt;[] &#123; App1Config.class &#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">protected</span> String[] getServletMappings() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> String[] &#123; <span class="string">"/app1/*"</span> &#125;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>同样的，在web.xml中的配置<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">web-app</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">listener</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">listener-class</span>&gt;</span>org.springframework.web.context.ContextLoaderListener<span class="tag">&lt;/<span class="name">listener-class</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">listener</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">context-param</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>/WEB-INF/root-context.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>app1<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>/WEB-INF/app1-context.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>app1<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/app1/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h5 id="特殊的bean类型"><a href="#特殊的bean类型" class="headerlink" title="特殊的bean类型"></a>特殊的bean类型</h5><p><code>DispatcherServlet</code>委托专用的bean来处理请求，渲染响应。专用的bean指的是Spring管理的，实现WebFlux框架约定的实例。这些bean一般都是内建的约定，但是可以定制他们的属性，扩展或者代替这些bean。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">bean 类型</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">HandlerMapping</td>
+<td style="text-align:left">处理器映射，具体由其子类实现。两个重要的子类，<code>RequestMappingHandlerMapping</code>,<code>SimpleUrlHandlerMapping</code></td>
+</tr>
+<tr>
+<td style="text-align:left">HandlerAdapter</td>
+<td style="text-align:left">辅助<code>DispatcherServlet</code>执行特定的处理器。</td>
+</tr>
+<tr>
+<td style="text-align:left">HandlerExceptionResolver</td>
+<td style="text-align:left">将异常重定向到其他处理器或者是显示HTML的错误界面。</td>
+</tr>
+<tr>
+<td style="text-align:left">ViewResolver</td>
+<td style="text-align:left">通过处理器返回的视图字符串查找具体的视图并渲染。 </td>
+</tr>
+<tr>
+<td style="text-align:left">LocaleResolver, LocaleContextResolver</td>
+<td style="text-align:left">支持国际化页面，使用例如时区等来解析本地化问题。 </td>
+</tr>
+<tr>
+<td style="text-align:left">ThemeResolver</td>
+<td style="text-align:left">解析应用可用的主题，例如提供个性化框架 </td>
+</tr>
+<tr>
+<td style="text-align:left">MultipartResolver</td>
+<td style="text-align:left">处理上传文件 </td>
+</tr>
+<tr>
+<td style="text-align:left">FlashMapManager</td>
+<td style="text-align:left">保存和检索输入输出的FlashMap，它可以将属性从一个请求传递到另一个请求的输入输出，一般应用在重定向中。 </td>
+</tr>
+</tbody>
+</table>
+<h5 id="Web-MVC-配置"><a href="#Web-MVC-配置" class="headerlink" title="Web MVC 配置"></a>Web MVC 配置</h5><p>应用可以声明在特殊的bean类型中列出的bean来处理请求。<code>DispatcherServlet</code>会检查每一个bean的<code>WebApplicationContext</code>。如果没有指定的bean，那么就会使用DispatcherServlet.properties中定义的bean。<br>MVC配置将会在以后详细的列出。</p>
+<h5 id="Servlet-配置"><a href="#Servlet-配置" class="headerlink" title="Servlet 配置"></a>Servlet 配置</h5><p>在Servlet 3.0+中，可以使用编程的方式来代替web.xml配置。下面这个例子就是通过编程注册<code>DispatcherServlet</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> org.springframework.web.WebApplicationInitializer;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyWebApplicationInitializer</span> <span class="keyword">implements</span> <span class="title">WebApplicationInitializer</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onStartup</span><span class="params">(ServletContext container)</span> </span>&#123;</div><div class="line">        XmlWebApplicationContext appContext = <span class="keyword">new</span> XmlWebApplicationContext();</div><div class="line">        appContext.setConfigLocation(<span class="string">"/WEB-INF/spring/dispatcher-config.xml"</span>);</div><div class="line"></div><div class="line">        ServletRegistration.Dynamic registration = container.addServlet(<span class="string">"dispatcher"</span>, <span class="keyword">new</span> DispatcherServlet(appContext));</div><div class="line">        registration.setLoadOnStartup(<span class="number">1</span>);</div><div class="line">        registration.addMapping(<span class="string">"/"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>WebApplicationInitializer</code>是由SpringMVC提供的接口，用来保证上述实现可以由支持Servlet 3.0的容器自动检测并初始化。抽象类<code>AbstractDispatcherServletInitializerl</code>实现了<code>WebApplicationInitializer</code> 可以更加容易的注册<code>DispathcerServlet</code>。<br>下面是使用Java配置的Spring<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyWebAppInitializer</span> <span class="keyword">extends</span> <span class="title">AbstractAnnotationConfigDispatcherServletInitializer</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">protected</span> Class&lt;?&gt;[] getRootConfigClasses() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">protected</span> Class&lt;?&gt;[] getServletConfigClasses() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Class&lt;?&gt;[] &#123; MyWebConfig.class &#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">protected</span> String[] getServletMappings() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> String[] &#123; <span class="string">"/"</span> &#125;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如果使用的是xml配置，需要直接继承<code>AbstractDispatcherServletInitializer</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyWebAppInitializer</span> <span class="keyword">extends</span> <span class="title">AbstractDispatcherServletInitializer</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> WebApplicationContext <span class="title">createRootApplicationContext</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> WebApplicationContext <span class="title">createServletApplicationContext</span><span class="params">()</span> </span>&#123;</div><div class="line">        XmlWebApplicationContext cxt = <span class="keyword">new</span> XmlWebApplicationContext();</div><div class="line">        cxt.setConfigLocation(<span class="string">"/WEB-INF/spring/dispatcher-config.xml"</span>);</div><div class="line">        <span class="keyword">return</span> cxt;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">protected</span> String[] getServletMappings() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> String[] &#123; <span class="string">"/"</span> &#125;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>AbstractDispatcherServletInitializer</code>同样提供了一个方便的函数来添加过滤器。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyWebAppInitializer</span> <span class="keyword">extends</span> <span class="title">AbstractDispatcherServletInitializer</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">// ...</span></div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">protected</span> Filter[] getServletFilters() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Filter[] &#123;</div><div class="line">            <span class="keyword">new</span> HiddenHttpMethodFilter(), <span class="keyword">new</span> CharacterEncodingFilter() &#125;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>每个过滤器根据他具体的类型添加一个默认的名字，并且自动映射到DispatcherServlet。<br><code>isAsyncSupported</code>方法是<code>AbstractDispatcherServletInitializer</code>的protect的方法，可以启动<code>DispatcherServlet</code>支持异步处理<br>如果要定义自己的DispatcherServlet，那么可以重写<code>createDispatcherServlet</code>方法。</p>
+<h5 id="处理请求"><a href="#处理请求" class="headerlink" title="处理请求"></a>处理请求</h5><p><code>DispatcherServlet</code>处理请求的流程如下：  </p>
+<ul>
+<li>查找<code>WebApplicationContext</code>并将其作为request的一个属性保存起来，以便其他控制器或者处理链中的组件可以使用。默认保存键为<code>DispatcherServlet.WEB_APPLICATION_CONTEXT_ATTRIBUTE</code> </li>
+<li>本地化解析器保存在request中，以便处理链中的其他组件使用他来处理请求做本地化处理。如果不需要本地化，那么就不需要使用他。</li>
+<li>主题解析器保存在request中，以便其他组件，例如视图查找器使用，如果不需要要主题定制，直接忽略。</li>
+<li>如果指定了文件上传解析器，那么就会检查请求是否有文件上传，如果有请求有<code>MultipartHttpServletRequest</code>封装，以便其他组件处理。</li>
+<li>查找合适的处理器处理请求。如果找到了处理器，那么就依次执行处理链上的组件，返回一个model或者视图。如果是注解的controller也可以直接渲染而不需要返回视图。</li>
+<li>如果返回一个model，会渲染一个视图，如果没有返回model，那么就无需渲染视图了，因为视图可能已经被渲染了。</li>
+</ul>
+<p>在请求处理过程中如果出现了一场那么就可以使用<code>WebApplicatioContext</code>中的<code>HandlerExceptionResolver</code>来定制异常处理。<br>SpringMVC 同样支持返回<code>last-modification-date</code>，对指定请求处理如何判断是否有<code>last-modification-date</code>非常直接：<code>DispatcherServlet</code>查找适合的处理器，并且检查其是否实现了<code>LastModified</code>接口，如果实现了，调用<code>long getLastModified(request)</code>返回给客户端。<br>通过web.xml中Servlet的初始化参数可以定制DispatcherServlet.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">contextClass</td>
+<td style="text-align:left">实现<code>WebApplicationContext</code>的类，默认使用<code>XmlWebApplicationContext</code> </td>
+</tr>
+<tr>
+<td style="text-align:left">contextConfigLocation</td>
+<td style="text-align:left">传递给Context 实例的字符串，包括了bean的定义 </td>
+</tr>
+<tr>
+<td style="text-align:left">namespace</td>
+<td style="text-align:left"><code>WebApplicationContext</code> 的命名空间，默认<code>[servlet-name]-servlet</code> </td>
+</tr>
+</tbody>
+</table>
+<h5 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h5><p><code>HandlerMapping</code>支持拦截器，在对某些请求添加处理的时候非常有用，比如，权限检查。拦截器必须实现<code>org.springframework.web.servlet</code>包中的<code>HandlerInterceptor</code>，这个接口有三个处理函数分别对应请求处理前，请求处理后，完成请求处理。</p>
+<ul>
+<li>preHandle(..) 在请求处理前执行</li>
+<li>postHandle(..) 请求处理后执行</li>
+<li>afterCompletion(..) 整个请求处理结束后执行<br><code>preHandle(..)</code> 返回一个boolean值。可以使用这个值来中断处理请求链。当返回true的时候，处理将会继续执行，如果返回false，<code>DispatcherServelt</code>假定拦截器已经对请求正确处理了，例如渲染了一个页面等。将会中断请求处理链。<br>注意，<code>postHandle</code>方法很少使用<code>@ResponseBody</code>和<code>ResponseEntity</code>。因为响应已经在<code>postHandle</code>执行之前有<code>HandlerAdapter</code>返回了。意味着在<code>postHandle</code>的时候再修改响应已经晚了。对应这种场景可以继承<code>ResponseBodyAdvice</code>或者实现ControllerAdvice或者直接配置<code>RequestMappingHandlerAdapter</code>来实现。</li>
+</ul>
+<h5 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h5><p>如果在请求映射或者处理请求的时候抛出异常，<code>DispatcherServelt</code>会委托<code>HandlerExceptionResolver</code>来解析异常并提供可选择的处理，即返一个错误响应。<br>下表是<code>HandlerExceptionResolver</code>的实现</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">HandlerExceptionResolver</th>
+<th style="text-align:left">描述 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">SimpleMappingExceptionResolver</td>
+<td style="text-align:left">异常类名和错误页面名的映射。浏览器渲染错误页面的时候非常实用 </td>
+</tr>
+<tr>
+<td style="text-align:left">DefaultHandlerExceptionResolver</td>
+<td style="text-align:left">解析SpringMVC抛出的异常，同时将其映射到HTTP的错误码上  </td>
+</tr>
+<tr>
+<td style="text-align:left">ResponseStatusExceptionResolver</td>
+<td style="text-align:left">解析@ResponseStatus注解，同时根据其注解值将其映射到HTTP的错误码上  </td>
+</tr>
+<tr>
+<td style="text-align:left">ExceptionHandlerExceptionResolver</td>
+<td style="text-align:left">调用@Controller 或者@ControllerAdvice 类中使用@ExceptionHandler注解的方法 </td>
+</tr>
+</tbody>
+</table>
+<h6 id="解析链"><a href="#解析链" class="headerlink" title="解析链"></a>解析链</h6><p>可以通过在Spring的配置中声明多个<code>HandlerExceptionResolver</code>bean，来构成一个异常处理解析链，如果需要的话，同时可以设置他们解析的顺序。序号越大，处理越靠后。<br><code>HandlerExceptionResolver</code>可以返回：</p>
+<ul>
+<li>指向错误页面的 <code>ModelAndView</code></li>
+<li>如果异常在解析链中被处理返回空<code>ModelAndView</code></li>
+<li>如果异常为被处理返回<code>null</code>，后续的解析起继续处理异常，如果异常一直未被处理，那么将会冒泡到Servlet容器处理<br>Spring MVC的异常是有MVC配置自动声明的，@ResponseStatus注解异常，支持@ExceptionHandler方法的异常。这些处理器都是可以定制和替换的<h6 id="Servlet容器异常"><a href="#Servlet容器异常" class="headerlink" title="Servlet容器异常"></a>Servlet容器异常</h6>如果<code>HandlerExceptionResolver</code>无法处理异常，那么异常将会继续传播，或者是返回了错误的HTTP状态码，例如4xx，5xx。Servlet容器可能会渲染一个错误的页面。这个页面也是可以定制的：<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">error-page</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">location</span>&gt;</span>/error<span class="tag">&lt;/<span class="name">location</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">error-page</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>根据上述代码，当出现了无法处理的异常，或者返回错误码，容器会根据配置返回一个错误的URL。这个请求将会继续被DispatcherServlet处理，比如映射到一个@Controller的错误处理控制器上：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ErrorController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(path = <span class="string">"/error"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String, Object&gt; <span class="title">handle</span><span class="params">(HttpServletRequest request)</span> </span>&#123;</div><div class="line">        Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</div><div class="line">        map.put(<span class="string">"status"</span>, request.getAttribute(<span class="string">"javax.servlet.error.status_code"</span>));</div><div class="line">        map.put(<span class="string">"reason"</span>, request.getAttribute(<span class="string">"javax.servlet.error.message"</span>));</div><div class="line">        <span class="keyword">return</span> map;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="视图解析"><a href="#视图解析" class="headerlink" title="视图解析"></a>视图解析</h5><p>Spring MVC通过定义了<code>ViewResolver</code>和<code>View</code>两个接口可以让我们直接通过返回model来渲染视图，而不需要指定某一个特定的视图技术。<code>ViewResolver</code>提供了视图名和视图之间的映射关系。在提交给特定视图技术之前由<code>View</code>来准备数据。<br>下列表格展示了ViewResolver的层级：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">ViewResolver</th>
+<th style="text-align:left">描述 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">AbstractCachingViewResolver</td>
+<td style="text-align:left">缓存解析过的视图。可设置cache属性为false来关闭缓存。在需要刷新缓存的场景可调用<code>removeFromCache(String viewName, Locale loc)</code>刷新。</td>
+</tr>
+<tr>
+<td style="text-align:left">XmlViewResolver</td>
+<td style="text-align:left">实现<code>ViewResolver</code>，可以接收一个同Spring XML bean同DTD的xml配置文件。默认在/WEB-INF/views.xml</td>
+</tr>
+<tr>
+<td style="text-align:left">ResourceBundleViewResolver</td>
+<td style="text-align:left">解析定义在<code>ResourceBundle</code>中的视图，使用viewname.class作为视图类，viewname.url作为视图名</td>
+</tr>
+<tr>
+<td style="text-align:left">UrlBasedViewResolver</td>
+<td style="text-align:left">无需明确指定映射，直接通过解析url来查找视图名。</td>
+</tr>
+<tr>
+<td style="text-align:left">InternalResourceViewResolver</td>
+<td style="text-align:left">实现<code>UrlBasedViewResolver</code>,<code>JstlView</code>,<code>TilesView</code>，支持<code>InternalResourceView</code>例如：jsp，servlet class等。</td>
+</tr>
+<tr>
+<td style="text-align:left">FreeMarkerViewResolver</td>
+<td style="text-align:left"><code>UrlBasedViewResolver</code>的子类，用来支持FreeMarker</td>
+</tr>
+<tr>
+<td style="text-align:left">ContentNegotiatingViewResolver</td>
+<td style="text-align:left">根据请求的文件名或者Accept来确定视图</td>
+</tr>
+</tbody>
+</table>
+<h6 id="视图处理"><a href="#视图处理" class="headerlink" title="视图处理"></a>视图处理</h6><p>如果需要的话，可以声明多个视图处理器，通过设置<code>order</code>属性来确定他们的顺序。order越大，处理越靠后。<br>默认情况下<code>ViewResolver</code>可以返回null代表找不到视图。当然在JSP中，使用InternalResourceViewResolver来检查JSP是否存在的唯一方式就是通过<code>RequestDispatcher</code>执行一次调度。因此<code>InternalResourceViewResolver</code>必须是最后一个视图解析器。</p>
+<h6 id="视图redirect"><a href="#视图redirect" class="headerlink" title="视图redirect"></a>视图redirect</h6><p>视图前缀<code>redirect:</code> 表示视图需要执行一次redirect。<code>UrlBasedViewResolver</code>和其子类会识别出这是要给重定向，剩下的部分就是视图名。<br>这个效果和Controller返回一个<code>RedirectView</code>一样，但是使用这个指令，controller就可以简单的返回一个视图名就可以了。视图名<code>redirect:/myapp/some/resource</code>将会返回相对于当前Servlet Context的视图，<code>redirect:http://myhost.com/some/arbitrary/path</code> 这种则会返回绝对URL。<br>注意，如果一个controller被<code>@ResponseStatus</code>修饰，那么注解值优先级高于<code>RedirectView</code></p>
+<h6 id="视图Forwarding"><a href="#视图Forwarding" class="headerlink" title="视图Forwarding"></a>视图Forwarding</h6><p>视图前缀<code>forward:</code>表示视图执行forwarding。同样由<code>UrlBasedViewResolver</code>和其子类解析。通过创建<code>InternalResourceView</code>执行<code>RequestDispatcher.forward()</code>实现。因此这个指令对于<code>InternalResourceViewResolver</code>和<code>InternalResourceViewResolver</code>没啥用，但是对于使用了其他的视图技术但是仍然想用强制使用JSP或者Servlet的时候就很有用了。</p>
+<h6 id="视图内容协商"><a href="#视图内容协商" class="headerlink" title="视图内容协商"></a>视图内容协商</h6><p><code>ContentNegotiatingViewResolver</code>并不会解析视图，而是将其委托给其他视图解析器，并且选择客户端请求描述选择视图。描述可以是Accept头或者参数，例如<code>/path?format=pdf</code><br><code>ContentNegotiatingViewResolver</code>通过对比请求的媒体类型和<code>ViewResolvers</code>支持的媒体类型来选择合适的View。被选中的列表中的第一个View将会被返回给客户端。</p>
+<h5 id="本地化"><a href="#本地化" class="headerlink" title="本地化"></a>本地化</h5><p>同Spring MVC，大多数Spring架构支持国际化。<code>DispatcherServlet</code>通过<code>LocaleResolver</code>根据客户端的区域自动解析消息。<br>当请求到来时<code>DispatcherServlet</code>查找本地化解析器，如果找到则会设置本地化。通过<code>RequestContext.getLocale()</code>方法可以获取由本地化解析器解析的本地化语言。<br>为了自动化解析，可以通过拦截器对具体的场景进行本地化解析，例如根据请求参数来解析。<br>本地化解析器和拦截器定义在<code>org.springframework.web.servlet.i18n</code>包中，可以在应用中配置。下面是一些Spring使用的配置</p>
+<h6 id="TimeZone"><a href="#TimeZone" class="headerlink" title="TimeZone"></a>TimeZone</h6><p>通过获取客户端的时区来做本地化。<code>LocaleContextResolver</code>接口扩展了<code>LocalResolver</code>，提供了一个可能包含时区信息的<code>LocaleContext</code>。<br>如果可以，用户的时区可以通过<code>RequestContext.getTimeZone()</code>方法获取。时区信息可以自动的被注册到Spring中的ConversionService 日期时间的Converter和Formatter使用。</p>
+<h6 id="Header-resolver"><a href="#Header-resolver" class="headerlink" title="Header resolver"></a>Header resolver</h6><p>这个解析器检查<code>accept-language</code>头，一般来说包含的是客户端操作系统的区域。注意这个不支持时区。</p>
+<h6 id="Cookie-resolver"><a href="#Cookie-resolver" class="headerlink" title="Cookie resolver"></a>Cookie resolver</h6><p>这个解析器检查cookie中可能包含的<code>TimeZone</code>和<code>Locale</code>。通过如下定义来使用：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"localeResolver"</span> <span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.i18n.CookieLocaleResolver"</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"cookieName"</span> <span class="attr">value</span>=<span class="string">"clientlanguage"</span>/&gt;</span></div><div class="line"></div><div class="line">    <span class="comment">&lt;!-- in seconds. If set to -1, the cookie is not persisted (deleted when browser shuts down) --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"cookieMaxAge"</span> <span class="attr">value</span>=<span class="string">"100000"</span>/&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>CookieLocaleResolver的属性：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">名字</th>
+<th style="text-align:left">默认值</th>
+<th style="text-align:left">描述 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">cookieName</td>
+<td style="text-align:left">classname + LOCALE</td>
+<td style="text-align:left">cookie名</td>
+</tr>
+<tr>
+<td style="text-align:left">cookieMaxAge</td>
+<td style="text-align:left">Servlet容器默认值</td>
+<td style="text-align:left">cookie生效时间</td>
+</tr>
+<tr>
+<td style="text-align:left">cookiePath</td>
+<td style="text-align:left">/</td>
+<td style="text-align:left">cookie 保存位置</td>
+</tr>
+</tbody>
+</table>
+<h6 id="Session-resolver"><a href="#Session-resolver" class="headerlink" title="Session resolver"></a>Session resolver</h6><p><code>SessionLocaleResolver</code>通过从session中检查可能包含的<code>TimeZone</code>和<code>Locale</code>。相对于<code>CookieLocaleResolver</code>，他将信息保存在<code>HttpSession</code>中。</p>
+<h6 id="Locale-interceptor"><a href="#Locale-interceptor" class="headerlink" title="Locale interceptor"></a>Locale interceptor</h6><p>可以通过拦截器启动针对某些映射的本地化策略，例如如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"localeChangeInterceptor"</span></span></div><div class="line">        <span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.i18n.LocaleChangeInterceptor"</span>&gt;</div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"paramName"</span> <span class="attr">value</span>=<span class="string">"siteLanguage"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"localeResolver"</span></span></div><div class="line">        <span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.i18n.CookieLocaleResolver"</span>/&gt;</div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"urlMapping"</span></span></div><div class="line">        <span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"</span>&gt;</div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"interceptors"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">list</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"localeChangeInterceptor"</span>/&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">list</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"mappings"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>/**/*.view=someController<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h5 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h5><p>可以通过设置Spring MVC的主题来整体设置应用的外观，从而提高用户体验。主题是一些静态资源的集合，主要是可以影响外观的样式表和图片。<br>为了应用主题，首先要设置一个<code>org.springframework.ui.context.ThemeSource</code>的接口。<code>WebApplicationContext</code>继承了<code>ThemeSource</code>，但是将其实现委托给了子类。默认使用的是<code>org.springframework.ui.context.support.ResourceBundleThemeSource</code>来从classpath的根目录下加载配置文件。配置文件格式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">styleSheet=/themes/cool/style.css</div><div class="line">background=/themes/cool/img/coolBg.jpg</div></pre></td></tr></table></figure></p>
+<p>配置文件的名字是视图代码中的变量名。对于JSP而言可以如下显示：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%&gt;</div><div class="line">&lt;html&gt;</div><div class="line">    &lt;head&gt;</div><div class="line">        &lt;link rel="stylesheet" href="&lt;spring:theme code='styleSheet'/&gt;" type="text/css"/&gt;</div><div class="line">    &lt;/head&gt;</div><div class="line">    &lt;body style="background=&lt;spring:theme code='background'/&gt;"&gt;</div><div class="line">        ...</div><div class="line">    &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>默认情况下<code>ResourceBundleThemeSource</code>使用空的前缀名，这样配置文件直接从classpath根目录下加载。这样就可以将<code>cool.properties</code>定义放到classpath根目录下，<code>ResourceBundleThemeSource</code>默认使用标准的Java资源加载工具，同时也完全支持国际化，所以通过命名来支持<code>cool_nl.properties</code>。</p>
+<h6 id="解析主题"><a href="#解析主题" class="headerlink" title="解析主题"></a>解析主题</h6><p><code>DispatcherServlet</code>通过bean的名字<code>themeResolver</code>来查找<code>ThemeResolver</code>的实现。<br>ThemeResolver 的实现如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Class</th>
+<th style="text-align:left">描述 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">FixedThemeResolver</td>
+<td style="text-align:left">选中一个固定的主题，设置<code>defaultThemeName</code>属性</td>
+</tr>
+<tr>
+<td style="text-align:left">SessionThemeResolver</td>
+<td style="text-align:left">主题由用户session维护。每个session只需要设置一次</td>
+</tr>
+<tr>
+<td style="text-align:left">CookieThemeResolver</td>
+<td style="text-align:left">通过cookie选择主题</td>
+</tr>
+</tbody>
+</table>
+<h5 id="Multipart-resolver"><a href="#Multipart-resolver" class="headerlink" title="Multipart resolver"></a>Multipart resolver</h5><p><code>org.springframework.web.multipart</code>中的<code>MultipartResolver</code>是用来处理multipart请求的。共有给予Common Fileupload和Servlet 3.0 两种实现。<br>为了使用multipart，需要在<code>DispatcherServlet</code>的Spring配置中声明一个名字为<code>multipartResolver</code>的bean。当POST请求的<code>content-type</code>是<code>multipart/form-data</code>的时候，解析器解析这个请求并且将<code>HttpServletRequest</code>封装成<code>MultipartHttpServletRequest</code>来处理请求。</p>
+<h6 id="Apache-FileUpload"><a href="#Apache-FileUpload" class="headerlink" title="Apache FileUpload"></a>Apache FileUpload</h6><p>使用Apache Commons FileUpload 只需要简单的配置一个类型为<code>CommonsMultipartResolver</code>，名字为<code>multipartResolver</code>的bean即可。当然也需要将<code>commons-fileupload</code>加入到依赖中。</p>
+<h6 id="Servlet-3-0"><a href="#Servlet-3-0" class="headerlink" title="Servlet 3.0"></a>Servlet 3.0</h6><p>使用Servlet 3.0则需要Servlet 容器的配置</p>
+<ul>
+<li>使用Java配置，在Servlet注册中设置<code>MultipartConfigElement</code>。</li>
+<li>使用web.xml 添加要给<code>&lt;multipart-config&gt;</code>的配置<br>如下是使用Java的配置：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppInitializer</span> <span class="keyword">extends</span> <span class="title">AbstractAnnotationConfigDispatcherServletInitializer</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">// ...</span></div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">customizeRegistration</span><span class="params">(ServletRegistration.Dynamic registration)</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">// Optionally also set maxFileSize, maxRequestSize, fileSizeThreshold</span></div><div class="line">        registration.setMultipartConfig(<span class="keyword">new</span> MultipartConfigElement(<span class="string">"/tmp"</span>));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Servlet 3.0配置好之后，只需要添加类型为<code>StandardServletMultipartResolver</code>，名字为<code>multipartResolver</code>的配置即可。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mashuai.github.io/2018/04/09/spring-mvc-dispatcher-servlet/" data-id="cjg35vrag000pzor8ya7s9m2q" class="article-share-link">Share</a>
+      
+        <a href="https://mashuai.github.io/2018/04/09/spring-mvc-dispatcher-servlet/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC/">SpringMVC</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/04/09/spring-mvc-filter/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          SpringMVC 教程 - Filter
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/04/07/deep-in-spring-mvc/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">深入理解Spring MVC</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/APM/">APM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architecture/">Architecture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CPU/">CPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git分支/">Git分支</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/">Go</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP-2/">HTTP/2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSON/">JSON</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jackson/">Jackson</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java8/">Java8</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Middleware/">Middleware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OKHttp/">OKHttp</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Performance/">Performance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Translate/">Translate</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/APM/" style="font-size: 10px;">APM</a> <a href="/tags/Ansible/" style="font-size: 11.67px;">Ansible</a> <a href="/tags/Architecture/" style="font-size: 10px;">Architecture</a> <a href="/tags/CPU/" style="font-size: 10px;">CPU</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Git分支/" style="font-size: 10px;">Git分支</a> <a href="/tags/Go/" style="font-size: 15px;">Go</a> <a href="/tags/HTTP/" style="font-size: 16.67px;">HTTP</a> <a href="/tags/HTTP-2/" style="font-size: 10px;">HTTP/2</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/Jackson/" style="font-size: 10px;">Jackson</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/Java8/" style="font-size: 10px;">Java8</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Middleware/" style="font-size: 10px;">Middleware</a> <a href="/tags/Mybatis/" style="font-size: 11.67px;">Mybatis</a> <a href="/tags/OKHttp/" style="font-size: 15px;">OKHttp</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Spring/" style="font-size: 13.33px;">Spring</a> <a href="/tags/SpringMVC/" style="font-size: 13.33px;">SpringMVC</a> <a href="/tags/Translate/" style="font-size: 20px;">Translate</a> <a href="/tags/Vagrant/" style="font-size: 11.67px;">Vagrant</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/04/09/spring-mvc-filter/">SpringMVC 教程 - Filter</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/09/spring-mvc-dispatcher-servlet/">SpringMVC 教程 - DispatcherServlet</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/07/deep-in-spring-mvc/">深入理解Spring MVC</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/07/8-key-application-metrics/">8个关键的应用性能指标</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/06/java8-date-time-api/">Java8 Date Time API</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 mashuai<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+<script src="https://s4.cnzz.com/z_stat.php?id=1261529414&web_id=1261529414" language="JavaScript"></script>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/projects" class="mobile-nav-link">Projects</a>
+  
+    <a href="/velocity" class="mobile-nav-link">Velocity</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'jabfor';
+  
+  var disqus_url = 'https://mashuai.github.io/2018/04/09/spring-mvc-dispatcher-servlet/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+    <!-- ad start -->
+<!--    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 测试广告 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2889123346235419"
+     data-ad-slot="8165482683"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+ -->
+    <!-- ad end -->
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48348924-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </div>
+
+</body>
+</html>
