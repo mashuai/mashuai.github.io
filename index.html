@@ -116,9 +116,9 @@ var _hmt = _hmt || [];
 <ul>
 <li><code>?</code> 匹配一个字符</li>
 <li><code>*</code> 匹配0个或多个字符</li>
-<li><code>**</code> 匹配0个或多个路径<br>可以通过<code>@PathVariable</code> 访问在URI中定义的变量：<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@GetMapping</span>(<span class="string">"/owners/&#123;ownerId&#125;/pets/&#123;petId&#125;"</span>)</div><div class="line"><span class="function"><span class="keyword">public</span> Pet <span class="title">findPet</span><span class="params">(@PathVariable Long ownerId, @PathVariable Long petId)</span> </span>&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div><div class="line">``` </div><div class="line">URI的变量可以在类和方法中定义：</div><div class="line">```Java</div><div class="line"><span class="meta">@Controller</span></div><div class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/owners/&#123;ownerId&#125;"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OwnerController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/pets/&#123;petId&#125;"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> Pet <span class="title">findPet</span><span class="params">(@PathVariable Long ownerId, @PathVariable Long petId)</span> </span>&#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
+<li><code>**</code> 匹配0个或多个路径<br>可以通过<code>@PathVariable</code> 访问在URI中定义的变量：</li>
 </ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@GetMapping</span>(<span class="string">"/owners/&#123;ownerId&#125;/pets/&#123;petId&#125;"</span>)</div><div class="line"><span class="function"><span class="keyword">public</span> Pet <span class="title">findPet</span><span class="params">(@PathVariable Long ownerId, @PathVariable Long petId)</span> </span>&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div><div class="line">``` </div><div class="line"></div><div class="line">URI的变量可以在类和方法中定义：</div><div class="line">```Java</div><div class="line"><span class="meta">@Controller</span></div><div class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/owners/&#123;ownerId&#125;"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OwnerController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/pets/&#123;petId&#125;"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> Pet <span class="title">findPet</span><span class="params">(@PathVariable Long ownerId, @PathVariable Long petId)</span> </span>&#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>URI变量会自动类型转换，如果失败会抛出<code>TypeMismatchException</code>的异常。默认支持<code>int</code>,<code>long</code>,<code>Date</code>等类型，也可以通过DataBinder和 Type Conversion来注册其他需要支持的类型。<br>URI变量名也可以明确的支持，例如<code>@PathVariable(&quot;customId&quot;)</code>，不过如果在编译的时候带着调试信息，或者对于Java8 使用<code>-parameters</code> 编译，则可以不需要明确的命名。<br>语法<code>{varName:regex}</code>表示变量根据正则表达是来匹配，例如”/spring-web-3.0.5 .jar”可以使用以下表达式匹配<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@GetMapping</span>(<span class="string">"/&#123;name:[a-z-]+&#125;-&#123;version:\\d\\.\\d\\.\\d&#125;&#123;ext:\\.[a-z]+&#125;"</span>)</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">(@PathVariable String version, @PathVariable String ext)</span> </span>&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>URI同样可以有内嵌的<code>${}</code>的占位符，在应用启动的时候由<code>PropertyPlaceHolderConfigurer</code>从本地，系统，环境变量或者其他配置中解析。<br>Spring MVC使用的是Spring core 中的<code>AntPathMatcher</code>来匹配路径。</p>
 <h5 id="模式对比"><a href="#模式对比" class="headerlink" title="模式对比"></a>模式对比</h5><p>当有很多模式匹配URI的时候，必须通过对比来找到最合适的匹配。这个是通过<code>AntPathMatcher.getPatternComparator(String path)</code>来实现。<br>可以根据URI中的变量个数，通配符个数来给URL打分，如果一个URI的变量少，通配符多，那么他得到的分数就会低。当匹配的模式分数相同是，选择匹配模式长的那个，如果分数和长度都相同，选择变量比通配符少的那个。<br><code>/**</code>是不参与评分的，而且总会是最后一个选择。同样<code>/plublic/**</code>也是当匹配不到其他没有两个通配符的模式的时候才会被选择。<br>了解更加详细的信息可以查看<code>AntPathMatcher</code>中的<code>AntPatternComparator</code>。同时也可个继承<code>PathMatcher</code>来定制URI匹配。</p>
@@ -137,76 +137,9 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2018/04/10/spring-mvc-controller/" data-id="cjg4t8ong000jper8m8gxc9qy" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2018/04/10/spring-mvc-controller/" data-id="cjg4tbp50001nu7r80jthv3ce" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2018/04/10/spring-mvc-controller/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC/">SpringMVC</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-spring-mvc-filter" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/04/09/spring-mvc-filter/" class="article-date">
-  <time datetime="2018-04-08T16:39:10.000Z" itemprop="datePublished">2018-04-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/09/spring-mvc-filter/">SpringMVC 教程 - Filter</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p><code>spring-web</code>模块提供了许多非常实用的Filter</p>
-<h5 id="HTTP-PUT-FORM"><a href="#HTTP-PUT-FORM" class="headerlink" title="HTTP PUT FORM"></a>HTTP PUT FORM</h5><p>浏览器只能通过GET或者POST提交FORM数据，但是非浏览器的客户端可以使用PUT或者PATCH。Servlet API仅为POST方法提供了<code>ServletRequest.getParameter*()</code>方法获取FORM信息。<br><code>spring-web</code>模块提供了<code>HttpPutFormContentFilter</code>检查PUT或者PATCH方法的<code>content-type</code>是否是<code>application/x-www-form-urlencoded</code>,如果是，则从请求体重读取属性并封装到<code>ServletRequest</code>中，以便日后通过<code>ServletRequest.getParameter*()</code>获取FORM数据。</p>
-<h5 id="重定向头"><a href="#重定向头" class="headerlink" title="重定向头"></a>重定向头</h5><p>由于请求会经过像负载均衡器这样的代理，那么host，port，scheme在创建一些资源文件的链接的时候返回给客户端可能是有所不同的。<br>RFC 7239 为代理定义了<code>Forwarded</code> 的HTTP头来提供原始请求的信息。同样也有一些其他非标准的HTTP头，例如：<code>X-Forwarded-Host</code>,<code>X-Forwarded-Port</code>,<code>X-Forwarded-Proto</code>。<br><code>ForwardedHeaderFilter</code>会从<code>Forwarded</code>,<code>X-Forwarded-Host</code>,<code>X-Forwarded-Port</code>或者<code>X-Forwarded-Proto</code>中获取跳转信息。他分装了请求以覆盖host，port，scheme，同样为日后的处理隐藏跳转信息。<br>注意，根据RFC 7239第八节的解释，使用重定向头的时候会有安全问题。在应用层是无法判断一个挑战是否是可信的。所以要正确配置网络上游代理，以便过滤掉不合法的跳转。<br>如果应用没有使用代理，那么就无需使用<code>ForwardedHeaderFilter</code>过滤器。</p>
-<h5 id="Shallow-ETag"><a href="#Shallow-ETag" class="headerlink" title="Shallow ETag"></a>Shallow ETag</h5><p><code>ShallowEtagHeaderFilter</code>为ETG提供了过滤器，关于ETAG将在视图技术中详细解释。</p>
-<h5 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h5><p>通过controller的注解Spring MVC对CORS提供了详细的支持。在和Spring Sercurity一同使用的时候<code>CorsFilter</code>必须排在Spring Sercurity的过滤器之前。</p>
-<h5 id="关于CORS"><a href="#关于CORS" class="headerlink" title="关于CORS"></a>关于CORS</h5><p>由于安全原因，浏览器禁止AJAX跳出当前域去访问资源。例如你的银行帐号在一个tab页打卡了，另一个evil.com在其他tab打开。evil.com的脚本不能使用你的银行账号信息去访问银行的API。<br>Cross-Origin Resource Sharing (CORS) 是由众多浏览器实现的W3C的规范。他规定了允许哪些请求可以跨域，而不是通过弱安全的和功能受限的IFRAME和JSONP。<br><code>HandlerMapping</code>对CORS提供了内置支持。成功将请求映射到处理器后，<code>HandlerMapping</code>对当前请求检查CORS配置，预检请求直接处理，简单和实际请求则检查CORS请求，验证，设置返回header。<br>为了开启跨域请求（例如<code>Origin</code>头和请求的host不一致），需要对CORS进行明确的配置。如果没有找到CORS的配置，那么直接拒绝预检请求，简单请求和实际请求不会添加响应头，因此浏览器不会获取到信息。<br>每一个<code>HandlerMapping</code>都可以根据URL不同配置单独的 <code>CorsConfiguration</code>。一般来说应用会通过Java Config或者Xml 命名空间来配置单一，全局的CORS。<br><code>HandlerMapping</code>级别的全局CORS配置可以和handler级别的CORS合并。例如有注解的controller可以使用类或者方法级别的注解<code>@CrossOrigin</code>配置跨域。<br><code>@CrossOrigin</code>注解可以在controller层启动对请求的跨域检查，例如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/account"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@CrossOrigin</span></div><div class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/&#123;id&#125;"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> Account <span class="title">retrieve</span><span class="params">(@PathVariable Long id)</span> </span>&#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@DeleteMapping</span>(<span class="string">"/&#123;id&#125;"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(@PathVariable Long id)</span> </span>&#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>默认情况下<code>@CrossOrigin</code>的作用如下：</p>
-<ul>
-<li>允许所有的域</li>
-<li>允许所有header</li>
-<li>允许controller映射的方法</li>
-<li><code>allowedCredentials</code> 默认关闭</li>
-<li><code>max-age</code>默认30分钟<br><code>@CrossOrigin</code>同样支持类级别：<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@CrossOrigin</span>(origins = <span class="string">"http://domain2.com"</span>, maxAge = <span class="number">3600</span>)</div><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/account"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/&#123;id&#125;"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> Account <span class="title">retrieve</span><span class="params">(@PathVariable Long id)</span> </span>&#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@DeleteMapping</span>(<span class="string">"/&#123;id&#125;"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(@PathVariable Long id)</span> </span>&#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><code>@CrossOrigin</code>同时可以在类和方法中使用：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@CrossOrigin</span>(maxAge = <span class="number">3600</span>)</div><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/account"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@CrossOrigin</span>(<span class="string">"http://domain2.com"</span>)</div><div class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/&#123;id&#125;"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> Account <span class="title">retrieve</span><span class="params">(@PathVariable Long id)</span> </span>&#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@DeleteMapping</span>(<span class="string">"/&#123;id&#125;"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(@PathVariable Long id)</span> </span>&#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>通过定义全局的CORS配置，来配合使用。全局的CORS配置可以通过Java Config或者XML的XNM命名空间来配置。<br>默认情况下全局的CORS配置：</p>
-<ul>
-<li>允许所有的域</li>
-<li>允许所有的header</li>
-<li>允许GET,HEAD，POST方法</li>
-<li><code>allowedCredentials</code> 默认关闭</li>
-<li><code>max-age</code>默认30分钟<br>使用Java配置CORS<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Configuration</span></div><div class="line"><span class="meta">@EnableWebMvc</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addCorsMappings</span><span class="params">(CorsRegistry registry)</span> </span>&#123;</div><div class="line"></div><div class="line">        registry.addMapping(<span class="string">"/api/**"</span>)</div><div class="line">            .allowedOrigins(<span class="string">"http://domain2.com"</span>)</div><div class="line">            .allowedMethods(<span class="string">"PUT"</span>, <span class="string">"DELETE"</span>)</div><div class="line">            .allowedHeaders(<span class="string">"header1"</span>, <span class="string">"header2"</span>, <span class="string">"header3"</span>)</div><div class="line">            .exposedHeaders(<span class="string">"header1"</span>, <span class="string">"header2"</span>)</div><div class="line">            .allowCredentials(<span class="keyword">true</span>).maxAge(<span class="number">3600</span>);</div><div class="line"></div><div class="line">        <span class="comment">// Add more mappings...</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>使用XML配置CORS<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">mvc:cors</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">mvc:mapping</span> <span class="attr">path</span>=<span class="string">"/api/**"</span></span></div><div class="line">        <span class="attr">allowed-origins</span>=<span class="string">"http://domain1.com, http://domain2.com"</span></div><div class="line">        <span class="attr">allowed-methods</span>=<span class="string">"GET, PUT"</span></div><div class="line">        <span class="attr">allowed-headers</span>=<span class="string">"header1, header2, header3"</span></div><div class="line">        <span class="attr">exposed-headers</span>=<span class="string">"header1, header2"</span> <span class="attr">allow-credentials</span>=<span class="string">"true"</span></div><div class="line">        <span class="attr">max-age</span>=<span class="string">"123"</span> /&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">mvc:mapping</span> <span class="attr">path</span>=<span class="string">"/resources/**"</span></span></div><div class="line">        <span class="attr">allowed-origins</span>=<span class="string">"http://domain1.com"</span> /&gt;</div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">mvc:cors</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>另外，也可以通过<code>CorsFilter</code>配置CORS。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">CorsConfiguration config = <span class="keyword">new</span> CorsConfiguration();</div><div class="line"></div><div class="line"><span class="comment">// Possibly...</span></div><div class="line"><span class="comment">// config.applyPermitDefaultValues()</span></div><div class="line"></div><div class="line">config.setAllowCredentials(<span class="keyword">true</span>);</div><div class="line">config.addAllowedOrigin(<span class="string">"http://domain1.com"</span>);</div><div class="line">config.addAllowedHeader(<span class="string">""</span>);</div><div class="line">config.addAllowedMethod(<span class="string">""</span>);</div><div class="line"></div><div class="line">UrlBasedCorsConfigurationSource source = <span class="keyword">new</span> UrlBasedCorsConfigurationSource();</div><div class="line">source.registerCorsConfiguration(<span class="string">"/**"</span>, config);</div><div class="line"></div><div class="line">CorsFilter filter = <span class="keyword">new</span> CorsFilter(source);</div></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2018/04/09/spring-mvc-filter/" data-id="cjg4t8oo80012per8l6omjfqk" class="article-share-link">Share</a>
-      
-        <a href="https://mashuai.github.io/2018/04/09/spring-mvc-filter/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC/">SpringMVC</a></li></ul>
@@ -481,9 +414,76 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2018/04/09/spring-mvc-dispatcher-servlet/" data-id="cjg4t8oo50010per8ckiuqfe3" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2018/04/09/spring-mvc-dispatcher-servlet/" data-id="cjg4tbp4w001ku7r838qbzgt9" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2018/04/09/spring-mvc-dispatcher-servlet/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC/">SpringMVC</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-spring-mvc-filter" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/09/spring-mvc-filter/" class="article-date">
+  <time datetime="2018-04-08T16:39:10.000Z" itemprop="datePublished">2018-04-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/09/spring-mvc-filter/">SpringMVC 教程 - Filter</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p><code>spring-web</code>模块提供了许多非常实用的Filter</p>
+<h5 id="HTTP-PUT-FORM"><a href="#HTTP-PUT-FORM" class="headerlink" title="HTTP PUT FORM"></a>HTTP PUT FORM</h5><p>浏览器只能通过GET或者POST提交FORM数据，但是非浏览器的客户端可以使用PUT或者PATCH。Servlet API仅为POST方法提供了<code>ServletRequest.getParameter*()</code>方法获取FORM信息。<br><code>spring-web</code>模块提供了<code>HttpPutFormContentFilter</code>检查PUT或者PATCH方法的<code>content-type</code>是否是<code>application/x-www-form-urlencoded</code>,如果是，则从请求体重读取属性并封装到<code>ServletRequest</code>中，以便日后通过<code>ServletRequest.getParameter*()</code>获取FORM数据。</p>
+<h5 id="重定向头"><a href="#重定向头" class="headerlink" title="重定向头"></a>重定向头</h5><p>由于请求会经过像负载均衡器这样的代理，那么host，port，scheme在创建一些资源文件的链接的时候返回给客户端可能是有所不同的。<br>RFC 7239 为代理定义了<code>Forwarded</code> 的HTTP头来提供原始请求的信息。同样也有一些其他非标准的HTTP头，例如：<code>X-Forwarded-Host</code>,<code>X-Forwarded-Port</code>,<code>X-Forwarded-Proto</code>。<br><code>ForwardedHeaderFilter</code>会从<code>Forwarded</code>,<code>X-Forwarded-Host</code>,<code>X-Forwarded-Port</code>或者<code>X-Forwarded-Proto</code>中获取跳转信息。他分装了请求以覆盖host，port，scheme，同样为日后的处理隐藏跳转信息。<br>注意，根据RFC 7239第八节的解释，使用重定向头的时候会有安全问题。在应用层是无法判断一个挑战是否是可信的。所以要正确配置网络上游代理，以便过滤掉不合法的跳转。<br>如果应用没有使用代理，那么就无需使用<code>ForwardedHeaderFilter</code>过滤器。</p>
+<h5 id="Shallow-ETag"><a href="#Shallow-ETag" class="headerlink" title="Shallow ETag"></a>Shallow ETag</h5><p><code>ShallowEtagHeaderFilter</code>为ETG提供了过滤器，关于ETAG将在视图技术中详细解释。</p>
+<h5 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h5><p>通过controller的注解Spring MVC对CORS提供了详细的支持。在和Spring Sercurity一同使用的时候<code>CorsFilter</code>必须排在Spring Sercurity的过滤器之前。</p>
+<h5 id="关于CORS"><a href="#关于CORS" class="headerlink" title="关于CORS"></a>关于CORS</h5><p>由于安全原因，浏览器禁止AJAX跳出当前域去访问资源。例如你的银行帐号在一个tab页打卡了，另一个evil.com在其他tab打开。evil.com的脚本不能使用你的银行账号信息去访问银行的API。<br>Cross-Origin Resource Sharing (CORS) 是由众多浏览器实现的W3C的规范。他规定了允许哪些请求可以跨域，而不是通过弱安全的和功能受限的IFRAME和JSONP。<br><code>HandlerMapping</code>对CORS提供了内置支持。成功将请求映射到处理器后，<code>HandlerMapping</code>对当前请求检查CORS配置，预检请求直接处理，简单和实际请求则检查CORS请求，验证，设置返回header。<br>为了开启跨域请求（例如<code>Origin</code>头和请求的host不一致），需要对CORS进行明确的配置。如果没有找到CORS的配置，那么直接拒绝预检请求，简单请求和实际请求不会添加响应头，因此浏览器不会获取到信息。<br>每一个<code>HandlerMapping</code>都可以根据URL不同配置单独的 <code>CorsConfiguration</code>。一般来说应用会通过Java Config或者Xml 命名空间来配置单一，全局的CORS。<br><code>HandlerMapping</code>级别的全局CORS配置可以和handler级别的CORS合并。例如有注解的controller可以使用类或者方法级别的注解<code>@CrossOrigin</code>配置跨域。<br><code>@CrossOrigin</code>注解可以在controller层启动对请求的跨域检查，例如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/account"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@CrossOrigin</span></div><div class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/&#123;id&#125;"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> Account <span class="title">retrieve</span><span class="params">(@PathVariable Long id)</span> </span>&#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@DeleteMapping</span>(<span class="string">"/&#123;id&#125;"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(@PathVariable Long id)</span> </span>&#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>默认情况下<code>@CrossOrigin</code>的作用如下：</p>
+<ul>
+<li>允许所有的域</li>
+<li>允许所有header</li>
+<li>允许controller映射的方法</li>
+<li><code>allowedCredentials</code> 默认关闭</li>
+<li><code>max-age</code>默认30分钟<br><code>@CrossOrigin</code>同样支持类级别：<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@CrossOrigin</span>(origins = <span class="string">"http://domain2.com"</span>, maxAge = <span class="number">3600</span>)</div><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/account"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/&#123;id&#125;"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> Account <span class="title">retrieve</span><span class="params">(@PathVariable Long id)</span> </span>&#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@DeleteMapping</span>(<span class="string">"/&#123;id&#125;"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(@PathVariable Long id)</span> </span>&#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><code>@CrossOrigin</code>同时可以在类和方法中使用：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@CrossOrigin</span>(maxAge = <span class="number">3600</span>)</div><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/account"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@CrossOrigin</span>(<span class="string">"http://domain2.com"</span>)</div><div class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/&#123;id&#125;"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> Account <span class="title">retrieve</span><span class="params">(@PathVariable Long id)</span> </span>&#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@DeleteMapping</span>(<span class="string">"/&#123;id&#125;"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(@PathVariable Long id)</span> </span>&#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>通过定义全局的CORS配置，来配合使用。全局的CORS配置可以通过Java Config或者XML的XNM命名空间来配置。<br>默认情况下全局的CORS配置：</p>
+<ul>
+<li>允许所有的域</li>
+<li>允许所有的header</li>
+<li>允许GET,HEAD，POST方法</li>
+<li><code>allowedCredentials</code> 默认关闭</li>
+<li><code>max-age</code>默认30分钟<br>使用Java配置CORS<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Configuration</span></div><div class="line"><span class="meta">@EnableWebMvc</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addCorsMappings</span><span class="params">(CorsRegistry registry)</span> </span>&#123;</div><div class="line"></div><div class="line">        registry.addMapping(<span class="string">"/api/**"</span>)</div><div class="line">            .allowedOrigins(<span class="string">"http://domain2.com"</span>)</div><div class="line">            .allowedMethods(<span class="string">"PUT"</span>, <span class="string">"DELETE"</span>)</div><div class="line">            .allowedHeaders(<span class="string">"header1"</span>, <span class="string">"header2"</span>, <span class="string">"header3"</span>)</div><div class="line">            .exposedHeaders(<span class="string">"header1"</span>, <span class="string">"header2"</span>)</div><div class="line">            .allowCredentials(<span class="keyword">true</span>).maxAge(<span class="number">3600</span>);</div><div class="line"></div><div class="line">        <span class="comment">// Add more mappings...</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>使用XML配置CORS<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">mvc:cors</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">mvc:mapping</span> <span class="attr">path</span>=<span class="string">"/api/**"</span></span></div><div class="line">        <span class="attr">allowed-origins</span>=<span class="string">"http://domain1.com, http://domain2.com"</span></div><div class="line">        <span class="attr">allowed-methods</span>=<span class="string">"GET, PUT"</span></div><div class="line">        <span class="attr">allowed-headers</span>=<span class="string">"header1, header2, header3"</span></div><div class="line">        <span class="attr">exposed-headers</span>=<span class="string">"header1, header2"</span> <span class="attr">allow-credentials</span>=<span class="string">"true"</span></div><div class="line">        <span class="attr">max-age</span>=<span class="string">"123"</span> /&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">mvc:mapping</span> <span class="attr">path</span>=<span class="string">"/resources/**"</span></span></div><div class="line">        <span class="attr">allowed-origins</span>=<span class="string">"http://domain1.com"</span> /&gt;</div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">mvc:cors</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>另外，也可以通过<code>CorsFilter</code>配置CORS。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">CorsConfiguration config = <span class="keyword">new</span> CorsConfiguration();</div><div class="line"></div><div class="line"><span class="comment">// Possibly...</span></div><div class="line"><span class="comment">// config.applyPermitDefaultValues()</span></div><div class="line"></div><div class="line">config.setAllowCredentials(<span class="keyword">true</span>);</div><div class="line">config.addAllowedOrigin(<span class="string">"http://domain1.com"</span>);</div><div class="line">config.addAllowedHeader(<span class="string">""</span>);</div><div class="line">config.addAllowedMethod(<span class="string">""</span>);</div><div class="line"></div><div class="line">UrlBasedCorsConfigurationSource source = <span class="keyword">new</span> UrlBasedCorsConfigurationSource();</div><div class="line">source.registerCorsConfiguration(<span class="string">"/**"</span>, config);</div><div class="line"></div><div class="line">CorsFilter filter = <span class="keyword">new</span> CorsFilter(source);</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mashuai.github.io/2018/04/09/spring-mvc-filter/" data-id="cjg4tbp52001pu7r8kz2ulri0" class="article-share-link">Share</a>
+      
+        <a href="https://mashuai.github.io/2018/04/09/spring-mvc-filter/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC/">SpringMVC</a></li></ul>
@@ -530,7 +530,7 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2018/04/07/8-key-application-metrics/" data-id="cjg4t8omc0001per84xz6yqgr" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2018/04/07/8-key-application-metrics/" data-id="cjg4tbp2z0004u7r8rdxyh9j2" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2018/04/07/8-key-application-metrics/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -635,7 +635,7 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2018/04/07/deep-in-spring-mvc/" data-id="cjg4t8onu000tper8xk5q51q0" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2018/04/07/deep-in-spring-mvc/" data-id="cjg4tbp4g001cu7r8wm25lsb9" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2018/04/07/deep-in-spring-mvc/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -717,7 +717,7 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2018/04/06/java8-date-time-api/" data-id="cjg4t8ond000iper8r51vpqva" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2018/04/06/java8-date-time-api/" data-id="cjg4tbp330005u7r8tuex6kef" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2018/04/06/java8-date-time-api/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -779,7 +779,7 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2018/03/31/jackson-tutorial/" data-id="cjg4t8ony000vper8j90qbbaz" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2018/03/31/jackson-tutorial/" data-id="cjg4tbp4d0016u7r829h3o1lw" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2018/03/31/jackson-tutorial/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -854,7 +854,7 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/06/28/mybaits-configuration/" data-id="cjg4t8on7000hper8nizm7xh8" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2017/06/28/mybaits-configuration/" data-id="cjg4tbp56001uu7r8gy0gqyeq" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2017/06/28/mybaits-configuration/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -896,7 +896,7 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/03/25/cup-load-high/" data-id="cjg4t8on4000fper84bhp691c" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2017/03/25/cup-load-high/" data-id="cjg4tbp2n0000u7r8nc7c4f37" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2017/03/25/cup-load-high/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -957,7 +957,7 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/03/24/Git分支/" data-id="cjg4t8ooc0015per84d1ws94x" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2017/03/24/Git分支/" data-id="cjg4tbp4m001eu7r8rcu8531o" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2017/03/24/Git分支/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -1020,11 +1020,11 @@ var _hmt = _hmt || [];
           </li>
         
           <li>
-            <a href="/2018/04/09/spring-mvc-filter/">SpringMVC 教程 - Filter</a>
+            <a href="/2018/04/09/spring-mvc-dispatcher-servlet/">SpringMVC 教程 - DispatcherServlet</a>
           </li>
         
           <li>
-            <a href="/2018/04/09/spring-mvc-dispatcher-servlet/">SpringMVC 教程 - DispatcherServlet</a>
+            <a href="/2018/04/09/spring-mvc-filter/">SpringMVC 教程 - Filter</a>
           </li>
         
           <li>
