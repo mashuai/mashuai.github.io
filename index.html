@@ -79,6 +79,78 @@ var _hmt = _hmt || [];
       <div class="outer">
         <section id="main">
   
+    <article id="post-spring-mvc-controller" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/10/spring-mvc-controller/" class="article-date">
+  <time datetime="2018-04-09T16:39:10.000Z" itemprop="datePublished">2018-04-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/10/spring-mvc-controller/">SpringMVC 教程 - Controller</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="声明Controller"><a href="#声明Controller" class="headerlink" title="声明Controller"></a>声明Controller</h5><p>Controller也是一个标准的Spring bean，可以在Servlet的<code>WebApplicationContext</code>中定义。也可以使用<code>@Controller</code>注解，Spring会扫描注解自动注册为Spring的bean。<br>开启自动注册<code>@Controller</code>注解的bean可以使用如下Java Config的配置：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Configuration</span></div><div class="line"><span class="meta">@ComponentScan</span>(<span class="string">"org.example.web"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebConfig</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如果使用xml配置，如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></div><div class="line">    <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></div><div class="line">    <span class="attr">xmlns:p</span>=<span class="string">"http://www.springframework.org/schema/p"</span></div><div class="line">    <span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></div><div class="line">    <span class="attr">xsi:schemaLocation</span>=<span class="string">"</span></div><div class="line">        http://www.springframework.org/schema/beans</div><div class="line">        http://www.springframework.org/schema/beans/spring-beans.xsd</div><div class="line">        http://www.springframework.org/schema/context</div><div class="line">        http://www.springframework.org/schema/context/spring-context.xsd"&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"org.example.web"</span>/&gt;</span></div><div class="line"></div><div class="line">    <span class="comment">&lt;!-- ... --&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h5 id="请求映射"><a href="#请求映射" class="headerlink" title="请求映射"></a>请求映射</h5><p><code>@RequestMapping</code>可以将请求映射到具体的Controller方法上。通过找到匹配的url，http 方法，请求参数，header，媒体类型来映射请求。这个注解既可以用在类级别，也可以用在方法级别上。<br>为了方便<code>@RequestMapping</code>根据HTTP方法不同提供了如下快捷注解：</p>
+<ul>
+<li>@GetMapping</li>
+<li>@PostMapping</li>
+<li>@DeleteMapping</li>
+<li>@PutMapping</li>
+<li>@PatchMapping</li>
+</ul>
+<p>示例如下所示：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/persons"</span>)</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">PersonController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/&#123;id&#125;"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> Person <span class="title">getPerson</span><span class="params">(@PathVariable Long id)</span> </span>&#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@PostMapping</span></div><div class="line">    <span class="meta">@ResponseStatus</span>(HttpStatus.CREATED)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(@RequestBody Person person)</span> </span>&#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="URI-模式"><a href="#URI-模式" class="headerlink" title="URI 模式"></a>URI 模式</h5><p>请求映射支持glob模式和通配符</p>
+<ul>
+<li><code>?</code> 匹配一个字符</li>
+<li><code>*</code> 匹配0个或多个字符</li>
+<li><code>**</code> 匹配0个或多个路径<br>可以通过<code>@PathVariable</code> 访问在URI中定义的变量：<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@GetMapping</span>(<span class="string">"/owners/&#123;ownerId&#125;/pets/&#123;petId&#125;"</span>)</div><div class="line"><span class="function"><span class="keyword">public</span> Pet <span class="title">findPet</span><span class="params">(@PathVariable Long ownerId, @PathVariable Long petId)</span> </span>&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div><div class="line">``` </div><div class="line">URI的变量可以在类和方法中定义：</div><div class="line">```Java</div><div class="line"><span class="meta">@Controller</span></div><div class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/owners/&#123;ownerId&#125;"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OwnerController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/pets/&#123;petId&#125;"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> Pet <span class="title">findPet</span><span class="params">(@PathVariable Long ownerId, @PathVariable Long petId)</span> </span>&#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>URI变量会自动类型转换，如果失败会抛出<code>TypeMismatchException</code>的异常。默认支持<code>int</code>,<code>long</code>,<code>Date</code>等类型，也可以通过DataBinder和 Type Conversion来注册其他需要支持的类型。<br>URI变量名也可以明确的支持，例如<code>@PathVariable(&quot;customId&quot;)</code>，不过如果在编译的时候带着调试信息，或者对于Java8 使用<code>-parameters</code> 编译，则可以不需要明确的命名。<br>语法<code>{varName:regex}</code>表示变量根据正则表达是来匹配，例如”/spring-web-3.0.5 .jar”可以使用以下表达式匹配<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@GetMapping</span>(<span class="string">"/&#123;name:[a-z-]+&#125;-&#123;version:\\d\\.\\d\\.\\d&#125;&#123;ext:\\.[a-z]+&#125;"</span>)</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">(@PathVariable String version, @PathVariable String ext)</span> </span>&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>URI同样可以有内嵌的<code>${}</code>的占位符，在应用启动的时候由<code>PropertyPlaceHolderConfigurer</code>从本地，系统，环境变量或者其他配置中解析。<br>Spring MVC使用的是Spring core 中的<code>AntPathMatcher</code>来匹配路径。</p>
+<h5 id="模式对比"><a href="#模式对比" class="headerlink" title="模式对比"></a>模式对比</h5><p>当有很多模式匹配URI的时候，必须通过对比来找到最合适的匹配。这个是通过<code>AntPathMatcher.getPatternComparator(String path)</code>来实现。<br>可以根据URI中的变量个数，通配符个数来给URL打分，如果一个URI的变量少，通配符多，那么他得到的分数就会低。当匹配的模式分数相同是，选择匹配模式长的那个，如果分数和长度都相同，选择变量比通配符少的那个。<br><code>/**</code>是不参与评分的，而且总会是最后一个选择。同样<code>/plublic/**</code>也是当匹配不到其他没有两个通配符的模式的时候才会被选择。<br>了解更加详细的信息可以查看<code>AntPathMatcher</code>中的<code>AntPatternComparator</code>。同时也可个继承<code>PathMatcher</code>来定制URI匹配。</p>
+<h5 id="后缀匹配"><a href="#后缀匹配" class="headerlink" title="后缀匹配"></a>后缀匹配</h5><p>Spring MVC 默认启动<code>.*</code>后缀匹配模式，这样映射到<code>/person</code>的controller 同样可以映射到<code>/person.*</code>。扩展名可以用来代替header中的<code>Accept</code>表示请求返回的类型。例如<code>person.pdf</code>,<code>person.xml</code>等。<br>因为过去浏览器的<code>Accept</code>头很难解析，所以这么是有意要的，但是现在浏览器的<code>Accept</code>更加清晰明确了，所以更好的选择是用<code>Accept</code>。而且过去一段时间内，使用后缀名匹配的时候会有各种各样的问题，当使用URI变量，路径参数，URI编码时后缀模式会导致歧义。<br>可以使用以下方法关闭后缀模式：</p>
+<ul>
+<li><code>PathMatchConfigurer</code>的<code>useSuffixPatternMatching(false)</code></li>
+<li><code>ContentNeogiationConfigurer</code> 的<code>favorPathExtension(false)</code><h5 id="后缀匹配和RFD"><a href="#后缀匹配和RFD" class="headerlink" title="后缀匹配和RFD"></a>后缀匹配和RFD</h5>反射型文件下载(RFD)攻击和XSS攻击很相似。XSS依赖于请求的输入，例如查询参数，URI变量等，而RFD是用户点击URL浏览器会下载恶意文件，用户点击后会攻击主机。<br>由于Spring MVC的 <code>@ResponseBody</code>和<code>ResponseEntity</code>会根据URI后缀来渲染不同类型的响应内容，所以可能受到RFD攻击。关闭后缀匹配可以降低攻击的风险，但是不能完全防止RFD攻击。<br>为了防止RFD攻击，可以在渲染响应内容的时候添加<code>Content-Disposition:inline;filename=f.txt</code>确保一个安全的下载文件。<br>默认情况下大多数扩展名都有白名单，可以通过继承<code>HttpMessageConverter</code>对内容协商注册扩展，可以避免在响应中添加<code>Content-Disposition</code>。<h5 id="可消费媒体类型"><a href="#可消费媒体类型" class="headerlink" title="可消费媒体类型"></a>可消费媒体类型</h5>通过请求的<code>Content-Type</code>可以缩小请求的匹配范围，例如：<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@PostMapping</span>(path = <span class="string">"/pets"</span>, consumes = <span class="string">"application/json"</span>)</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addPet</span><span class="params">(@RequestBody Pet pet)</span> </span>&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>consumes也支持表达式求反操作，例如<code>!text/plain</code>指的就除了<code>text/plain</code>都可以。<br>可以定义一个类级别的consumes，其方法共享这个consumes，和其他的<code>@ReqeustMapping</code>的属性不同，方法的consumes会覆盖类的定义。</p>
+<h5 id="可产生的媒体类型"><a href="#可产生的媒体类型" class="headerlink" title="可产生的媒体类型"></a>可产生的媒体类型</h5><p>可以通过<code>Accept</code>头来缩小请求的匹配范围，例如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@GetMapping</span>(path = <span class="string">"/pets/&#123;petId&#125;"</span>, produces = <span class="string">"application/json;charset=UTF-8"</span>)</div><div class="line"><span class="meta">@ResponseBody</span></div><div class="line"><span class="function"><span class="keyword">public</span> Pet <span class="title">getPet</span><span class="params">(@PathVariable String petId)</span> </span>&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>媒体类型可以指定一个字符集。对表达式取反也是支持的，例如：<code>!text/plain</code>指的就是除了<code>text/plain</code>都可以。<br>和consumes一样，也可以指定一个类级别的produces，其方法属性也会覆盖类的属性。</p>
+<h5 id="参数和HTTP-header"><a href="#参数和HTTP-header" class="headerlink" title="参数和HTTP header"></a>参数和HTTP header</h5><p>可以通过参数来缩小请求匹配的范围。可以设置是否有参数(“myParam”),反过来是否没有(“!myParam”)或者指定一个值（”myParam=myValue”)。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@GetMapping</span>(path = <span class="string">"/pets/&#123;petId&#125;"</span>, params = <span class="string">"myParam=myValue"</span>)</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findPet</span><span class="params">(@PathVariable String petId)</span> </span>&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>同样的情况也适合HTTP header<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@GetMapping</span>(path = <span class="string">"/pets"</span>, headers = <span class="string">"myHeader=myValue"</span>)</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findPet</span><span class="params">(@PathVariable String petId)</span> </span>&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mashuai.github.io/2018/04/10/spring-mvc-controller/" data-id="cjg4t8ong000jper8m8gxc9qy" class="article-share-link">Share</a>
+      
+        <a href="https://mashuai.github.io/2018/04/10/spring-mvc-controller/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC/">SpringMVC</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-spring-mvc-filter" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/04/09/spring-mvc-filter/" class="article-date">
@@ -132,7 +204,7 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2018/04/09/spring-mvc-filter/" data-id="cjg35vrap000yzor854l053i3" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2018/04/09/spring-mvc-filter/" data-id="cjg4t8oo80012per8l6omjfqk" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2018/04/09/spring-mvc-filter/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -409,12 +481,61 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2018/04/09/spring-mvc-dispatcher-servlet/" data-id="cjg35vrag000pzor8ya7s9m2q" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2018/04/09/spring-mvc-dispatcher-servlet/" data-id="cjg4t8oo50010per8ckiuqfe3" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2018/04/09/spring-mvc-dispatcher-servlet/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC/">SpringMVC</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-8-key-application-metrics" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/07/8-key-application-metrics/" class="article-date">
+  <time datetime="2018-04-06T16:39:10.000Z" itemprop="datePublished">2018-04-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/07/8-key-application-metrics/">8个关键的应用性能指标</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://stackify.com/application-performance-metrics/" target="_blank" rel="external">原文地址</a>  </p>
+<h5 id="用户满意度-Apdex-分数"><a href="#用户满意度-Apdex-分数" class="headerlink" title="用户满意度/Apdex 分数"></a>用户满意度/Apdex 分数</h5><p>应用性能指数或者Apdex分数，已经变成追踪应用反应性能的工业标准。<br>通过定义指标：一个指定的web请求或者事务达到这个指标的时间是多久。<br>这些事务可以被分为满意（快），可容忍（慢），太慢，请求失败。可以用下面这个简单的数学公式来表示，分数范围从0到1.<br><img src="https://raw.githubusercontent.com/mashuai/hexo-blog/master/images/img_58a9f75d0a12a.png" alt="apdex score"></p>
+<h5 id="平均响应时间"><a href="#平均响应时间" class="headerlink" title="平均响应时间"></a>平均响应时间</h5><p>首先先说明一点，平均非常傻。非常推荐使用上述的用户满意度Apedx分数来追踪性能问题。平均响应时间有时仍然是一个有用的指标。</p>
+<h5 id="错误率"><a href="#错误率" class="headerlink" title="错误率"></a>错误率</h5><p>最不想用户看到的就是错误。监控错误率是一个应用的重要性能指标。<br>主要有以下三种错误：</p>
+<ul>
+<li>HTTP 错误-web请求错误的个数</li>
+<li>日志异常： 在应用中未处理的，打印出来的异常日志</li>
+<li>抛出异常： 所有抛出的异常<h5 id="应用实例的个数"><a href="#应用实例的个数" class="headerlink" title="应用实例的个数"></a>应用实例的个数</h5>如果应用是部署在云上。那么就知道你的服务器/应用实例到底有多少在运行就很重要了。自动伸缩可以帮助应用按需伸缩同时也能在飞峰值时节省资源。<h5 id="请求率"><a href="#请求率" class="headerlink" title="请求率"></a>请求率</h5>了解你的应用接收了多少流量对你应用的成功有显著的影响。一般来说其他的性能指标都被流量的增加和减少所影响。<br>请求率可以很容易的和其他的性能指标结合起来显示出你的应用时如何动态扩展的。<br>监控请求率可以很好的监控峰值或者低谷。如果你有一个频繁访问的API，突然一点流量都没有了，那么这就需要小心了。<br>一个相似，但是略有不同的指标就是追踪并发用户量。<h5 id="应用和服务器CPU"><a href="#应用和服务器CPU" class="headerlink" title="应用和服务器CPU"></a>应用和服务器CPU</h5>如果CPU使用率特别高，那么应用肯定有性能问题。监控CPU使用是服务器和应用最基本也是最重要的指标。<br>几乎所有的服务器或者应用监控工具都能追踪CPU使用，同时提供告警。对每一台服务器追踪他们的CPU使用率是很重要的，同样重要的是追踪一个应用的一组CPU的使用率。<h5 id="应用可用性"><a href="#应用可用性" class="headerlink" title="应用可用性"></a>应用可用性</h5>监控应用是否在线和可用是一个关键的指标。<br>如果是一个Web应用，最简单的方式就是设置几个定时任务来检查HTTP，是否可用。<h5 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h5>如果使用的是Java相关语言，则需要注意垃圾回收器的效率。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mashuai.github.io/2018/04/07/8-key-application-metrics/" data-id="cjg4t8omc0001per84xz6yqgr" class="article-share-link">Share</a>
+      
+        <a href="https://mashuai.github.io/2018/04/07/8-key-application-metrics/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APM/">APM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Performance/">Performance</a></li></ul>
 
     </footer>
   </div>
@@ -514,61 +635,12 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2018/04/07/deep-in-spring-mvc/" data-id="cjg35vrad000kzor8aq6bo0t5" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2018/04/07/deep-in-spring-mvc/" data-id="cjg4t8onu000tper8xk5q51q0" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2018/04/07/deep-in-spring-mvc/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC/">SpringMVC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-8-key-application-metrics" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/04/07/8-key-application-metrics/" class="article-date">
-  <time datetime="2018-04-06T16:39:10.000Z" itemprop="datePublished">2018-04-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/07/8-key-application-metrics/">8个关键的应用性能指标</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://stackify.com/application-performance-metrics/" target="_blank" rel="external">原文地址</a>  </p>
-<h5 id="用户满意度-Apdex-分数"><a href="#用户满意度-Apdex-分数" class="headerlink" title="用户满意度/Apdex 分数"></a>用户满意度/Apdex 分数</h5><p>应用性能指数或者Apdex分数，已经变成追踪应用反应性能的工业标准。<br>通过定义指标：一个指定的web请求或者事务达到这个指标的时间是多久。<br>这些事务可以被分为满意（快），可容忍（慢），太慢，请求失败。可以用下面这个简单的数学公式来表示，分数范围从0到1.<br><img src="https://raw.githubusercontent.com/mashuai/hexo-blog/master/images/img_58a9f75d0a12a.png" alt="apdex score"></p>
-<h5 id="平均响应时间"><a href="#平均响应时间" class="headerlink" title="平均响应时间"></a>平均响应时间</h5><p>首先先说明一点，平均非常傻。非常推荐使用上述的用户满意度Apedx分数来追踪性能问题。平均响应时间有时仍然是一个有用的指标。</p>
-<h5 id="错误率"><a href="#错误率" class="headerlink" title="错误率"></a>错误率</h5><p>最不想用户看到的就是错误。监控错误率是一个应用的重要性能指标。<br>主要有以下三种错误：</p>
-<ul>
-<li>HTTP 错误-web请求错误的个数</li>
-<li>日志异常： 在应用中未处理的，打印出来的异常日志</li>
-<li>抛出异常： 所有抛出的异常<h5 id="应用实例的个数"><a href="#应用实例的个数" class="headerlink" title="应用实例的个数"></a>应用实例的个数</h5>如果应用是部署在云上。那么就知道你的服务器/应用实例到底有多少在运行就很重要了。自动伸缩可以帮助应用按需伸缩同时也能在飞峰值时节省资源。<h5 id="请求率"><a href="#请求率" class="headerlink" title="请求率"></a>请求率</h5>了解你的应用接收了多少流量对你应用的成功有显著的影响。一般来说其他的性能指标都被流量的增加和减少所影响。<br>请求率可以很容易的和其他的性能指标结合起来显示出你的应用时如何动态扩展的。<br>监控请求率可以很好的监控峰值或者低谷。如果你有一个频繁访问的API，突然一点流量都没有了，那么这就需要小心了。<br>一个相似，但是略有不同的指标就是追踪并发用户量。<h5 id="应用和服务器CPU"><a href="#应用和服务器CPU" class="headerlink" title="应用和服务器CPU"></a>应用和服务器CPU</h5>如果CPU使用率特别高，那么应用肯定有性能问题。监控CPU使用是服务器和应用最基本也是最重要的指标。<br>几乎所有的服务器或者应用监控工具都能追踪CPU使用，同时提供告警。对每一台服务器追踪他们的CPU使用率是很重要的，同样重要的是追踪一个应用的一组CPU的使用率。<h5 id="应用可用性"><a href="#应用可用性" class="headerlink" title="应用可用性"></a>应用可用性</h5>监控应用是否在线和可用是一个关键的指标。<br>如果是一个Web应用，最简单的方式就是设置几个定时任务来检查HTTP，是否可用。<h5 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h5>如果使用的是Java相关语言，则需要注意垃圾回收器的效率。</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2018/04/07/8-key-application-metrics/" data-id="cjg35vr8v0000zor8qcmmdyp2" class="article-share-link">Share</a>
-      
-        <a href="https://mashuai.github.io/2018/04/07/8-key-application-metrics/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APM/">APM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Performance/">Performance</a></li></ul>
 
     </footer>
   </div>
@@ -645,7 +717,7 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2018/04/06/java8-date-time-api/" data-id="cjg35vram000tzor8mkssjjl8" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2018/04/06/java8-date-time-api/" data-id="cjg4t8ond000iper8r51vpqva" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2018/04/06/java8-date-time-api/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -707,7 +779,7 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2018/03/31/jackson-tutorial/" data-id="cjg35vra8000hzor8zh11ymdj" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2018/03/31/jackson-tutorial/" data-id="cjg4t8ony000vper8j90qbbaz" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2018/03/31/jackson-tutorial/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -782,7 +854,7 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/06/28/mybaits-configuration/" data-id="cjg35vran000vzor89zcp5s49" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2017/06/28/mybaits-configuration/" data-id="cjg4t8on7000hper8nizm7xh8" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2017/06/28/mybaits-configuration/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -824,7 +896,7 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/03/25/cup-load-high/" data-id="cjg35vr9t000azor8qwoqfu85" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2017/03/25/cup-load-high/" data-id="cjg4t8on4000fper84bhp691c" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2017/03/25/cup-load-high/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -885,67 +957,12 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/03/24/Git分支/" data-id="cjg35vr9x000czor8jkssdofm" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2017/03/24/Git分支/" data-id="cjg4t8ooc0015per84d1ws94x" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2017/03/24/Git分支/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git分支/">Git分支</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-okhttp/https" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/23/okhttp/https/" class="article-date">
-  <time datetime="2017-03-23T05:32:29.000Z" itemprop="datePublished">2017-03-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/23/okhttp/https/">OKHttp https</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://github.com/square/okhttp/wiki/HTTPS" target="_blank" rel="external">原文链接</a></p>
-<p>&emsp;&emsp;OKHttp尝试平衡两个相互矛盾的内容：</p>
-<ul>
-<li>连接尽可能多的主机。包括使用<a href="https://boringssl.googlesource.com/boringssl/" target="_blank" rel="external">boringssl</a>的高级的主机和一些使用<a href="https://www.openssl.org/" target="_blank" rel="external">openssl</a>的过时的主机。</li>
-<li>连接的安全性。包括验证远程主机的证书，通过强密码进行数据交换。</li>
-</ul>
-<p>&emsp;&emsp;协商连接到HTTPS的时候，OKHttp需要知道需要提供的<a href="http://square.github.io/okhttp/3.x/okhttp/okhttp3/TlsVersion.html" target="_blank" rel="external">TLS版本</a>和<a href="http://square.github.io/okhttp/3.x/okhttp/okhttp3/CipherSuite.html" target="_blank" rel="external">密码套件</a>。如果一个客户端需要最大化链接就需要包含过时的TLS版本和弱设计的密码组合。一个严格的客户端想要最大化安全就需要只包含最新的TLS版本和强密码套件。<br>&emsp;&emsp;安全和连接规范具体是由<a href="http://square.github.io/okhttp/3.x/okhttp/okhttp3/ConnectionSpec.html" target="_blank" rel="external">ConnectionSpec</a>实现的。OKHttp包含三个内置的规范：</p>
-<ul>
-<li><code>MODERN_TLS</code> 是连接现代HTTPS服务器的配置。</li>
-<li><code>COMPATIBLE_TLS</code> 是连接非现代，但安全的HTTPS服务器的配置。</li>
-<li><code>CLEARTEXT</code> 是非安全的http的配置。</li>
-</ul>
-<p>&emsp;&emsp;默认OKHttp会尝试使用<code>MODERN_TLS</code>连接，如果现代配置失败，回到使用<code>COMPATIBLE_TLS</code>配置。<br>&emsp;&emsp;TLS版本和密码套件在任一一个发布版本的人一个规范中都可能改变。例如，在OKHttp2.2，因为<a href="http://googleonlinesecurity.blogspot.ca/2014/10/this-poodle-bites-exploiting-ssl-30.html" target="_blank" rel="external">POODLE</a>攻击就移除了SSL 3.0的支持。在OKHttp 3.0，移除了<a href="http://en.wikipedia.org/wiki/RC4#Security" target="_blank" rel="external">RC4</a>的支持。同桌面浏览器一样，使用罪行的OKHttp版本可以获得最好的安全保障。<br>&emsp;&emsp;也可以根据一组定制的TLS 版本和密码套件构建自己的规范。例如，下面这个配置要求使用三组高强度的密码套件。它的缺点就是必须是Android5.0+或者是最新的浏览器。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">ConnectionSpec spec = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)  </div><div class="line">    .tlsVersions(TlsVersion.TLS_1_2)</div><div class="line">    .cipherSuites(</div><div class="line">          CipherSuite.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,</div><div class="line">          CipherSuite.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,</div><div class="line">          CipherSuite.TLS_DHE_RSA_WITH_AES_128_GCM_SHA256)</div><div class="line">    .build();</div><div class="line"></div><div class="line">OkHttpClient client = new OkHttpClient.Builder() </div><div class="line">    .connectionSpecs(Collections.singletonList(spec))</div><div class="line">    .build();</div></pre></td></tr></table></figure></p>
-<h4 id="证书锁定"><a href="#证书锁定" class="headerlink" title="证书锁定"></a>证书锁定</h4><p>&emsp;&emsp;默认情况下OKHttp信任主机平台的证书颁发机构。这个策略可以最大化连接，但是也有可能收到权威证书攻击，例如<a href="http://www.computerworld.com/article/2510951/cybercrime-hacking/hackers-spied-on-300-000-iranians-using-fake-google-certificate.html" target="_blank" rel="external">2011 DigiNotar attack</a>。同样也假设你的证书是权威机构颁发的。<br>&emsp;&emsp;使用<a href="http://square.github.io/okhttp/3.x/okhttp/okhttp3/CertificatePinner.html" target="_blank" rel="external">CertificatePinner</a>限制了哪些证书和证书颁发机构值得信任。使用证书锁定可以提高安全性，但是限制了服务端团队升级他们的TLS证书。<strong>在没的到服务端团队的许可的时候不要使用证书锁定</strong>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">public CertificatePinning() &#123;</div><div class="line">  client = new OkHttpClient.Builder()</div><div class="line">      .certificatePinner(new CertificatePinner.Builder()</div><div class="line">          .add(&quot;publicobject.com&quot;, &quot;sha256/afwiKY3RxoMmLkuRW1l7QsPZTJPwDS2pdDROQjXw8ig=&quot;)</div><div class="line">          .build())</div><div class="line">      .build();</div><div class="line">&#125;</div><div class="line"></div><div class="line">public void run() throws Exception &#123;</div><div class="line">  Request request = new Request.Builder()</div><div class="line">      .url(&quot;https://publicobject.com/robots.txt&quot;)</div><div class="line">      .build();</div><div class="line"></div><div class="line">  Response response = client.newCall(request).execute();</div><div class="line">  if (!response.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response);</div><div class="line"></div><div class="line">  for (Certificate certificate : response.handshake().peerCertificates()) &#123;</div><div class="line">    System.out.println(CertificatePinner.pin(certificate));</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h4 id="定制信任证书"><a href="#定制信任证书" class="headerlink" title="定制信任证书"></a>定制信任证书</h4><p>&emsp;&emsp;下面所有的代码展示了如何使用你自己的配置代替服务端的证书配置。正如上述所言，<em>*在没的到服务端团队的许可的时候不要使用定制证书</em>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">private final OkHttpClient client;</div><div class="line"></div><div class="line">public CustomTrust() &#123;</div><div class="line">  SSLContext sslContext = sslContextForTrustedCertificates(trustedCertificatesInputStream());</div><div class="line">  client = new OkHttpClient.Builder()</div><div class="line">      .sslSocketFactory(sslContext.getSocketFactory())</div><div class="line">      .build();</div><div class="line">&#125;</div><div class="line"></div><div class="line">public void run() throws Exception &#123;</div><div class="line">  Request request = new Request.Builder()</div><div class="line">      .url(&quot;https://publicobject.com/helloworld.txt&quot;)</div><div class="line">      .build();</div><div class="line"></div><div class="line">  Response response = client.newCall(request).execute();</div><div class="line">  System.out.println(response.body().string());</div><div class="line">&#125;</div><div class="line"></div><div class="line">private InputStream trustedCertificatesInputStream() &#123;</div><div class="line">  ... // Full source omitted. See sample.</div><div class="line">&#125;</div><div class="line"></div><div class="line">public SSLContext sslContextForTrustedCertificates(InputStream in) &#123;</div><div class="line">  ... // Full source omitted. See sample.</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2017/03/23/okhttp/https/" data-id="cjg35vrby0030zor8gjhrkd6b" class="article-share-link">Share</a>
-      
-        <a href="https://mashuai.github.io/2017/03/23/okhttp/https/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OKHttp/">OKHttp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li></ul>
 
     </footer>
   </div>
@@ -969,7 +986,7 @@ var _hmt = _hmt || [];
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/APM/">APM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architecture/">Architecture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CPU/">CPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git分支/">Git分支</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/">Go</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP-2/">HTTP/2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSON/">JSON</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jackson/">Jackson</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java8/">Java8</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Middleware/">Middleware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OKHttp/">OKHttp</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Performance/">Performance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Translate/">Translate</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/APM/">APM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architecture/">Architecture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CPU/">CPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git分支/">Git分支</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/">Go</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP-2/">HTTP/2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSON/">JSON</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jackson/">Jackson</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java8/">Java8</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Middleware/">Middleware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OKHttp/">OKHttp</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Performance/">Performance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/">SpringMVC</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Translate/">Translate</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -987,7 +1004,7 @@ var _hmt = _hmt || [];
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">8</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">8</span></li></ul>
     </div>
   </div>
 
@@ -999,6 +1016,10 @@ var _hmt = _hmt || [];
       <ul>
         
           <li>
+            <a href="/2018/04/10/spring-mvc-controller/">SpringMVC 教程 - Controller</a>
+          </li>
+        
+          <li>
             <a href="/2018/04/09/spring-mvc-filter/">SpringMVC 教程 - Filter</a>
           </li>
         
@@ -1007,15 +1028,11 @@ var _hmt = _hmt || [];
           </li>
         
           <li>
-            <a href="/2018/04/07/deep-in-spring-mvc/">深入理解Spring MVC</a>
-          </li>
-        
-          <li>
             <a href="/2018/04/07/8-key-application-metrics/">8个关键的应用性能指标</a>
           </li>
         
           <li>
-            <a href="/2018/04/06/java8-date-time-api/">Java8 Date Time API</a>
+            <a href="/2018/04/07/deep-in-spring-mvc/">深入理解Spring MVC</a>
           </li>
         
       </ul>
