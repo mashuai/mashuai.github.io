@@ -11,7 +11,7 @@
 <meta property="og:url" content="https://mashuai.github.io/2018/04/10/spring-mvc-controller/index.html">
 <meta property="og:site_name" content="代码拾遗">
 <meta property="og:description" content="声明ControllerController也是一个标准的Spring bean，可以在Servlet的WebApplicationContext中定义。也可以使用@Controller注解，Spring会扫描注解自动注册为Spring的bean。开启自动注册@Controller注解的bean可以使用如下Java Config的配置：123456@Configuration@ComponentS">
-<meta property="og:updated_time" content="2018-04-18T08:05:16.716Z">
+<meta property="og:updated_time" content="2018-04-18T08:10:39.259Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringMVC 教程 - Controller">
 <meta name="twitter:description" content="声明ControllerController也是一个标准的Spring bean，可以在Servlet的WebApplicationContext中定义。也可以使用@Controller注解，Spring会扫描注解自动注册为Spring的bean。开启自动注册@Controller注解的bean可以使用如下Java Config的配置：123456@Configuration@ComponentS">
@@ -120,7 +120,8 @@ var _hmt = _hmt || [];
 <li><code>*</code> 匹配0个或多个字符</li>
 <li><code>**</code> 匹配0个或多个路径<br>可以通过<code>@PathVariable</code> 访问在URI中定义的变量：</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@GetMapping</span>(<span class="string">"/owners/&#123;ownerId&#125;/pets/&#123;petId&#125;"</span>)</div><div class="line"><span class="function"><span class="keyword">public</span> Pet <span class="title">findPet</span><span class="params">(@PathVariable Long ownerId, @PathVariable Long petId)</span> </span>&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div><div class="line">``` </div><div class="line"></div><div class="line">URI的变量可以在类和方法中定义：</div><div class="line">```Java</div><div class="line"><span class="meta">@Controller</span></div><div class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/owners/&#123;ownerId&#125;"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OwnerController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/pets/&#123;petId&#125;"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> Pet <span class="title">findPet</span><span class="params">(@PathVariable Long ownerId, @PathVariable Long petId)</span> </span>&#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@GetMapping</span>(<span class="string">"/owners/&#123;ownerId&#125;/pets/&#123;petId&#125;"</span>)</div><div class="line"><span class="function"><span class="keyword">public</span> Pet <span class="title">findPet</span><span class="params">(@PathVariable Long ownerId, @PathVariable Long petId)</span> </span>&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>URI的变量可以在类和方法中定义：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Controller</span></div><div class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/owners/&#123;ownerId&#125;"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OwnerController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/pets/&#123;petId&#125;"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> Pet <span class="title">findPet</span><span class="params">(@PathVariable Long ownerId, @PathVariable Long petId)</span> </span>&#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>URI变量会自动类型转换，如果失败会抛出<code>TypeMismatchException</code>的异常。默认支持<code>int</code>,<code>long</code>,<code>Date</code>等类型，也可以通过DataBinder和 Type Conversion来注册其他需要支持的类型。<br>URI变量名也可以明确的支持，例如<code>@PathVariable(&quot;customId&quot;)</code>，不过如果在编译的时候带着调试信息，或者对于Java8 使用<code>-parameters</code> 编译，则可以不需要明确的命名。<br>语法<code>{varName:regex}</code>表示变量根据正则表达是来匹配，例如”/spring-web-3.0.5 .jar”可以使用以下表达式匹配<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@GetMapping</span>(<span class="string">"/&#123;name:[a-z-]+&#125;-&#123;version:\\d\\.\\d\\.\\d&#125;&#123;ext:\\.[a-z]+&#125;"</span>)</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">(@PathVariable String version, @PathVariable String ext)</span> </span>&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>URI同样可以有内嵌的<code>${}</code>的占位符，在应用启动的时候由<code>PropertyPlaceHolderConfigurer</code>从本地，系统，环境变量或者其他配置中解析。<br>Spring MVC使用的是Spring core 中的<code>AntPathMatcher</code>来匹配路径。</p>
 <h5 id="模式对比"><a href="#模式对比" class="headerlink" title="模式对比"></a>模式对比</h5><p>当有很多模式匹配URI的时候，必须通过对比来找到最合适的匹配。这个是通过<code>AntPathMatcher.getPatternComparator(String path)</code>来实现。<br>可以根据URI中的变量个数，通配符个数来给URL打分，如果一个URI的变量少，通配符多，那么他得到的分数就会低。当匹配的模式分数相同是，选择匹配模式长的那个，如果分数和长度都相同，选择变量比通配符少的那个。<br><code>/**</code>是不参与评分的，而且总会是最后一个选择。同样<code>/plublic/**</code>也是当匹配不到其他没有两个通配符的模式的时候才会被选择。<br>了解更加详细的信息可以查看<code>AntPathMatcher</code>中的<code>AntPatternComparator</code>。同时也可个继承<code>PathMatcher</code>来定制URI匹配。</p>
@@ -139,7 +140,7 @@ var _hmt = _hmt || [];
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashuai.github.io/2018/04/10/spring-mvc-controller/" data-id="cjg4tbp50001nu7r80jthv3ce" class="article-share-link">Share</a>
+      <a data-url="https://mashuai.github.io/2018/04/10/spring-mvc-controller/" data-id="cjg4tioil000k0nr8v3ipqsy1" class="article-share-link">Share</a>
       
         <a href="https://mashuai.github.io/2018/04/10/spring-mvc-controller/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -153,9 +154,9 @@ var _hmt = _hmt || [];
 <nav id="article-nav">
   
   
-    <a href="/2018/04/09/spring-mvc-dispatcher-servlet/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2018/04/09/spring-mvc-filter/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">SpringMVC 教程 - DispatcherServlet</div>
+      <div class="article-nav-title">SpringMVC 教程 - Filter</div>
     </a>
   
 </nav>
@@ -213,19 +214,19 @@ var _hmt = _hmt || [];
           </li>
         
           <li>
-            <a href="/2018/04/09/spring-mvc-dispatcher-servlet/">SpringMVC 教程 - DispatcherServlet</a>
-          </li>
-        
-          <li>
             <a href="/2018/04/09/spring-mvc-filter/">SpringMVC 教程 - Filter</a>
           </li>
         
           <li>
-            <a href="/2018/04/07/8-key-application-metrics/">8个关键的应用性能指标</a>
+            <a href="/2018/04/09/spring-mvc-dispatcher-servlet/">SpringMVC 教程 - DispatcherServlet</a>
           </li>
         
           <li>
             <a href="/2018/04/07/deep-in-spring-mvc/">深入理解Spring MVC</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/07/8-key-application-metrics/">8个关键的应用性能指标</a>
           </li>
         
       </ul>
